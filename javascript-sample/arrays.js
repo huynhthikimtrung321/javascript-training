@@ -17,6 +17,13 @@ languages.shift();
 let framework = ['Wicket', 'Angular', 'Gulp'];
 let arr = languages.concat(framework);
 
+//Access element of an array
+console.log(`[${languages}][0] = ${languages[0]}`);
+console.log(`[${languages}][1] = ${languages[1]}`);
+console.log(`[${languages}][2] = ${languages[2]}`);
+
+//
+
 console.log(languages);
 console.log(arr);
 
