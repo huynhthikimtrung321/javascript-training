@@ -1,20 +1,20 @@
 // Declaration
 
-let languages = ['PHP', 'JavaScript', 'C#'];
+let languages = ["PHP", "JavaScript", "C#"];
 console.log(languages[0]);
 
 //add the new one to the array
-languages[3] = 'Java';
+languages[3] = "Java";
 
 // How to add an item to an array
-languages.push('C++');
+languages.push("C++");
 
 // How to remove an item from an array
 languages.shift();
 
 // How to join two or more arrays
 
-let framework = ['Wicket', 'Angular', 'Gulp'];
+let framework = ["Wicket", "Angular", "Gulp"];
 let arr = languages.concat(framework);
 
 //Access element of an array
@@ -24,5 +24,22 @@ console.log(`[${languages}][2] = ${languages[2]}`);
 
 console.log(languages);
 console.log(arr);
+languages.forEach(function (language) {
+  console.log(language);
+});
+
+// map()
+let num = [10, 20, 30, 40];
+let result = num.map(element => element + 10);
+
+console.log(result);
+
+// filter
+let check = num.filter(element => element <25)
+
+console.log(check);
+
+
+
 
 
