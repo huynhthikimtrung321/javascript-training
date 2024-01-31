@@ -7,7 +7,7 @@ showMessage("Hello World!");
 // Outer variable
 let outerVariable = "I am an outer variable";
 
-function exampleFunction() {
+function localVariable() {
   // Local variable
   let localVariable = "I am a local variable";
 
@@ -15,7 +15,7 @@ function exampleFunction() {
   console.log(outerVariable);
 }
 
-exampleFunction();
+localVariable();
 
 // Function expression
 const myShowMessage = function (msg) {
