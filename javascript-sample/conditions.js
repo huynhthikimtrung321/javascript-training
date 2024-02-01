@@ -26,3 +26,22 @@ console.log(msg);
 let age = 15;
 let personType = (age < 13) ? 'child' : ((age < 20) ? 'teenager' : 'adult');
 console.log(personType);
+
+// switch
+let arg = 'Enter a value?';
+switch (arg) {
+  case '0':
+  case '1':
+    console.log( 'One or zero' );
+    break;
+
+  case '2':
+    console.log( 'Two' );
+    break;
+
+  case 3:
+    console.log( 'Never executes!' );
+    break;
+  default:
+    console.log( 'An unknown value' );
+}
