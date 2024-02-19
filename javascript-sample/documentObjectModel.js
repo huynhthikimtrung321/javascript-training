@@ -1,31 +1,31 @@
-const x = document.forms["frm1"];
-let text = "";
+const x = document.forms['frm1'];
+let text = '';
 for (let i = 0; i < x.length; i++) {
-  text += x.elements[i].value + "<br>";
+  text += x.elements[i].value + '<br>';
 }
-document.getElementById("demo").innerHTML = "Name: " + text;
-const y = document.getElementsByClassName("intro");
-document.getElementById("introduction").innerHTML = "About: " + y[0].innerHTML;
+document.getElementById('demo').innerHTML = 'Name: ' + text;
+const y = document.getElementsByClassName('intro');
+document.getElementById('introduction').innerHTML = 'About: ' + y[0].innerHTML;
 
 setTimeout(runExample, 4000);
 function runExample() {
-  const users = document.querySelectorAll(".user");
+  const users = document.querySelectorAll('.user');
   const userCount = users.length;
   for (let i = 0; i < userCount; i++) {
-    const username = users[i].querySelector(".username").value;
-    const age = parseInt(users[i].querySelector(".age").value);
+    const username = users[i].querySelector('.username').value;
+    const age = parseInt(users[i].querySelector('.age').value);
 
     console.log(`User ${i + 1}:`);
     console.log(`Username: ${username}`);
     console.log(`Age: ${age}`);
   }
 
-  const newAges = document.querySelectorAll("#userList .age");
+  const newAges = document.querySelectorAll('#userList .age');
   newAges.forEach((element) => {
-    element.setAttribute("value", "22");
+    element.setAttribute('value', '22');
   });
 
-  console.log("Age after being changed: ", newAges[0].value);
+  console.log('Age after being changed: ', newAges[0].value);
 
   console.log('Useful info of content is:', content.getAttribute('useful-info'));
 
