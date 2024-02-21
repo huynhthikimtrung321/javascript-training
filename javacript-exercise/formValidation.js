@@ -68,6 +68,16 @@ function checkBox() {
   return true;
 }
 
+function checkSelector() {
+  const checkSelectorElement = document.getElementById('country');
+
+  if (checkSelectorElement.value === ''){
+    displayErrorMessage('country', 'Vui long chon quoc gia');
+  } else {
+    displayErrorMessage('country', '');
+  }
+}
+
 const formElement = document.querySelector(".form");
 formElement.addEventListener("submit", (e) => {
   let isValid = true;
@@ -78,8 +88,29 @@ formElement.addEventListener("submit", (e) => {
   isValid = checkEmpty('password-confirmation');
   isValid = comparePasswords();
   isValid = checkBox();
+  isValid = checkSelector();
   console.log(isValid)
   if(isValid === false) {
     return e.preventDefault();
+  }
+  
+  const fullname = document.getElementById('fullname').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const country = document.getElementById('country').value;
+  const gender = document.getElementById('check1').checked;
+
+  const confirmationMessage = `
+    Fullname: ${fullname}
+    Email: ${email}
+    Password: ${password}
+    Gender: ${gender ? 'Male' : 'Female'}
+    Country: ${country}
+  `;
+
+  const isConfirmed = window.confirm(confirmationMessage);
+
+  if (!isConfirmed) {
+    e.preventDefault();
   }
 });
