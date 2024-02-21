@@ -1,17 +1,18 @@
 function comparePasswords() {
-  const passwordElement = document.getElementById('password');
-  const passwordConfirmElement = document.getElementById('password-confirmation');
+  const passwordElement = document.getElementById("password");
+  const passwordConfirmElement = document.getElementById(
+    "password-confirmation"
+  );
   const errorMessage2 = document.querySelector(
     '.form-message[data-attribute="password-confirmation"]'
   );
 
-  if(passwordElement.value !== passwordConfirmElement.value) {
-    errorMessage2.textContent = "mat khau khong trung nhau!";
+  if (passwordElement.value !== passwordConfirmElement.value) {
+    errorMessage2.textContent = "passwords do not match!";
 
     return false;
-
   } else {
-    errorMessage2.textContent = '';
+    errorMessage2.textContent = "";
   }
 
   return true;
@@ -19,19 +20,19 @@ function comparePasswords() {
 
 function displayErrorMessage(field, msg) {
   const errorMessage = document.querySelector(
-    `.form-message[data-attribute="${field}"]`
+    `.form-message[data-attribute='${field}']`
   );
   errorMessage.textContent = msg;
 }
 
-function checkEmpty(fieldName) {
-  const inputElement = document.getElementById(fieldName);
+function checkEmpty(isEmpty) {
+  const inputElement = document.getElementById(isEmpty);
   if (inputElement.value === "") {
-    displayErrorMessage(fieldName, "nhap thieu roi hyhy");
+    displayErrorMessage(isEmpty, "Please enter this field");
 
     return false;
   } else {
-    displayErrorMessage(fieldName, "");
+    displayErrorMessage(isEmpty, "");
   }
 
   return true;
@@ -42,72 +43,98 @@ function checkEmail() {
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})$/;
 
   if (!emailPattern.test(emailInputElement.value)) {
-    displayErrorMessage('email', 'Email khong hop le');
-    
+    displayErrorMessage("email", "Email invalid");
+
     return false;
   } else {
-    displayErrorMessage('email', '');
+    displayErrorMessage("email", "");
   }
 
   return true;
 }
 
 function checkBox() {
-  const check1Element = document.getElementById('check1');
-  const check2Element = document.getElementById('check2');
+  const checkGenderElement1 = document.getElementById("gender-male");
+  const checkGenderElement2 = document.getElementById("gender-female");
 
-  if (!check1Element.checked && !check2Element.checked) {
-    displayErrorMessage('checkbox', 'Vui long check');
+  if (!checkGenderElement1.checked && !checkGenderElement2.checked) {
+    displayErrorMessage("checkbox", "Please choose gender");
 
     return false;
   } else {
-    displayErrorMessage('checkbox', '');
+    displayErrorMessage("checkbox", "");
   }
 
   return true;
 }
 
 function checkSelector() {
-  const checkSelectorElement = document.getElementById('country');
+  const checkSelectorElement = document.getElementById("country");
 
-  if (checkSelectorElement.value === ''){
-    displayErrorMessage('country', 'Vui long chon quoc gia');
+  if (checkSelectorElement.value === "") {
+    displayErrorMessage("country", "Please choose country");
 
     return false;
   } else {
-    displayErrorMessage('country', '');
+    displayErrorMessage("country", "");
   }
 
   return true;
 }
 
+let formError = {};
+
+function validateForm() {
+  formError = {};
+
+  if (!checkEmpty("fullname")) {
+    formError.fullname = "Name is required";
+  }
+
+  if (!checkEmail()) {
+    formError.email = "Invalid email";
+  }
+
+  if (!checkEmpty("password")) {
+    formError.password = "Password is required";
+  }
+
+  if (!checkEmpty("password-confirmation")) {
+    formError["password-confirmation"] = "Password confirmation is required";
+  }
+
+  if (!comparePasswords()) {
+    formError.comparePasswords = "Not the same";
+  }
+
+  if (!checkBox()) {
+    formError.checkBox = "Gender is required";
+  }
+
+  if (!checkSelector()) {
+    formError.checkSelector = "Country is required";
+  }
+
+  console.log(formError);
+
+  return Object.keys(formError).length === 0;
+}
+
 const formElement = document.querySelector(".form");
 formElement.addEventListener("submit", (e) => {
-  const checkings = [];
-  
-  checkings.push(checkEmpty('fullname'));
-  checkings.push(checkEmail());
-  checkings.push(checkEmpty('password'));
-  checkings.push(checkEmpty('password-confirmation'));
-  checkings.push(comparePasswords());
-  checkings.push(checkBox());
-  checkings.push(checkSelector());
-  console.log(checkings);
-  
-  const fullname = document.getElementById('fullname').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const country = document.getElementById('country').value;
-  const gender = document.getElementById('check1').checked;
+  const fullname = document.getElementById("fullname").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const country = document.getElementById("country").value;
+  const gender = document.getElementById("gender-male").checked;
 
-  const isInvalid = checkings.some(condition => !condition);
-  if(isInvalid) return e.preventDefault();
+  if (!validateForm()) return e.preventDefault();
 
   const confirmationMessage = `
     Fullname: ${fullname}
     Email: ${email}
     Password: ${password}
-    Gender: ${gender ? 'Male' : 'Female'}
+    Gender: ${gender ? "Male" : "Female"}
     Country: ${country}
   `;
 
