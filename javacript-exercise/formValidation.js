@@ -42,12 +42,11 @@ function checkEmail() {
   const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})$/;
 
   if (!emailPattern.test(emailInputElement.value)) {
-    const errorMessage = document.querySelector(
-        '.form-message[data-attribute="email"]'
-      );
-    errorMessage.textContent = "email khong hop le";
+    displayErrorMessage('email', 'Email khong hop le');
     
     return false;
+  } else {
+    displayErrorMessage('email', '');
   }
 
   return true;
@@ -73,32 +72,36 @@ function checkSelector() {
 
   if (checkSelectorElement.value === ''){
     displayErrorMessage('country', 'Vui long chon quoc gia');
+
+    return false;
   } else {
     displayErrorMessage('country', '');
   }
+
+  return true;
 }
 
 const formElement = document.querySelector(".form");
 formElement.addEventListener("submit", (e) => {
-  let isValid = true;
-
-  isValid = checkEmpty('fullname');
-  isValid = checkEmail();
-  isValid = checkEmpty('password');
-  isValid = checkEmpty('password-confirmation');
-  isValid = comparePasswords();
-  isValid = checkBox();
-  isValid = checkSelector();
-  console.log(isValid)
-  if(isValid === false) {
-    return e.preventDefault();
-  }
+  const checkings = [];
+  
+  checkings.push(checkEmpty('fullname'));
+  checkings.push(checkEmail());
+  checkings.push(checkEmpty('password'));
+  checkings.push(checkEmpty('password-confirmation'));
+  checkings.push(comparePasswords());
+  checkings.push(checkBox());
+  checkings.push(checkSelector());
+  console.log(checkings);
   
   const fullname = document.getElementById('fullname').value;
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   const country = document.getElementById('country').value;
   const gender = document.getElementById('check1').checked;
+
+  const isInvalid = checkings.some(condition => !condition);
+  if(isInvalid) return e.preventDefault();
 
   const confirmationMessage = `
     Fullname: ${fullname}
