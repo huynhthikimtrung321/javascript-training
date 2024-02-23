@@ -3,6 +3,7 @@
 ## OVERVIEW
 
 * This document provides requirements, technical stack, and estimation for JavaScript Practice.
+* [Design](https://todomvc.com/examples/react/dist/)
 
 ## TECHNICAL STACKS
 
@@ -12,7 +13,7 @@
 
 ## TIMELINE
 
-* Estimation: 2024/02/22 - 2023/02/29 (32 hours)
+* Estimation: 2024/02/22 - 2023/02/29 (36 hours)
 * Actual time: 
 
 ## TOOLS
