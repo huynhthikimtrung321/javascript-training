@@ -1,0 +1,11 @@
+.main {
+  border-top: 1px solid #e6e6e6;
+  position: relative;
+  z-index: 2;
+}
+
+.toggle {
+  border: none;
+  position: absolute;
+  bottom: 100%;
+}
