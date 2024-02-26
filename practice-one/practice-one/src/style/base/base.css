@@ -5,3 +5,7 @@ body {
   margin: 0 auto;
   font: var(--font-size-m) Helvetica Neue, Helvetica, Arial, sans-serif;
 }
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}

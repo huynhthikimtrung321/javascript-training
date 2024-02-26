@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Todos</title>
   <link rel="stylesheet" href="./style/main.css">
 </head>
+
 <body>
   <section class="todoapp" id="main">
     <header class="header" id="header">
@@ -15,21 +17,22 @@
       </div>
     </header>
     <main class="main">
-        <div class="toggle-container">
-          <input type="checkbox" name="" class="toggle">
-          <label class="toggle-label"></label>
+      <div class="toggle-container">
+        <input type="checkbox" name="" class="toggle">
+        <label class="toggle-label" for="toggle-all"></label>
+      </div>
+      <ul class="todo-list">
+        <li class="todo-item"></li>
+        <div class="view">
+          <input type="checkbox" class="toggle-item">
+          <label for="" class="todo-item-label">task1</label>
+          <button class="btn-destroy"></button>
         </div>
-        <ul class="todo-list">
-          <li class="todo-item">ho</li>
-          <div class="view">
-            <input type="checkbox" class="toggle-item">
-            <label for="" class="todo-item-label"></label>
-          </div>
-        </ul>
+      </ul>
     </main>
     <footer class="footer">
-      <span class="todo-count">k</span>
-      <ul>
+      <span class="todo-count">1 item left</span>
+      <ul class="list-filters">
         <li class="filters">
           <button class="btn">All</button>
         </li>
@@ -40,7 +43,9 @@
           <button class="btn">Complete</button>
         </li>
       </ul>
+      <button class="btn-clear-completed">Clear completed</button>
     </footer>
   </section>
 </body>
+
 </html>
