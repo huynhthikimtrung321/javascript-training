@@ -1,0 +1,11 @@
+body {
+  background-color: #f5f5f5;
+  max-width: 550px;
+  min-width: 230px;
+  margin: 0 auto;
+  font: var(--font-size-m) Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+::-webkit-input-placeholder {
+  font-style: italic;
+}
