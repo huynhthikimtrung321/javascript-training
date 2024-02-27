@@ -3,7 +3,8 @@
   font-size: 15px;
   height: 20px;
   padding: 10px 15px;
-  text-align: center;
+  display: flex;
+  align-items: center;
 
   &::before {
     bottom: 0;
@@ -21,9 +22,9 @@
   border-radius: 5px;
 }
 
-.todo-count {
-  float: left;
+.todo-item-left {
   text-align: left;
+  width: auto;
 }
 
 .list-filter {
@@ -43,12 +44,11 @@
 
 .btn-clear-completed {
   cursor: pointer;
-  float: right;
   line-height: 19px;
   position: relative;
-  bottom: 22px;
   background-color: transparent;
   border: 1px solid transparent;
+  margin-left: auto;
 
   &:hover {
     text-decoration: underline;
