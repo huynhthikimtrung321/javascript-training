@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todos</title>
+  <link rel="stylesheet" href="./style/main.css">
+</head>
+
+<body>
+  <header class="header">
+    <h1 class="title">Todos</h1>
+    <div class="input-container">
+      <input type="text" id="todo-input" class="new-todo" placeholder="What needs to be done?">
+    </div>
+  </header>
+  <main class="main">
+    <div class="toggle-container">
+      <input type="checkbox" class="toggle">
+      <label class="toggle-label" for="toggle-all"></label>
+    </div>
+    <ul class="todo-list">
+      <li class="todo-item"></li>
+      <div class="view">
+        <input type="checkbox" class="toggle-item">
+        <label class="todo-item-label">task1</label>
+        <button class="btn-destroy"></button>
+      </div>
+    </ul>
+  </main>
+  <footer class="footer">
+    <p class="todo-item-left"><span class="todo-count">1</span>item left</p>
+    <ul class="list-filter">
+      <button class="btn">All</button>
+      </li>
+      <li class="filters">
+        <button class="btn">Active</button>
+      </li>
+      <li class="filters">
+        <button class="btn">Complete</button>
+      </li>
+    </ul>
+    <button class="btn-clear-completed">Clear completed</button>
+  </footer>
+  <script type="module" src="./js/app.js"></script>
+</body>
+
+</html>

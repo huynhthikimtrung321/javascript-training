@@ -1,0 +1,14 @@
+:root {
+  --color-primary: #b83f45;
+  --color-secondary: #f5f5f5;
+  --color-thirty: #949494;
+  --color-rare: #484848;
+  --color-base: #fff;
+
+  --font-size-s: 15px;
+  --font-size-m: 24px;
+  --font-size-xm: 30px;
+  --font-size-l: 80px;
+
+  --line-height-default: 1.4em;
+}
