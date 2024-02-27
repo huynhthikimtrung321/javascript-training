@@ -2,17 +2,7 @@
   border-top: 1px solid var(--color-secondary);
   position: relative;
   z-index: 2;
-}
-
-.toggle {
-  border: none;
-  position: absolute;
-  bottom: 100%;
-}
-.main {
-  border-top: 1px solid #e6e6e6;
-  position: relative;
-  z-index: 2;
+  background-color: var(--color-base);
 }
 
 .todo-list {
