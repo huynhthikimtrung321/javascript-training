@@ -13,9 +13,7 @@ async function get() {
 
     const data = await res.json();
 
-    return {
-      data
-    }
+    return data
   } catch (error) {
     console.error(error);
 
@@ -25,4 +23,30 @@ async function get() {
   }
 }
 
-export {get}
+async function post(task) {
+  try {
+    if(task.name === '') {
+      throw new Error('The name of task is missing');
+    }
+
+    const res = await fetch(`${API_BASE_URL}/tasks`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(task)
+    });
+
+    if(!res.ok) {
+      throw new Error('Posting is failed');
+    }
+
+    const data = res.json();
+
+    return data;
+  } catch(error) {
+    console.error(error);
+  }
+}
+
+export {get, post}

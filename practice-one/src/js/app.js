@@ -1,13 +1,16 @@
-import { get } from "../services/apis.js";
+import { get, post } from "../services/apis.js";
+
+let tasks = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const tasks = (await get()).data;
+  tasks = (await get());
 
   renderTasks(tasks);
 });
 
 function renderTasks(tasks) {
   const listElement = document.querySelector('.todo-list');
+  listElement.innerHTML = '';
 
   tasks.forEach(task => {
     const itemElement = document.createElement('li');
@@ -20,12 +23,40 @@ function renderTasks(tasks) {
     viewDiv.className = 'view';
     checkbox.type = 'checkbox';
     checkbox.className = 'toggle-item';
+    checkbox.dataset.id = task.id;
     label.textContent = task.name;
     label.className = 'todo-item-label';
+    label.id = task.id
     button.className = 'btn-destroy';
 
     viewDiv.append(checkbox, label, button);
     itemElement.append(viewDiv);
     listElement.prepend(itemElement);
+
   });
 }
+
+const todoInput = document.getElementById('todo-input');
+
+todoInput.addEventListener('keyup', function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+
+    if (todoInput.value.trim() === '') {
+      return;
+    }
+
+    const task = {
+      name: todoInput.value.trim(),
+      isCompleted: false
+    }
+
+    post(task);
+
+    tasks.push(task);
+
+    todoInput.value = '';
+
+    renderTasks(tasks);
+  }
+});
