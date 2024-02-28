@@ -33,6 +33,15 @@ function renderTasks(tasks) {
     itemElement.append(viewDiv);
     listElement.prepend(itemElement);
 
+    checkbox.addEventListener('click', function (event) {
+      event.preventDefault();
+
+      const id = checkbox.dataset.id;
+      const toggleLabelElement = document.getElementById(id);
+
+      toggleLabelElement.classList.toggle('completed');
+    })
+
   });
 }
 
