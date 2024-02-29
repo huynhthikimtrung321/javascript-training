@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import { ERROR_MESSAGES } from '../js/constants/errorMessages';
 
 const { API_BASE_URL } = process.env;
 
@@ -25,10 +25,6 @@ async function get() {
 
 async function post(task) {
   try {
-    if(task.name === '') {
-      throw new Error('The name of task is missing');
-    }
-
     const res = await fetch(`${API_BASE_URL}/tasks`, {
       method: 'POST',
       headers: {
@@ -38,7 +34,7 @@ async function post(task) {
     });
 
     if(!res.ok) {
-      throw new Error('Posting is failed');
+      throw new Error(ERROR_MESSAGES.postError);
     }
 
     const data = res.json();
