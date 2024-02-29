@@ -5,7 +5,7 @@ async function get() {
     const res = await fetch(`${API_BASE_URL}/tasks`);
 
     if (!res.ok) {
-      throw new Error(ERROR_MESSAGE.getError);
+      throw new Error(ERROR_MESSAGES.getError);
     }
 
     const data = await res.json();

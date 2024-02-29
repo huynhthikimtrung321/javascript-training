@@ -1,6 +1,6 @@
-const ERROR_MESSAGE = {
-  getError: 'Request is failed',
+const ERROR_MESSAGES = {
+  getError: 'Request api fail',
   postError: 'Posting is failed'
 };
 
-export {ERROR_MESSAGE}
+export {ERROR_MESSAGES}

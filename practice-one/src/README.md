@@ -47,7 +47,7 @@ cd JavaScript-Training/practice-one
 npm install
 ```
 
-* Install packages in json-server
+* Run server packages in json-server
 
 ```bash
 npm run json-server
