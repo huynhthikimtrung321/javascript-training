@@ -1,4 +1,4 @@
-import { get } from "../services/apis.js";
+import { get } from "./services/apis.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
   const tasks = (await get()).data;
