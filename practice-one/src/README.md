@@ -39,10 +39,18 @@ git clone https://github.com/huynhthikimtrung321/javascript-training.git
 cd JavaScript-Training/practice-one
 ```
 
+* Edit the content of env.sample and rename it into .env
+
 * Install packages
 
 ```bash
 npm install
+```
+
+* Install packages in json-server
+
+```bash
+npm run json-server
 ```
 
 * Run the server
