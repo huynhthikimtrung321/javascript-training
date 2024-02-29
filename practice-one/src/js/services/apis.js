@@ -10,13 +10,34 @@ async function get() {
 
     const data = await res.json();
 
-    return {
-      data
-    }
+    return data;
+
   } catch (error) {
     console.error(error);
   }
 }
 
-export {get}
+async function post(task) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/tasks`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(task)
+    });
+
+    if(!res.ok) {
+      throw new Error(ERROR_MESSAGE.postError);
+    }
+
+    const data = res.json();
+
+    return data;
+  } catch(error) {
+    console.error(error);
+  }
+}
+
+export {get, post}
 

@@ -1,7 +1,9 @@
-import { get } from "./services/apis.js";
+import { get, post } from "./services/apis.js";
+
+let tasks = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const tasks = (await get()).data;
+  tasks = (await get());
 
   renderTasks(tasks);
 });
@@ -43,9 +45,10 @@ function renderTasks(tasks) {
   });
 }
 
+
 const todoInput = document.getElementById('todo-input');
 
-todoInput.addEventListener('keyup', function (event) {
+todoInput.addEventListener('keyup', async function (event) {
   if (event.key === "Enter") {
     event.preventDefault();
 
@@ -53,12 +56,12 @@ todoInput.addEventListener('keyup', function (event) {
       return;
     }
 
-    const task = {
+    const newTask = {
       name: todoInput.value.trim(),
       isCompleted: false
     }
 
-    post(task);
+    const task = await post(newTask);
 
     tasks.push(task);
 
