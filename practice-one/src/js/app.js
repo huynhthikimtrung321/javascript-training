@@ -1,9 +1,7 @@
-import { get, post } from "../services/apis.js";
-
-let tasks = [];
+import { get } from "./services/apis.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
-  tasks = (await get());
+  const tasks = (await get()).data;
 
   renderTasks(tasks);
 });
@@ -69,3 +67,4 @@ todoInput.addEventListener('keyup', function (event) {
     renderTasks(tasks);
   }
 });
+
