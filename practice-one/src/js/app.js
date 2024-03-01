@@ -1,6 +1,9 @@
-import { get, post } from "./services/apis.js";
+import { get, post, edit} from "./services/apis.js";
 
 let tasks = [];
+let toggleStates = {
+
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
   tasks = (await get());
@@ -12,39 +15,73 @@ function renderTasks(tasks) {
   const listElement = document.querySelector('.todo-list');
   listElement.innerHTML = '';
 
-  tasks.forEach(task => {
-    const itemElement = document.createElement('li');
-    const viewDiv = document.createElement('div');
-    const checkbox = document.createElement('input');
-    const label = document.createElement('label');
-    const button = document.createElement('button');
+  tasks.slice().reverse().forEach(task => {
+    toggleStates[task.id] = true;
+    const toggleState = toggleStates[task.id];
+    console.log(toggleState)
+    const taskItemElement = `
+      <div>
+        <div class="show" id="show-${task.id}">
+          <input type="checkbox" class="toggle-item" id="${task.id}">
+          <label for="${task.id}" class="todo-item-label" data-id="${task.id}"></label>
+          <p class="todo-item-name" data-id=${task.id}>${task.name}</p>
+          <button data-id="${task.id}" class="btn-destroy"></button>
+        </div>
+      </div>
+    `
+    listElement.innerHTML += taskItemElement;
+  });
 
-    itemElement.className = 'todo-item';
-    viewDiv.className = 'view';
-    checkbox.type = 'checkbox';
-    checkbox.className = 'toggle-item';
-    checkbox.dataset.id = task.id;
-    label.textContent = task.name;
-    label.className = 'todo-item-label';
-    label.id = task.id
-    button.className = 'btn-destroy';
+  const todoItemElements = document.querySelectorAll('.todo-item-name');
 
-    viewDiv.append(checkbox, label, button);
-    itemElement.append(viewDiv);
-    listElement.prepend(itemElement);
+  Array.from(todoItemElements).forEach((element) => {
+    element.addEventListener('dblclick', function(event) {
+      const id = element.dataset.id;
+      const showTaskElement = document.getElementById(`show-${id}`);
 
+      let toggleState = toggleStates[id];
+      console.log(toggleState)
+      toggleState = !toggleState;
+
+      const taskItemHTML = `
+        <div>
+          ${
+            toggleState
+            ?
+            `
+            <div class="show" id="show-${id}">
+              <input type="checkbox" class="toggle-item" id="${id}">
+              <label for="${id}" class="todo-item-label" data-id="${id}"></label>
+              <p class="todo-item-name" data-id=${id}>${element.textContent}</p>
+              <button data-id="${id}" class="btn-destroy"></button>
+            </div>
+            `
+            :
+            `
+            <input autofocus data-id="${id}" class="input-hidden">
+            `
+          }
+        </div>
+      `
+
+      showTaskElement.innerHTML = taskItemHTML;
+    });
+  });
+
+  const checkboxes = document.querySelectorAll('.toggle-item');
+
+  checkboxes.forEach(checkbox => {
     checkbox.addEventListener('click', function (event) {
       event.preventDefault();
 
-      const id = checkbox.dataset.id;
-      const toggleLabelElement = document.getElementById(id);
+      const id = checkbox.id;
+
+      const toggleLabelElement = document.querySelector(`[data-id="${id}"]`);
 
       toggleLabelElement.classList.toggle('completed');
     })
-
   });
 }
-
 
 const todoInput = document.getElementById('todo-input');
 
@@ -70,4 +107,3 @@ todoInput.addEventListener('keyup', async function (event) {
     renderTasks(tasks);
   }
 });
-
