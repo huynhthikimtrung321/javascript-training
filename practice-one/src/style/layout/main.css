@@ -99,20 +99,23 @@
 }
 
 .input-hidden {
-  border: none;
+  outline: none;
   height: 65px;
   padding: 16px 16px 16px 50px;
   box-sizing: border-box;
   font: inherit;
   line-height: var(--line-height-default);
   width: 100%;
-  position: absolute;
   top: 0;
   left: 0;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .show {
@@ -125,4 +128,5 @@
 
 .todo-item-name {
   user-select: none;
+  width: 100%;
 }
