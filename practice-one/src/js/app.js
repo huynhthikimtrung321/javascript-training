@@ -2,7 +2,7 @@ import { get } from "./services/apis.js";
 import {
   renderTasks,
   bindAddTaskEvent,
-  selectorAll
+  bindToggleAllTasksEvent
 } from "./dom.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -11,5 +11,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   renderTasks(tasks);
 
   bindAddTaskEvent();
-  selectorAll();
+  bindToggleAllTasksEvent();
 });

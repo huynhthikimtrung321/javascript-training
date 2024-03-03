@@ -132,7 +132,7 @@ function bindDeleteTaskEvent() {
   }
 }
 
-function selectorAll() {
+function bindToggleAllTasksEvent() {
   const checkboxes = document.querySelectorAll('.toggle-item');
 
   const toggleAll = document.querySelector('.toggle');
@@ -161,13 +161,11 @@ function selectorAll() {
   }
 }
 
-
-
 export {
   renderTasks,
   bindToggleTaskStatusEvent,
   bindAddTaskEvent,
   bindToggleEditTaskEvent,
   bindDeleteTaskEvent,
-  selectorAll
+  bindToggleAllTasksEvent
 }
