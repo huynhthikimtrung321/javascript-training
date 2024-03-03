@@ -132,11 +132,42 @@ function bindDeleteTaskEvent() {
   }
 }
 
+function selectorAll() {
+  const checkboxes = document.querySelectorAll('.toggle-item');
+
+  const toggleAll = document.querySelector('.toggle');
+
+  if(toggleAll) {
+    toggleAll.addEventListener('click', function() {
+
+      const allCompleted = Array.from(checkboxes).every(checkbox =>
+        checkbox.nextElementSibling.classList.contains('completed')
+      );
+
+      checkboxes.forEach(checkbox => {
+        if (allCompleted) {
+
+          checkbox.nextElementSibling.classList.remove('completed');
+          checkbox.checked = false;
+        } else {
+
+          if (!checkbox.nextElementSibling.classList.contains('completed')) {
+            checkbox.nextElementSibling.classList.add('completed');
+            checkbox.checked = true;
+          }
+        }
+      });
+    });
+  }
+}
+
+
 
 export {
   renderTasks,
   bindToggleTaskStatusEvent,
   bindAddTaskEvent,
   bindToggleEditTaskEvent,
-  bindDeleteTaskEvent
+  bindDeleteTaskEvent,
+  selectorAll
 }
