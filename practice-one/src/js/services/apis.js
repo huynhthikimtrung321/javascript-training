@@ -59,6 +59,19 @@ async function edit(id, task) {
   }
 }
 
+async function deleted(id) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+      method: 'DELETE'
+    });
 
-export {get, post, edit}
+    if(!res.ok) {
+      throw new Error(ERROR_MESSAGES.deleteError);
+    }
+  } catch(error) {
+    console.error(error);
+  }
+}
 
+
+export {get, post, edit, deleted}

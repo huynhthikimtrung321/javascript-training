@@ -65,10 +65,10 @@
   transition: color .4s;
   word-break: break-all;
 }
-
+/*
 .todo-list:hover .btn-destroy {
   display: block;
-}
+} */
 
 .btn-destroy {
   position: absolute;
@@ -119,7 +119,12 @@
 }
 
 .show {
+  position: relative;
   display: flex;
+
+  &:hover .btn-destroy {
+    display: block;
+  }
 }
 
 .view {
