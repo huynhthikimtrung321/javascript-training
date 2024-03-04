@@ -1,3 +1,5 @@
+import { ERROR_MESSAGES } from "../constants/errorMessages";
+
 const { API_BASE_URL } = process.env;
 
 async function get() {
@@ -39,5 +41,22 @@ async function post(task) {
   }
 }
 
-export {get, post}
+async function edit(id, task) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(task)
+    });
 
+    if(!res.ok) {
+      throw new Error(ERROR_MESSAGES.editError);
+    }
+  } catch(error) {
+    console.error(error);
+  }
+}
+
+export {get, post, edit}
