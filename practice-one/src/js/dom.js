@@ -30,15 +30,16 @@ function bindToggleTaskStatusEvent() {
   const checkboxes = document.querySelectorAll('.toggle-item');
 
   checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('click', function (event) {
+    checkbox.addEventListener('click', async function (event) {
       event.preventDefault();
 
       const id = checkbox.id;
-      const labelElement = checkbox.nextElementSibling;
-      labelElement.classList.toggle('completed');
+      const target = tasks.find(task => task.id === id);
+      target.isCompleted = !target.isCompleted;
 
-      const newStatus = labelElement.classList.contains('completed');
-      edit(id, { isCompleted: newStatus });
+      await edit(id, target);
+
+      renderTasks(tasks);
     })
   });
 }
@@ -125,15 +126,15 @@ function bindToggleEditTaskEvent() {
 function bindDeleteTaskEvent() {
   const deleteButtons = document.querySelectorAll('.btn-destroy');
 
-  for ( const item of deleteButtons ){
-    item.addEventListener('click', async function (event){
+  for (const item of deleteButtons) {
+    item.addEventListener('click', async function (event) {
       const id = event.target.dataset.id;
 
-    await deleted(id);
+      await deleted(id);
 
-    const tasks = await get();
+      const tasks = await get();
 
-    renderTasks(tasks);
+      renderTasks(tasks);
     })
   }
 }
@@ -148,6 +149,7 @@ async function bindToggleAllTasksEvent() {
         checkbox.nextElementSibling.classList.contains('completed')
       );
 
+      let tasks = await get();
       for (let checkbox of checkboxes) {
         const id = checkbox.id;
         const isCompleted = !allCompleted;
@@ -161,12 +163,13 @@ async function bindToggleAllTasksEvent() {
           checkbox.checked = false;
         }
 
-        const updateInfo = {
-          isCompleted: isCompleted
-        };
+        const target = tasks.find(task => task.id === id);
+        target.isCompleted = allCompleted;
 
-        await edit(id, updateInfo);
+        await edit(id, target);
       }
+
+      renderTasks(tasks);
     });
   }
 }
