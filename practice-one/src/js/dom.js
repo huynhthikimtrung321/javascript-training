@@ -5,11 +5,13 @@ function renderTasks(tasks) {
   listElement.innerHTML = '';
 
   tasks.forEach(task => {
+    const completed = task.isCompleted ? 'completed' : '';
+
     const taskItemElement = `
       <li>
         <div class="show" id="show-task-${task.id}">
           <input type="checkbox" class="toggle-item" id="${task.id}">
-          <label for="${task.id}" class="todo-item-label" data-id="${task.id}"></label>
+          <label for="${task.id}" class="todo-item-label ${completed}" data-id="${task.id}"></label>
           <p class="todo-item-name" data-id=${task.id}>${task.name}</p>
           <button id="delete-task-${task.id}" data-id="${task.id}" class="btn-destroy"></button>
         </div>
@@ -132,31 +134,35 @@ function bindDeleteTaskEvent() {
   }
 }
 
-function bindToggleAllTasksEvent() {
+async function bindToggleAllTasksEvent() {
   const checkboxes = document.querySelectorAll('.toggle-item');
-
   const toggleAll = document.querySelector('.toggle');
 
-  if(toggleAll) {
-    toggleAll.addEventListener('click', function() {
-
+  if (toggleAll) {
+    toggleAll.addEventListener('click', async () => {
       const allCompleted = Array.from(checkboxes).every(checkbox =>
         checkbox.nextElementSibling.classList.contains('completed')
       );
 
-      checkboxes.forEach(checkbox => {
-        if (allCompleted) {
+      for (let checkbox of checkboxes) {
+        const id = checkbox.id;
+        const isCompleted = !allCompleted;
+        const inputElement = checkbox.nextElementSibling;
 
-          checkbox.nextElementSibling.classList.remove('completed');
-          checkbox.checked = false;
+        if (isCompleted) {
+          inputElement.classList.add('completed');
+          checkbox.checked = true;
         } else {
-
-          if (!checkbox.nextElementSibling.classList.contains('completed')) {
-            checkbox.nextElementSibling.classList.add('completed');
-            checkbox.checked = true;
-          }
+          inputElement.classList.remove('completed');
+          checkbox.checked = false;
         }
-      });
+
+        const updateInfo = {
+          isCompleted: isCompleted
+        };
+
+        await edit(id, updateInfo);
+      }
     });
   }
 }
