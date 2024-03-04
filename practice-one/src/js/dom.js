@@ -9,7 +9,7 @@ function renderTasks(tasks) {
       <li>
         <div class="show" id="show-task-${task.id}">
           <input type="checkbox" class="toggle-item" id="${task.id}">
-          <label for="${task.id}" class="todo-item-label" data-id="${task.id}"></label>
+          <label for="${task.id}" class="todo-item-label ${task.isCompleted ? 'completed' : ''}" data-id="${task.id}"></label>
           <p class="todo-item-name" data-id=${task.id}>${task.name}</p>
           <button id="delete-task-${task.id}" data-id="${task.id}" class="btn-destroy"></button>
         </div>
@@ -161,11 +161,47 @@ function bindToggleAllTasksEvent() {
   }
 }
 
+async function bindFilterEvent() {
+  let tasks = await get();
+
+  const filterButtons = document.querySelectorAll('.btn-filter');
+
+  for (const button of filterButtons) {
+    button.addEventListener('click', function(event){
+
+      const filter = button.dataset.filter;
+
+      let filteredTasks = tasks;
+
+      switch(filter) {
+        case 'all': {
+          break;
+        }
+
+        case 'active': {
+          filteredTasks = tasks.filter(tasks => tasks.isCompleted === false);
+          renderTasks(filteredTasks)
+          break;
+        }
+
+        case 'complete': {
+          filteredTasks = tasks.filter(tasks => tasks.isCompleted === true  );
+          renderTasks(filteredTasks)
+          break;
+        }
+      }
+
+      renderTasks(filteredTasks);
+    })
+  }
+}
+
 export {
   renderTasks,
   bindToggleTaskStatusEvent,
   bindAddTaskEvent,
   bindToggleEditTaskEvent,
   bindDeleteTaskEvent,
-  bindToggleAllTasksEvent
+  bindToggleAllTasksEvent,
+  bindFilterEvent
 }
