@@ -34,7 +34,11 @@ function bindToggleTaskStatusEvent() {
       event.preventDefault();
 
       const id = checkbox.id;
-      checkbox.nextElementSibling.classList.toggle('completed');
+      const labelElement = checkbox.nextElementSibling;
+      labelElement.classList.toggle('completed');
+
+      const newStatus = labelElement.classList.contains('completed');
+      edit(id, { isCompleted: newStatus });
     })
   });
 }
