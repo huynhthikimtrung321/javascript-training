@@ -1,4 +1,4 @@
-import { get, post, edit } from "./services/apis.js";
+import { get, post, edit, deleted } from "./services/apis.js";
 
 function renderTasks(tasks) {
   const listElement = document.querySelector('.todo-list');
@@ -11,7 +11,7 @@ function renderTasks(tasks) {
           <input type="checkbox" class="toggle-item" id="${task.id}">
           <label for="${task.id}" class="todo-item-label" data-id="${task.id}"></label>
           <p class="todo-item-name" data-id=${task.id}>${task.name}</p>
-          <button data-id="${task.id}" class="btn-destroy"></button>
+          <button id="delete-task-${task.id}" data-id="${task.id}" class="btn-destroy"></button>
         </div>
         <input class="hidden input-hidden" id="edit-task-${task.id}">
       </li>
@@ -21,6 +21,7 @@ function renderTasks(tasks) {
 
   bindToggleTaskStatusEvent();
   bindToggleEditTaskEvent();
+  bindDeleteTaskEvent();
 }
 
 function bindToggleTaskStatusEvent() {
@@ -115,9 +116,26 @@ function bindToggleEditTaskEvent() {
   });
 }
 
+function bindDeleteTaskEvent() {
+  const deleteButtons = document.querySelectorAll('.btn-destroy');
+
+  for ( const item of deleteButtons ){
+    item.addEventListener('click', async function (event){
+      const id = event.target.dataset.id;
+
+    await deleted(id);
+
+    const tasks = await get();
+
+    renderTasks(tasks);
+    })
+  }
+}
+
 export {
   renderTasks,
   bindToggleTaskStatusEvent,
   bindAddTaskEvent,
-  bindToggleEditTaskEvent
+  bindToggleEditTaskEvent,
+  bindDeleteTaskEvent
 }
