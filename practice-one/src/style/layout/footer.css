@@ -6,17 +6,6 @@
   display: flex;
   align-items: center;
   background-color: var(--color-base);
-
-  &::before {
-    bottom: 0;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, .2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, .2);
-    content: "";
-    height: 50px;
-    left: 0;
-    overflow: hidden;
-    position: absolute;
-    right: 0;
-  }
 }
 
 .filters {
@@ -35,12 +24,22 @@
   padding-inline-start: 75px
 }
 
-.btn {
+.btn-filter {
   border: 1px solid transparent;
   color: inherit;
   margin: 3px;
   padding: 2px 7px;
   background-color: transparent;
+
+  &:hover {
+    border-radius: 2px;
+    border: 1px solid var(--color-primary);
+  }
+}
+
+.btn-filter-clicked {
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px 2px var(--color-primary);
 }
 
 .btn-clear-completed {

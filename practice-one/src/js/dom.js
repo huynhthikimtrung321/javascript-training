@@ -174,11 +174,50 @@ async function bindToggleAllTasksEvent() {
   }
 }
 
+function bindFilterEvent() {
+  const filterButtons = document.querySelectorAll('.btn-filter');
+
+  for (const button of filterButtons) {
+    button.addEventListener('click', async function (event) {
+
+      filterButtons.forEach(btn => btn.classList.remove('btn-filter-clicked'));
+
+      button.classList.add('btn-filter-clicked');
+      let tasks = await get();
+
+      const filter = button.dataset.filter;
+
+      let filteredTasks = tasks;
+
+      switch (filter) {
+        case 'all': {
+          break;
+        }
+
+        case 'active': {
+          filteredTasks = tasks.filter(tasks => tasks.isCompleted === false);
+          renderTasks(filteredTasks);
+          break;
+        }
+
+        case 'complete': {
+          filteredTasks = tasks.filter(tasks => tasks.isCompleted === true);
+          renderTasks(filteredTasks);
+          break;
+        }
+      }
+
+      renderTasks(filteredTasks);
+    })
+  }
+}
+
 export {
   renderTasks,
   bindToggleTaskStatusEvent,
   bindAddTaskEvent,
   bindToggleEditTaskEvent,
   bindDeleteTaskEvent,
-  bindToggleAllTasksEvent
+  bindToggleAllTasksEvent,
+  bindFilterEvent
 }
