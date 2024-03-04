@@ -132,7 +132,6 @@ function bindDeleteTaskEvent() {
   }
 }
 
-
 export {
   renderTasks,
   bindToggleTaskStatusEvent,

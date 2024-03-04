@@ -1,7 +1,9 @@
-import { get } from "./services/apis.js";
+import { get, post, edit } from "./services/apis.js";
 import {
   renderTasks,
-  bindAddTaskEvent
+  bindToggleTaskStatusEvent,
+  bindAddTaskEvent,
+  bindToggleEditTaskEvent
 } from "./dom.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
