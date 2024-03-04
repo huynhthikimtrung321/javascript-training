@@ -59,6 +59,4 @@ async function edit(id, task) {
   }
 }
 
-
 export {get, post, edit}
-
