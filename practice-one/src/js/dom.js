@@ -5,11 +5,13 @@ function renderTasks(tasks) {
   listElement.innerHTML = '';
 
   tasks.forEach(task => {
+    const completed = task.isCompleted ? 'completed' : '';
+
     const taskItemElement = `
       <li>
         <div class="show" id="show-task-${task.id}">
           <input type="checkbox" class="toggle-item" id="${task.id}">
-          <label for="${task.id}" class="todo-item-label" data-id="${task.id}"></label>
+          <label for="${task.id}" class="todo-item-label ${completed}" data-id="${task.id}"></label>
           <p class="todo-item-name" data-id=${task.id}>${task.name}</p>
           <button id="delete-task-${task.id}" data-id="${task.id}" class="btn-destroy"></button>
         </div>
@@ -28,11 +30,16 @@ function bindToggleTaskStatusEvent() {
   const checkboxes = document.querySelectorAll('.toggle-item');
 
   checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('click', function (event) {
+    checkbox.addEventListener('click', async function (event) {
       event.preventDefault();
 
       const id = checkbox.id;
-      checkbox.nextElementSibling.classList.toggle('completed');
+      const target = tasks.find(task => task.id === id);
+      target.isCompleted = !target.isCompleted;
+
+      await edit(id, target);
+
+      renderTasks(tasks);
     })
   });
 }
@@ -119,16 +126,51 @@ function bindToggleEditTaskEvent() {
 function bindDeleteTaskEvent() {
   const deleteButtons = document.querySelectorAll('.btn-destroy');
 
-  for ( const item of deleteButtons ){
-    item.addEventListener('click', async function (event){
+  for (const item of deleteButtons) {
+    item.addEventListener('click', async function (event) {
       const id = event.target.dataset.id;
 
-    await deleted(id);
+      await deleted(id);
 
-    const tasks = await get();
+      const tasks = await get();
 
-    renderTasks(tasks);
+      renderTasks(tasks);
     })
+  }
+}
+
+async function bindToggleAllTasksEvent() {
+  const checkboxes = document.querySelectorAll('.toggle-item');
+  const toggleAll = document.querySelector('.toggle');
+
+  if (toggleAll) {
+    toggleAll.addEventListener('click', async () => {
+      const allCompleted = Array.from(checkboxes).every(checkbox =>
+        checkbox.nextElementSibling.classList.contains('completed')
+      );
+
+      let tasks = await get();
+      for (let checkbox of checkboxes) {
+        const id = checkbox.id;
+        const isCompleted = !allCompleted;
+        const inputElement = checkbox.nextElementSibling;
+
+        if (isCompleted) {
+          inputElement.classList.add('completed');
+          checkbox.checked = true;
+        } else {
+          inputElement.classList.remove('completed');
+          checkbox.checked = false;
+        }
+
+        const target = tasks.find(task => task.id === id);
+        target.isCompleted = allCompleted;
+
+        await edit(id, target);
+      }
+
+      renderTasks(tasks);
+    });
   }
 }
 
@@ -137,5 +179,6 @@ export {
   bindToggleTaskStatusEvent,
   bindAddTaskEvent,
   bindToggleEditTaskEvent,
-  bindDeleteTaskEvent
+  bindDeleteTaskEvent,
+  bindToggleAllTasksEvent
 }
