@@ -6,13 +6,14 @@ function renderTasks(tasks) {
 
   tasks.forEach(task => {
     const completed = task.isCompleted ? 'completed' : '';
+    const textCompleted = task.isCompleted ? 'text-completed' : '';
 
     const taskItemElement = `
       <li>
         <div class="show" id="show-task-${task.id}">
-          <input type="checkbox" class="toggle-item" id="${task.id}">
+          <input type="checkbox" checked=${task.isCompleted} class="toggle-item" id="${task.id}">
           <label for="${task.id}" class="todo-item-label ${completed}" data-id="${task.id}"></label>
-          <p class="todo-item-name" data-id=${task.id}>${task.name}</p>
+          <p class="todo-item-name ${textCompleted}" data-id=${task.id}>${task.name}</p>
           <button id="delete-task-${task.id}" data-id="${task.id}" class="btn-destroy"></button>
         </div>
         <input class="hidden input-hidden" id="edit-task-${task.id}">
@@ -36,6 +37,7 @@ function bindToggleTaskStatusEvent() {
       event.preventDefault();
 
       const id = checkbox.id;
+      const tasks = await get();
       const target = tasks.find(task => task.id === id);
       target.isCompleted = !target.isCompleted;
 
@@ -147,30 +149,20 @@ async function bindToggleAllTasksEvent() {
 
   if (toggleAll) {
     toggleAll.addEventListener('click', async () => {
-      const allCompleted = Array.from(checkboxes).every(checkbox =>
-        checkbox.nextElementSibling.classList.contains('completed')
-      );
-
       let tasks = await get();
+
+      const allCompleted = tasks.every(task => task.isCompleted === true);
+
       for (let checkbox of checkboxes) {
         const id = checkbox.id;
-        const isCompleted = !allCompleted;
-        const inputElement = checkbox.nextElementSibling;
-
-        if (isCompleted) {
-          inputElement.classList.add('completed');
-          checkbox.checked = true;
-        } else {
-          inputElement.classList.remove('completed');
-          checkbox.checked = false;
-        }
 
         const target = tasks.find(task => task.id === id);
-        target.isCompleted = allCompleted;
+        target.isCompleted = !allCompleted;
 
         await edit(id, target);
       }
 
+      tasks = await get();
       renderTasks(tasks);
     });
   }
