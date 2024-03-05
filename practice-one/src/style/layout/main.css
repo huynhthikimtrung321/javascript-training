@@ -65,10 +65,6 @@
   transition: color .4s;
   word-break: break-all;
 }
-/*
-.todo-list:hover .btn-destroy {
-  display: block;
-} */
 
 .btn-destroy {
   position: absolute;

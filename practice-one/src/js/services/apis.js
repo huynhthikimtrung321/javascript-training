@@ -73,5 +73,4 @@ async function deleted(id) {
   }
 }
 
-
 export {get, post, edit, deleted}
