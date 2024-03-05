@@ -44,7 +44,7 @@ async function post(task) {
 async function edit(id, task) {
   try {
     const res = await fetch(`${API_BASE_URL}/tasks/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
