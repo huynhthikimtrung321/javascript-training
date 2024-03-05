@@ -21,6 +21,8 @@ function renderTasks(tasks) {
     listElement.innerHTML += taskItemElement;
   });
 
+  counterTasks(tasks.filter(task => task.isCompleted === false).length);
+
   bindToggleTaskStatusEvent();
   bindToggleEditTaskEvent();
   bindDeleteTaskEvent();
@@ -237,6 +239,12 @@ async function bindDeleteCompletedTaskEvent() {
   }
 }
 
+function counterTasks(taskCount) {
+  const counterElement = document.querySelector('.todo-count');
+
+  counterElement.textContent = taskCount;
+}
+
 export {
   renderTasks,
   bindToggleTaskStatusEvent,
@@ -245,5 +253,6 @@ export {
   bindDeleteTaskEvent,
   bindToggleAllTasksEvent,
   bindFilterEvent,
-  bindDeleteCompletedTaskEvent
+  bindDeleteCompletedTaskEvent,
+  counterTasks
 }

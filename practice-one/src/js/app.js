@@ -4,7 +4,8 @@ import {
   bindAddTaskEvent,
   bindToggleAllTasksEvent,
   bindFilterEvent,
-  bindDeleteCompletedTaskEvent
+  bindDeleteCompletedTaskEvent,
+  counterTasks
 } from "./dom.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
