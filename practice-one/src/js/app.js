@@ -1,4 +1,4 @@
-import { get } from "./services/apis.js";
+import { get, post, edit } from "./services/apis.js";
 import {
   renderTasks,
   bindAddTaskEvent,
