@@ -9,7 +9,7 @@ import {
 } from "./dom.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
-  tasks = (await get());
+  const tasks = (await get());
 
   renderTasks(tasks);
 
