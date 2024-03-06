@@ -54,6 +54,9 @@ async function edit(id, task) {
     if(!res.ok) {
       throw new Error(ERROR_MESSAGES.editError);
     }
+    const data = await res.json();
+
+    return data;
   } catch(error) {
     console.error(error);
   }

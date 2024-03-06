@@ -1,5 +1,9 @@
 import { get, post, edit, deleted } from "./services/apis.js";
 
+const getId = () => {
+  return Math.floor(Math.random() * Date.now()).toString(36).slice(0, 10);
+};
+
 function renderTasks(tasks) {
   const listElement = document.querySelector('.todo-list');
   listElement.innerHTML = '';
@@ -37,7 +41,7 @@ function bindToggleTaskStatusEvent() {
       event.preventDefault();
 
       const id = checkbox.id;
-      const tasks = await get();
+      tasks.push();
       const target = tasks.find(task => task.id === id);
       target.isCompleted = !target.isCompleted;
 
@@ -60,13 +64,14 @@ function bindAddTaskEvent() {
       }
 
       const newTask = {
+        id: getId(),
         name: todoInput.value.trim(),
         isCompleted: false
       }
 
       await post(newTask);
 
-      const tasks = await get();
+      tasks.push(newTask);
 
       todoInput.value = '';
 
@@ -75,8 +80,9 @@ function bindAddTaskEvent() {
   });
 }
 
-function bindEditTaskEvent(id) {
+async function bindEditTaskEvent(id) {
   const todoInput = document.getElementById(`edit-task-${id}`);
+  const tasks = await get();
 
   todoInput.addEventListener('keyup', async function (event) {
     if (event.key === "Enter") {
@@ -91,9 +97,13 @@ function bindEditTaskEvent(id) {
         isCompleted: false
       }
 
-      await edit(id, newTask);
+      const task = await edit(id, newTask);
 
-      const tasks = await get();
+      tasks.forEach((item, index) => {
+        if (item.id === task.id) {
+          tasks[index] = task;
+        }
+      })
 
       todoInput.value = '';
 
@@ -105,14 +115,16 @@ function bindEditTaskEvent(id) {
 function bindToggleEditTaskEvent() {
   const todoItemElements = document.querySelectorAll('.todo-item-name');
 
-  Array.from(todoItemElements).forEach((element) => {
+  todoItemElements.forEach((element) => {
     const id = element.dataset.id;
     const showTaskElement = document.getElementById(`show-task-${id}`);
     const editTaskElement = document.getElementById(`edit-task-${id}`);
 
-    element.addEventListener('dblclick', function (event) {
+    element.addEventListener('dblclick', function () {
       showTaskElement.classList.toggle('hidden');
       editTaskElement.classList.toggle('hidden');
+
+      editTaskElement.value = document.querySelector(`.todo-item-name[data-id="${id}"]`).textContent
 
       editTaskElement.focus();
     });
@@ -133,6 +145,8 @@ function bindDeleteTaskEvent() {
   for (const item of deleteButtons) {
     item.addEventListener('click', async function (event) {
       const id = event.target.dataset.id;
+
+      item.classList.add('btn-clicked');
 
       await deleted(id);
 
@@ -168,19 +182,15 @@ async function bindToggleAllTasksEvent() {
   }
 }
 
-function bindFilterEvent() {
+async function bindFilterEvent() {
   const filterButtons = document.querySelectorAll('.btn-filter');
 
   for (const button of filterButtons) {
-    button.addEventListener('click', async function (event) {
-
-      filterButtons.forEach(btn => btn.classList.remove('btn-filter-clicked'));
-
-      button.classList.add('btn-filter-clicked');
+    button.addEventListener('click', async function () {
       let tasks = await get();
-
+      filterButtons.forEach(btn => btn.classList.remove('btn-clicked'));
+      button.classList.add('btn-clicked');
       const filter = button.dataset.filter;
-
       let filteredTasks = tasks;
 
       switch (filter) {
@@ -190,13 +200,11 @@ function bindFilterEvent() {
 
         case 'active': {
           filteredTasks = tasks.filter(tasks => tasks.isCompleted === false);
-          renderTasks(filteredTasks);
           break;
         }
 
         case 'complete': {
           filteredTasks = tasks.filter(tasks => tasks.isCompleted === true);
-          renderTasks(filteredTasks);
           break;
         }
       }
@@ -207,16 +215,12 @@ function bindFilterEvent() {
 }
 
 async function bindDeleteCompletedTaskEvent() {
-
   const deleteCompleteButtons = document.querySelectorAll('.btn-clear-completed');
+  const tasks = await get();
 
   for (const item of deleteCompleteButtons) {
-
-    item.addEventListener('click', async function(event) {
-      const tasks = await get();
-
+    item.addEventListener('click', async function() {
       for (const task of tasks) {
-
         if (!task.isCompleted) {
           continue;
         }
