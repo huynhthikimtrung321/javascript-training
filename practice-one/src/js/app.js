@@ -3,7 +3,8 @@ import {
   renderTasks,
   bindAddTaskEvent,
   bindToggleAllTasksEvent,
-  bindFilterEvent
+  bindFilterEvent,
+  bindDeleteCompletedTaskEvent
 } from "./dom.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -14,4 +15,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   bindAddTaskEvent();
   bindToggleAllTasksEvent();
   bindFilterEvent();
+  bindDeleteCompletedTaskEvent();
 });

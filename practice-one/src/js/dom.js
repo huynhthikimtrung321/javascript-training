@@ -212,6 +212,31 @@ function bindFilterEvent() {
   }
 }
 
+async function bindDeleteCompletedTaskEvent() {
+
+  const deleteCompleteButtons = document.querySelectorAll('.btn-clear-completed');
+
+  for (const item of deleteCompleteButtons) {
+
+    item.addEventListener('click', async function(event) {
+      const tasks = await get();
+
+      for (const task of tasks) {
+
+        if (!task.isCompleted) {
+          continue;
+        }
+
+        const id = task.id;
+        await deleted(id);
+      }
+
+      const updatedTasks = await get();
+      renderTasks(updatedTasks);
+    })
+  }
+}
+
 export {
   renderTasks,
   bindToggleTaskStatusEvent,
@@ -219,5 +244,6 @@ export {
   bindToggleEditTaskEvent,
   bindDeleteTaskEvent,
   bindToggleAllTasksEvent,
-  bindFilterEvent
+  bindFilterEvent,
+  bindDeleteCompletedTaskEvent
 }
