@@ -25,8 +25,9 @@
   height: 65px;
   justify-content: center;
   position: absolute;
-  top: -68px;
+  top: -4px;
   width: 45px;
+  z-index: 1;
 
   &::before {
     content: "❯";
@@ -90,6 +91,10 @@
     content: 'x';
     height: 100%;
     line-height: 1.1;
+  }
+
+  &:hover {
+    color: var(--color-primary);
   }
 }
 

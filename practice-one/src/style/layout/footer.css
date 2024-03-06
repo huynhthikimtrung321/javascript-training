@@ -37,7 +37,7 @@
   }
 }
 
-.btn-filter-clicked {
+.btn-clicked {
   box-shadow: 1px 1px 3px 2px var(--color-primary);
 }
 
