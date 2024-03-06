@@ -12,14 +12,14 @@
   <header class="header">
     <h1 class="title">Todos</h1>
     <div class="input-container">
+      <div class="toggle-container">
+        <input type="checkbox" class="toggle">
+        <label class="toggle-label" for="toggle-all"></label>
+      </div>
       <input type="text" id="todo-input" class="new-todo" placeholder="What needs to be done?">
     </div>
   </header>
   <main class="main">
-    <div class="toggle-container">
-      <input type="checkbox" class="toggle">
-      <label class="toggle-label" for="toggle-all"></label>
-    </div>
     <ul class="todo-list">
       <li class="todo-item">
         <input type="checkbox" class="toggle-item">
@@ -28,7 +28,7 @@
     </ul>
   </main>
   <footer class="footer">
-    <p class="todo-item-left"><span class="todo-count">1</span>item left</p>
+    <p class="todo-item-left"><span class="todo-count">0</span> items left</p>
     <ul class="list-filter">
       <li>
         <button class="btn-filter" data-filter="all">All</button>

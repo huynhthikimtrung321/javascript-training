@@ -5,7 +5,9 @@
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2), 0 25px 50px 0 rgba(0,0,0,.1);
   position: relative;
   margin-top: 130px;
+  z-index: 1;
 }
+
 .title {
   color: var(--color-primary);
   font-size: var(--font-size-l);
@@ -28,4 +30,9 @@
   line-height: var(--line-height-default);
   margin: 0;
   width: 100%;
+
+  &:focus {
+    outline: none;
+    box-shadow: 1px 1px 5px 2px var(--color-primary);
+  }
 }
