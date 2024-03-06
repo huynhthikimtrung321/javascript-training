@@ -41,7 +41,7 @@ function bindToggleTaskStatusEvent() {
       event.preventDefault();
 
       const id = checkbox.id;
-      tasks.push();
+      const tasks = await get();
       const target = tasks.find(task => task.id === id);
       target.isCompleted = !target.isCompleted;
 
