@@ -52,8 +52,9 @@ function bindToggleTaskStatusEvent() {
   });
 }
 
-function bindAddTaskEvent() {
+async function bindAddTaskEvent() {
   const todoInput = document.getElementById('todo-input');
+  const tasks = await get();
 
   todoInput.addEventListener('keyup', async function (event) {
     if (event.key === "Enter") {
@@ -70,7 +71,6 @@ function bindAddTaskEvent() {
       }
 
       await post(newTask);
-
       tasks.push(newTask);
 
       todoInput.value = '';
