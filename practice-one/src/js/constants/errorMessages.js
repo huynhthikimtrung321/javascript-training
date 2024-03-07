@@ -1,8 +1,8 @@
 const ERROR_MESSAGES = {
-  getError: 'Request api fail',
+  getError: 'Get api call is failed',
   postError: 'Posting is failed',
   editError: 'Update is failed',
   deleteError: 'Delete is failed'
 };
 
-export {ERROR_MESSAGES}
+export { ERROR_MESSAGES }
