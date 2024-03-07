@@ -2,9 +2,9 @@ import { ERROR_MESSAGES } from "../constants/errorMessages";
 
 const { API_BASE_URL } = process.env;
 
-async function getTasks() {
+async function get(endpoint) {
   try {
-    const res = await fetch(`${API_BASE_URL}/tasks`);
+    const res = await fetch(`${API_BASE_URL}/${endpoint}`);
 
     if (!res.ok) {
       throw new Error(ERROR_MESSAGES.getError);
@@ -19,9 +19,9 @@ async function getTasks() {
   }
 }
 
-async function post(task) {
+async function post(endpoint) {
   try {
-    const res = await fetch(`${API_BASE_URL}/tasks`, {
+    const res = await fetch(`${API_BASE_URL}/${endpoint}`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -41,9 +41,9 @@ async function post(task) {
   }
 }
 
-async function edit(id, task) {
+async function edit(endpoint, task) {
   try {
-    const res = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/${endpoint}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -62,9 +62,9 @@ async function edit(id, task) {
   }
 }
 
-async function deleted(id) {
+async function deleted(endpoint) {
   try {
-    const res = await fetch(`${API_BASE_URL}/tasks/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/${endpoint}`, {
       method: 'DELETE'
     });
 
@@ -76,4 +76,4 @@ async function deleted(id) {
   }
 }
 
-export {getTasks, post, edit, deleted}
+export {get, post, edit, deleted}

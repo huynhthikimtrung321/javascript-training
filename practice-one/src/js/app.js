@@ -1,4 +1,4 @@
-import { getTasks } from "./services/apis.js";
+import { get } from "./services/apis.js";
 import {
   renderTasks,
   bindAddTaskEvent,
@@ -9,7 +9,7 @@ import {
 } from "./dom.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const tasks = (await getTasks());
+  const tasks = (await get('tasks'));
 
   renderTasks(tasks);
 
