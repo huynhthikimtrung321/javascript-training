@@ -1,23 +1,19 @@
 import { get, post, edit, deleted } from "./services/apis.js";
 
-const getId = () => {
-  return Math.floor(Math.random() * Date.now()).toString(36).slice(0, 10);
-};
+const getRandomId = () => Math.floor(Math.random() * Date.now()).toString(36).slice(0, 10);
 
 function renderTasks(tasks) {
   const listElement = document.querySelector('.todo-list');
   listElement.innerHTML = '';
 
   tasks.forEach(task => {
-    const completed = task.isCompleted ? 'completed' : '';
-    const textCompleted = task.isCompleted ? 'text-completed' : '';
 
     const taskItemElement = `
       <li>
         <div class="show" id="show-task-${task.id}">
           <input type="checkbox" checked=${task.isCompleted} class="toggle-item" id="${task.id}">
-          <label for="${task.id}" class="todo-item-label ${completed}" data-id="${task.id}"></label>
-          <p class="todo-item-name ${textCompleted}" data-id=${task.id}>${task.name}</p>
+          <label for="${task.id}" class="todo-item-label ${task.isCompleted && 'completed'}" data-id="${task.id}"></label>
+          <p class="todo-item-name ${task.isCompleted && 'text-completed'}" data-id=${task.id}>${task.name}</p>
           <button id="delete-task-${task.id}" data-id="${task.id}" class="btn-destroy"></button>
         </div>
         <input class="hidden input-hidden" id="edit-task-${task.id}">
@@ -26,7 +22,7 @@ function renderTasks(tasks) {
     listElement.innerHTML += taskItemElement;
   });
 
-  counterTasks(tasks.filter(task => task.isCompleted === false).length);
+  bindTaskCount(tasks.filter(task => task.isCompleted === false).length);
 
   bindToggleTaskStatusEvent();
   bindToggleEditTaskEvent();
@@ -65,7 +61,7 @@ async function bindAddTaskEvent() {
       }
 
       const newTask = {
-        id: getId(),
+        id: getRandomId(),
         name: todoInput.value.trim(),
         isCompleted: false
       }
@@ -235,7 +231,7 @@ async function bindDeleteCompletedTaskEvent() {
   }
 }
 
-function counterTasks(taskCount) {
+function bindTaskCount(taskCount) {
   const counterElement = document.querySelector('.todo-count');
 
   counterElement.textContent = taskCount;
@@ -250,5 +246,5 @@ export {
   bindToggleAllTasksEvent,
   bindFilterEvent,
   bindDeleteCompletedTaskEvent,
-  counterTasks
+  bindTaskCount
 }

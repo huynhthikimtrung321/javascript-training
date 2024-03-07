@@ -5,7 +5,7 @@ import {
   bindToggleAllTasksEvent,
   bindFilterEvent,
   bindDeleteCompletedTaskEvent,
-  counterTasks
+  bindTaskCount
 } from "./dom.js";
 
 document.addEventListener('DOMContentLoaded', async () => {
