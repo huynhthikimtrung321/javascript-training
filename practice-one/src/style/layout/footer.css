@@ -1,0 +1,55 @@
+.footer {
+  border-top: 1px solid #e6e6e6;
+  font-size: 15px;
+  height: 20px;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-base);
+}
+
+.filters {
+  border-radius: 5px;
+}
+
+.todo-item-left {
+  text-align: left;
+  width: auto;
+}
+
+.list-filter {
+  list-style: none;
+  margin: -5px;
+  display: flex;
+  padding-inline-start: 75px
+}
+
+.btn-filter {
+  border: 1px solid transparent;
+  color: inherit;
+  margin: 3px;
+  padding: 2px 7px;
+  background-color: transparent;
+
+  &:hover {
+    border-radius: 2px;
+    border: 1px solid var(--color-primary);
+  }
+}
+
+.btn-clicked {
+  box-shadow: 1px 1px 3px 2px var(--color-primary);
+}
+
+.btn-clear-completed {
+  cursor: pointer;
+  line-height: 19px;
+  position: relative;
+  background-color: transparent;
+  border: 1px solid transparent;
+  margin-left: auto;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

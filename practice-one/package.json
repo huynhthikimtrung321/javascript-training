@@ -1,0 +1,19 @@
+{
+  "name": "practice-one",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel --no-cache src/index.html",
+    "build": "parcel build src/index.html",
+    "json-server": "json-server --watch db.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "json-server": "^1.0.0-alpha.23",
+    "parcel": "^2.11.0",
+    "prettier": "3.2.5"
+  }
+}
