@@ -2,7 +2,7 @@ import { ERROR_MESSAGES } from "../constants/errorMessages";
 
 const { API_BASE_URL } = process.env;
 
-async function get() {
+async function getTasks() {
   try {
     const res = await fetch(`${API_BASE_URL}/tasks`);
 
@@ -76,4 +76,4 @@ async function deleted(id) {
   }
 }
 
-export {get, post, edit, deleted}
+export {getTasks, post, edit, deleted}
