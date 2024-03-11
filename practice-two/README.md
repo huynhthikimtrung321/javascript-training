@@ -4,7 +4,7 @@
 
 * This document provides requirements, technical stack, and estimation for JavaScript Practice.
 
-![Design](https://i.ibb.co/PhFK6M8/iu.png)
+![Design](https://i.ibb.co/GVLqVty/iu.png)
 
 ## TECHNICAL STACKS
 
