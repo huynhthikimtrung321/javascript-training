@@ -78,6 +78,21 @@
   transform: translateY(-50%);
 }
 
+.row-header {
+  display: grid;
+  grid-template-columns: 0.3fr 2fr repeat(7, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.icon-arrow {
+  height: 15px;
+}
+
+.item-product-name::after {
+  content: '\2193';
+}
+
 @media (min-width: 768px) {
   .form {
     display: flex;
@@ -91,7 +106,7 @@
   .btn-filter-group {
     justify-content: start;
     gap: 15px;
-    margin-bottom: 40px;
+    padding-bottom: 20px;
   }
 
   .list-filter {
