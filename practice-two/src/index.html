@@ -9,11 +9,48 @@
 <body>
   <header>
     <div class="container header-container">
-      <h1 class="header__title">Manage Product</h1>
+      <h1 class="header-title">Manage Product</h1>
       <figure>
-        <img src="./assets/avatar.jpg" alt="avatar" class="img avatar-image">
+        <img src="./assets/images/avatar.jpg" alt="avatar" class="img avatar-image">
       </figure>
     </div>
   </header>
+  <main>
+    <div class="container main-container">
+      <div class="form">
+        <svg class="icon-search">
+          <use
+            xlink:href="assets/images/icon.svg#icon-search"
+          ></use>
+        </svg>
+        <input type="text" class="input-search" placeholder="Search product">
+        <div class="button-group">
+          <button class="btn btn-light btn-form">Create category</button>
+          <button class="btn btn-dark btn-form">Add new product</button>
+        </div>
+      </div>
+      <div class="btn-filter-group">
+        <svg class="icon-sort">
+          <use
+            xlink:href="assets/images/icon.svg#icon-sort"
+          ></use>
+        </svg>
+        <ul class="list-filter">
+          <li>
+            <button class="btn btn-light btn-filter">Active</button>
+          </li>
+          <li>
+            <button class="btn btn-light btn-filter">Category</button>
+          </li>
+          <li>
+            <button class="btn btn-light btn-filter">Quantity</button>
+          </li>
+          <li>
+            <button class="btn btn-light btn-filter">Price</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
