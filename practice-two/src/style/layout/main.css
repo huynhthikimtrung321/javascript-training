@@ -2,11 +2,13 @@
   margin-top: 20px;
 }
 
-.table-header {
+.product-row {
   display: grid;
   grid-template-columns: 2fr 1fr repeat(6, 1fr);
   align-items: center;
-  justify-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .icon-arrow {
