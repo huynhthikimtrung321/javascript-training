@@ -1,0 +1,18 @@
+.main-container {
+  margin-top: 20px;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr repeat(6, 1fr);
+  align-items: center;
+  justify-items: center;
+}
+
+.icon-arrow {
+  height: 15px;
+}
+
+.col-product-name::after {
+  content: '\2193';
+}

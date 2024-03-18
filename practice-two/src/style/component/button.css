@@ -1,0 +1,14 @@
+.btn {
+  font-size: 11px;
+  border-radius: 5px;
+  border: 1px solid #b2b2b2;
+}
+
+.btn-light {
+  background-color: #fff;
+}
+
+.btn-dark {
+  background-color: #2b2b2b;
+  color: #fff;
+}
