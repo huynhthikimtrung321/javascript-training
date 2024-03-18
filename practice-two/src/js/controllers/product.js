@@ -13,6 +13,14 @@ class ProductController {
     this.productView.displayProducts(products);
   }
 
+  handleGet = async (searchValue) => {
+    return await this.productModel.getProductsByQuery(searchValue);
+  }
 }
 const productController = new ProductController();
-productController.renderProducts();
+(async () => {
+  await productController.renderProducts();
+  productController.productView.bindSearchProductElement(
+    productController.handleGet
+  );
+})();

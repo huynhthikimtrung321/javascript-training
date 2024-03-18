@@ -21,6 +21,16 @@ export default class HttpService {
     }
   }
 
+  async getByQuery(endpoint, query) {
+    try {
+      const response = await this.axiosClient.get(`${endpoint}?name=${query}`);
+
+      return response.data;
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
   async post(endpoint, product) {
     try {
       const response = await this.axiosClient.post(endpoint, product);

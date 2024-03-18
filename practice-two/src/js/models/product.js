@@ -21,4 +21,8 @@ export default class ProductModel {
   async getProducts() {
     return await this.httpService.get('products');
   }
+
+  async getProductsByQuery(query) {
+    return await this.httpService.getByQuery('products', query);
+  }
 }
