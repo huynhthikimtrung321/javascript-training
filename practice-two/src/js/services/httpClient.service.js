@@ -23,7 +23,7 @@ export default class HttpService {
 
   async post(endpoint, product) {
     try {
-      const response = await this.axiosClient.post(endpoint, product);
+      const response = await this.axiosClient.post(endpoint, products);
 
       return response.data;
     } catch (error) {
@@ -31,9 +31,9 @@ export default class HttpService {
     }
   }
 
-  async patch(endpoint, product) {
+  async patch(endpoint, products) {
     try {
-      const response = await this.axiosClient.patch(endpoint, product);
+      const response = await this.axiosClient.patch(endpoint, products);
 
       return response.data;
     } catch (error) {

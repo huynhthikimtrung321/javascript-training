@@ -1,5 +1,5 @@
 export default class ProductView {
-  displayProduct(products) {
+  displayProducts(products) {
     const mainContent = document.querySelector('.main-content');
     mainContent.innerHTML = '';
 
@@ -19,29 +19,38 @@ export default class ProductView {
     `;
 
     let listItemHTML = '<ul class="table-header">'
-    products?.map(product => {
-      const itemHTML = `
+    products?.map(products => {
+      const {
+        name,
+        category,
+        sku,
+        quantity,
+        cost,
+        price,
+        status
+      } = products;
+      const productRowElement = `
         <li class="product-row">
           <h2>
-            ${product.name}
+            ${name}
           </h2>
           <p>
-            ${product.category}
+            ${category}
           </p>
           <p>
-            ${product.sku}
+            ${sku}
           </p>
           <p>
-            ${product.quantity}
+            ${quantity}
           </p>
           <p>
-            ${product.cost}
+            ${cost}
           </p>
           <p>
-            ${product.price}
+            ${price}
           </p>
           <p>
-            ${product.status}
+            ${status}
           </p>
           <div>
             <button>Edit</button>
@@ -50,7 +59,7 @@ export default class ProductView {
         </li>
       `;
 
-      listItemHTML += itemHTML;
+      listItemHTML += productRowElement;
     });
     listItemHTML += '</ul>';
 

@@ -8,11 +8,11 @@ class ProductController {
     this.productView = new ProductView();
   }
 
-  async showProduct() {
+  async renderProducts() {
     const products = await this.productModel.getProducts();
-    this.productView.displayProduct(products);
+    this.productView.displayProducts(products);
   }
 
 }
 const productController = new ProductController();
-productController.showProduct();
+productController.renderProducts();

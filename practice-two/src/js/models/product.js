@@ -19,6 +19,6 @@ export default class ProductModel {
   }
 
   async getProducts() {
-    return await this.httpService.get('product');
+    return await this.httpService.get('products');
   }
 }
