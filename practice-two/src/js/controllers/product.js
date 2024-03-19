@@ -4,9 +4,9 @@ export default class ProductController {
     this.productView = view;
   }
 
-  async init() {
+  async initialize() {
     await this.renderProducts();
-    this.productView.bindSearchProductElement(
+    this.productView.bindSearchProducts(
       this.handleGet
     );
   }
@@ -16,7 +16,7 @@ export default class ProductController {
     this.productView.displayProducts(products);
   }
 
-  handleGet = async (searchValue) => {
-    return await this.productModel.getProductsByQuery(searchValue);
+  handleGet = async (params={}) => {
+    return await this.productModel.getProducts(params);
   }
 }

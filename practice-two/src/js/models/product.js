@@ -20,15 +20,7 @@ export default class ProductModel {
     this.httpService = httpService;
   }
 
-  async getProducts() {
-    return await this.httpService.get(PRODUCT_ENDPOINT);
-  }
-
-  async getProductsByQuery(query) {
-    return await this.httpService.getByQuery(PRODUCT_ENDPOINT, query);
-  }
-
-  async getProductsByQuery(query) {
-    return await this.httpService.getByQuery(PRODUCT_ENDPOINT, query);
+  async getProducts(params={}) {
+    return await this.httpService.get(PRODUCT_ENDPOINT, params);
   }
 }

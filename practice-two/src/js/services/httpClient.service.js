@@ -11,19 +11,9 @@ export default class HttpService {
     });
   }
 
-  async get(endpoint) {
+  async get(endpoint, params={}) {
     try {
-      const response = await this.axiosClient.get(`${endpoint}`);
-
-      return response.data;
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
-
-  async getByQuery(endpoint, query) {
-    try {
-      const response = await this.axiosClient.get(`${endpoint}?name=${query}`);
+      const response = await this.axiosClient.get(`${endpoint}`, {params});
 
       return response.data;
     } catch (error) {

@@ -8,5 +8,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   const productModel = new ProductModel(httpService);
   const productView = new ProductView();
   const productController = new ProductController(productModel, productView);
-  await productController.init();
+  await productController.initialize();
 });
