@@ -1,4 +1,4 @@
-import searchIcon from '../../assets/images/icon.svg';
+import icon from '../../assets/images/icon.svg';
 
 export default class ProductView {
   displayProducts(products) {
@@ -9,10 +9,21 @@ export default class ProductView {
       <div class="flex-space-between">
         <svg class="icon-search">
           <use
-            xlink:href="${searchIcon}#icon-search"
+            xlink:href="${icon}#icon-search"
           ></use>
         </svg>
         <input type="text" class="input-search" placeholder="Search product">
+      </div>
+      <div class="button-filter-group">
+        <svg class="icon-sort">
+          <use
+            xlink:href="${icon}#icon-sort"
+          ></use>
+        </svg>
+        <button class="btn btn-filter">Active</button>
+        <button class="btn btn-filter">Category</button>
+        <button class="btn btn-filter">Quantity</button>
+        <button class="btn btn-filter">Price</button>
       </div>
       <div class="product-row">
         <div class="col-product-name">
