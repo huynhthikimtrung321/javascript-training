@@ -1,10 +1,17 @@
+import searchIcon from '../../assets/images/icon.svg';
+
 export default class ProductView {
   displayProducts(products) {
     const mainContent = document.querySelector('.main-content');
     mainContent.innerHTML = '';
 
     const tableRowHeaderHTML = `
-      <div>
+      <div class="flex-space-between">
+        <svg class="icon-search">
+          <use
+            xlink:href="${searchIcon}#icon-search"
+          ></use>
+        </svg>
         <input type="text" class="input-search" placeholder="Search product">
       </div>
       <div class="product-row">
