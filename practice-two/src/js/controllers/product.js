@@ -4,10 +4,10 @@ export default class ProductController {
     this.productView = view;
   }
 
-  async init() {
+  async initialize() {
     await this.renderProducts();
-    this.productView.bindSearchProductElement(
-      this.handleGet
+    this.productView.bindSearchProducts(
+      this.handleSearchProductByKeyword
     );
   }
 
@@ -16,7 +16,7 @@ export default class ProductController {
     this.productView.displayProducts(products);
   }
 
-  handleGet = async (searchValue) => {
-    return await this.productModel.getProductsByQuery(searchValue);
+  handleSearchProductByKeyword = async (params={}) => {
+    return await this.productModel.getProducts(params);
   }
 }
