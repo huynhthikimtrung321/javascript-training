@@ -21,9 +21,22 @@ export default class ProductView {
           ></use>
         </svg>
         <button class="btn btn-filter">Active</button>
-        <button class="btn btn-filter">Category</button>
-        <button class="btn btn-filter">Quantity</button>
-        <button class="btn btn-filter">Price</button>
+        <select class="btn btn-filter">
+          <option selected="true" disabled="disabled">Category</option>
+          <option>Skin care</option>
+          <option>Face care</option>
+          <option>Lips care</option>
+        </select>
+        <select class="btn btn-filter">
+          <option selected="true" disabled="disabled">Quantity</option>
+          <option>Low to High</option>
+          <option>High to Low</option>
+        </select>
+        <select class="btn btn-filter">
+          <option selected="true" disabled="disabled">Price</option>
+          <option>Low to High</option>
+          <option>High to Low</option>
+        </select>
       </div>
       <div class="product-row">
         <div class="col-product-name">
@@ -92,13 +105,13 @@ export default class ProductView {
     const mainContent = document.querySelector('.main-content');
 
     mainContent.addEventListener('keydown', async (event) => {
-      if(!event.target.classList.contains('input-search')) return;
+      if (!event.target.classList.contains('input-search')) return;
 
-      if(event.key !== 'Enter') return;
+      if (event.key !== 'Enter') return;
 
       const searchValue = event.target.value.toLowerCase();
       const searchedProducts = await handleGet(searchValue);
       this.displayProducts(searchedProducts);
-  })
-}
+    })
+  }
 }
