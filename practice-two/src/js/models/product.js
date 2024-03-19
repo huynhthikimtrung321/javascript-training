@@ -1,4 +1,3 @@
-import HttpService from "../services/httpClient.service";
 import { API_ENDPOINT } from "../constants/endpoint";
 
 const { PRODUCT_ENDPOINT } = API_ENDPOINT;
@@ -17,8 +16,8 @@ export class Product {
 }
 
 export default class ProductModel {
-  constructor() {
-    this.httpService = new HttpService();
+  constructor(httpService) {
+    this.httpService = httpService;
   }
 
   async getProducts() {
@@ -26,10 +25,10 @@ export default class ProductModel {
   }
 
   async getProductsByQuery(query) {
-    return await this.httpService.getByQuery('products', query);
+    return await this.httpService.getByQuery(PRODUCT_ENDPOINT, query);
   }
 
   async getProductsByQuery(query) {
-    return await this.httpService.getByQuery('products', query);
+    return await this.httpService.getByQuery(PRODUCT_ENDPOINT, query);
   }
 }
