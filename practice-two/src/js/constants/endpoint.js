@@ -1,3 +1,3 @@
-const API_ENDPOINT = {
-  product: 'products'
+export const API_ENDPOINT = {
+  PRODUCT_ENDPOINT: 'products'
 }
