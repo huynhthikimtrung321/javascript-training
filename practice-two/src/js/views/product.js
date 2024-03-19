@@ -77,7 +77,7 @@ export default class ProductView {
     mainContent.innerHTML += listItemHTML;
   }
 
-  bindSearchProducts(handleGet) {
+  bindSearchProducts(handleSearchProductByKeyword) {
     const mainContent = document.querySelector('.main-content');
 
     mainContent.addEventListener('keydown', async (event) => {
@@ -86,7 +86,7 @@ export default class ProductView {
       if(event.key !== 'Enter') return;
 
       const searchValue = event.target.value.toLowerCase();
-      const searchedProducts = await handleGet({name: searchValue});
+      const searchedProducts = await handleSearchProductByKeyword({name: searchValue});
       this.displayProducts(searchedProducts);
   })
 }
