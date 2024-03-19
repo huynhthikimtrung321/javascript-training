@@ -11,9 +11,9 @@ export default class HttpService {
     });
   }
 
-  async get(endpoint) {
+  async get(endpoint, params = {}) {
     try {
-      const response = await this.axiosClient.get(`${endpoint}`);
+      const response = await this.axiosClient.get(`${endpoint}`, { params });
 
       return response.data;
     } catch (error) {
@@ -41,7 +41,7 @@ export default class HttpService {
     }
   }
 
-  async delete (endpoint) {
+  async delete(endpoint) {
     try {
       await this.axiosClient.delete(endpoint);
 

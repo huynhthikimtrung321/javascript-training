@@ -1,11 +1,14 @@
-import ProductModel from "../models/product";
-import ProductView from "../views/product";
-import Product from "../models/product";
+export default class ProductController {
+  constructor(model, view) {
+    this.productModel = model;
+    this.productView = view;
+  }
 
-class ProductController {
-  constructor() {
-    this.productModel = new ProductModel();
-    this.productView = new ProductView();
+  async initialize() {
+    await this.renderProducts();
+    this.productView.bindSearchProducts(
+      this.handleSearchProductByKeyword
+    );
   }
 
   async renderProducts() {
@@ -13,6 +16,7 @@ class ProductController {
     this.productView.displayProducts(products);
   }
 
+  handleSearchProductByKeyword = async (params={}) => {
+    return await this.productModel.getProducts(params);
+  }
 }
-const productController = new ProductController();
-productController.renderProducts();

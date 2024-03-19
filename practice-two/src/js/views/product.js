@@ -1,9 +1,19 @@
+import searchIcon from '../../assets/images/icon.svg';
+
 export default class ProductView {
   displayProducts(products) {
     const mainContent = document.querySelector('.main-content');
     mainContent.innerHTML = '';
 
     const tableRowHeaderHTML = `
+      <div class="flex-space-between">
+        <svg class="icon-search">
+          <use
+            xlink:href="${searchIcon}#icon-search"
+          ></use>
+        </svg>
+        <input type="text" class="input-search" placeholder="Search product">
+      </div>
       <div class="product-row">
         <div class="col-product-name">
           Product name
@@ -66,4 +76,18 @@ export default class ProductView {
     mainContent.innerHTML += tableRowHeaderHTML;
     mainContent.innerHTML += listItemHTML;
   }
+
+  bindSearchProducts(handleSearchProductByKeyword) {
+    const mainContent = document.querySelector('.main-content');
+
+    mainContent.addEventListener('keydown', async (event) => {
+      if(!event.target.classList.contains('input-search')) return;
+
+      if(event.key !== 'Enter') return;
+
+      const searchValue = event.target.value.toLowerCase();
+      const searchedProducts = await handleSearchProductByKeyword({name: searchValue});
+      this.displayProducts(searchedProducts);
+  })
+}
 }
