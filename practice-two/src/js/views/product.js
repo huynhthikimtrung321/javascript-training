@@ -20,22 +20,20 @@ export default class ProductView {
             xlink:href="${icon}#icon-sort"
           ></use>
         </svg>
-        <button class="btn btn-filter">Active</button>
-        <select class="btn btn-filter">
-          <option selected="true" disabled="disabled">Category</option>
-          <option>Skin care</option>
-          <option>Face care</option>
-          <option>Lips care</option>
+        <input type="checkbox" data-button-filter=true id="select-active" class="btn">Active</button>
+        <select id="select-category" class="btn">
+
+          <option data-button-filter=true >Skin care</option>
+          <option data-button-filter=true >Face care</option>
+          <option data-button-filter=true >Lips care</option>
         </select>
-        <select class="btn btn-filter">
-          <option selected="true" disabled="disabled">Quantity</option>
-          <option>Low to High</option>
-          <option>High to Low</option>
+        <select id="select-quantity" data-button-filter=true class="btn">
+          <option data-button-filter=true value="asc">Low to High</option>
+          <option data-button-filter=true value="desc">High to Low</option>
         </select>
-        <select class="btn btn-filter">
-          <option selected="true" disabled="disabled">Price</option>
-          <option>Low to High</option>
-          <option>High to Low</option>
+        <select id="select-price" data-button-filter=true class="btn">
+          <option data-button-filter=true value="asc">Low to High</option>
+          <option data-button-filter=true value="desc">High to Low</option>
         </select>
       </div>
       <div class="product-row">
@@ -84,7 +82,7 @@ export default class ProductView {
             ${price}
           </p>
           <p>
-            ${status}
+            ${status ? 'Active' : 'Inactive'}
           </p>
           <div>
             <button>Edit</button>
@@ -114,4 +112,37 @@ export default class ProductView {
       this.displayProducts(searchedProducts);
     })
   }
+
+  bindFilterProductElement(handleFilterProducts) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target;
+      console.log(target.dataset.buttonFilter)
+      if (!target.dataset.buttonFilter) return;
+
+      const activeValue = document.getElementById('select-active').checked ? 'active' : 'inactive';
+      const categoryValue = document.getElementById('select-category').value;
+      const quantityValue = document.getElementById('select-quantity').value;
+      const priceValue = document.getElementById('select-price').value;
+
+      const filterValues = {
+        active: activeValue,
+        category: categoryValue,
+        quantity: quantityValue,
+        price: priceValue
+      };
+
+      handleFilterProducts(filterValues);
+    })
+
+  }
+
+  addProduct() {
+    const mainContent = document.querySelector('.main-content');
+
+    mainContent.innerHTML = `
+
+    `
+  }
+
 }

@@ -9,6 +9,9 @@ export default class ProductController {
     this.productView.bindSearchProducts(
       this.handleSearchProductByKeyword
     );
+    this.productView.bindFilterProductElement(
+      this.handleFilterProducts
+    )
   }
 
   async renderProducts() {
@@ -18,5 +21,10 @@ export default class ProductController {
 
   handleSearchProductByKeyword = async (params={}) => {
     return await this.productModel.getProducts(params);
+  }
+
+  handleFilterProducts = async (params) => {
+    const products = await this.productModel.getProducts(params);
+    this.productView.displayProducts(products);
   }
 }
