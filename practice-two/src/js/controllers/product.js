@@ -5,6 +5,7 @@ export default class ProductController {
   }
 
   async initialize() {
+    this.productView.displayHeader();
     await this.renderProducts();
     this.productView.bindSearchProducts(
       this.handleSearchProductByKeyword
