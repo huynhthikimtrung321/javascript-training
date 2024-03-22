@@ -89,20 +89,6 @@ export default class ProductView {
             <option value="Lip care">Lips care</option>
           </select>
         </div>
-        <div class="flex">
-          <label class="label-selection">Quantity</label>
-          <select id="select-quantity" data-button-filter=true class="btn select-filter">
-            <option value="asc">Low to High</option>
-            <option value="desc">High to Low</option>
-          </select>
-        </div>
-        <div class="flex">
-          <label class="label-selection">Price</label>
-          <select id="select-price" data-button-filter=true class="btn select-filter">
-            <option value="asc">Low to High</option>
-            <option value="desc">High to Low</option>
-          </select>
-        </div>
       </div>
       <div class="product-row">
         <div class="col-product-name">
