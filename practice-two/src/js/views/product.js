@@ -65,6 +65,7 @@ export default class ProductView {
           ></use>
         </svg>
         <input type="text" class="input-search" placeholder="Search product">
+        <button id="toggle-form" class="button-add-product">Add new product</button>
       </div>
       <div class="button-filter-group">
         <svg class="icon-sort">
@@ -165,6 +166,67 @@ export default class ProductView {
       }
     })
 
+  }
+
+  bindToggleForm() {
+    const mainContent = document.querySelector('.main-content');
+
+    const formProductHTML = `
+      <div class="modal-overlay hidden">
+        <form action="" method="post" class="add-product-container">
+          <h2 class="add-product-title">Add products</h2>
+          <div class="form-group">
+            <label for="name">Product Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter product name" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" name="category" class="form-input">
+              <option>Skin care</option>
+              <option>Face care</option>
+              <option>Lips care</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="text" id="quantity" name="quantity" placeholder="0" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" placeholder="Enter price" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="cost">Cost:</label>
+            <input type="text" id="cost" name="cost" placeholder="Enter cost" class="form-input">
+          </div>
+          <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status" class="form-input">
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+          <div>
+            <input type="submit" value="Add Product" class="add-product-submit">
+          </div>
+        </form>
+      </div>
+    `
+    mainContent.innerHTML += formProductHTML;
+
+    const modalOverlay = document.querySelector('.modal-overlay');
+    modalOverlay.addEventListener('click', (event) => {
+      if(event.target === modalOverlay) {
+        modalOverlay.classList.toggle('hidden');
+      }
+    });
+
+    mainContent.addEventListener('click', (e) => {
+      const target = e.target;
+      if (e.target.id === 'toggle-form') {
+        modalOverlay.classList.toggle('hidden');
+      }
+    });
   }
 
 }

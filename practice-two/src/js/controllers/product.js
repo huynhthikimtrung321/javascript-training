@@ -16,6 +16,7 @@ export default class ProductController {
     this.productView.bindSortProduct(
       this.handleSortProduct
     );
+    this.productView.bindToggleForm();
   }
 
   async renderProducts() {
