@@ -91,15 +91,13 @@ export default class ProductView {
         </div>
       </div>
       <div class="product-row">
-        <div class="col-product-name">
-          Product name
-        </div>
-        <div>Category</div>
-        <div>SKU</div>
-        <div>Quantity</div>
-        <div>Cost</div>
-        <div>Price</div>
-        <div>Status</div>
+        <div class="col-product" data-field="name" data-sort-label=true>Product name</div>
+        <div class="col-product" data-field="category" data-sort-label=true>Category</div>
+        <div class="col-product" data-field="sku" data-sort-label=true>SKU</div>
+        <div class="col-product" data-field="quantity" data-sort-label=true>Quantity</div>
+        <div class="col-product" data-field="cost" data-sort-label=true>Cost</div>
+        <div class="col-product" data-field="price" data-sort-label=true>Price</div>
+        <div class="col-product" data-field="status" data-sort-label=true>Status</div>
         <div>Actions</div>
       </div>
       <div id="product-list"></div>
@@ -137,6 +135,34 @@ export default class ProductView {
       if(categoryValue) filterValues.category = categoryValue;
 
       handleFilterProducts(filterValues);
+    })
+  }
+
+  bindSortProduct(handleSortProduct) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target;
+      if(!target.dataset.sortLabel) return;
+      const targetSiblings = Array.from(target.parentNode.children);
+      targetSiblings.filter(sibling => sibling !== target).map(sibling => {
+        sibling.classList.remove('arrow-up');
+        sibling.classList.remove('arrow-down');
+      })
+
+      const isArrowDown = target.classList.contains('arrow-down');
+      const isArrowUp = target.classList.contains('arrow-up');
+
+      if(!isArrowDown && !isArrowUp) {
+        target.classList.add('arrow-down');
+        handleSortProduct(target.dataset.field, 'desc');
+      } else if(isArrowDown) {
+        target.classList.remove('arrow-down');
+        target.classList.add('arrow-up');
+        handleSortProduct(target.dataset.field, 'asc');
+      } else if(isArrowUp) {
+        target.classList.remove('arrow-up');
+        handleSortProduct(target.dataset.field, '');
+      }
     })
 
   }
