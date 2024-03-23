@@ -17,9 +17,9 @@ const {
 const isNotEmptyField = (value) => value !== '' ? '' : EMPTY_FIELD_ERROR;
 const hasMinLength = (value, min = 5) => value.length >= min ? '' : MIN_LENGTH_ERROR;
 const isValidSKU = (value) => validSKURegex.test(value) ? '' : IS_INVALID_SKU;
-const isNumber = (value) => (typeof value === 'number' && !isNaN(value)) ? '' : IS_NAN_ERROR;
-const isInteger = (value) => Number.isInteger(value) ? '' : IS_NOT_INTEGER_ERROR;
-const isPositiveNumber = (value) => value >= 0 ? '' : IS_NEGETIVE_ERROR;
+const isNumber = (value) => !isNaN(parseFloat(value)) ? '' : IS_NAN_ERROR;
+const isInteger = (value) => Number.isInteger(parseFloat(value)) ? '' : IS_NOT_INTEGER_ERROR;
+const isPositiveNumber = (value) => parseFloat(value) >= 0 ? '' : IS_NEGETIVE_ERROR;
 
 const validateForm = (formFields) => {
   const formError = {};
@@ -43,6 +43,15 @@ const validateForm = (formFields) => {
   return formError;
 }
 
+const renderErrorMessages = (element = document, formError) => {
+  const errorMsgElements = element.querySelectorAll('.error-msg');
+
+  errorMsgElements.forEach(elem => {
+    const field = elem.dataset.fieldError;
+    elem.textContent = formError[field];
+  });
+}
+
 export {
   isNotEmptyField,
   hasMinLength,
@@ -50,5 +59,6 @@ export {
   isNumber,
   isInteger,
   isPositiveNumber,
+  renderErrorMessages,
   validateForm
 }
