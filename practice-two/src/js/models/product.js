@@ -22,7 +22,7 @@ export default class ProductModel {
   }
 
   async getProducts(params = {}) {
-    if(this.products.length != 0) {
+    if (this.products.length != 0) {
       return this.products;
     }
 
@@ -37,13 +37,23 @@ export default class ProductModel {
 
       if (typeof a[field] === 'string') {
         comparision = a[field].localeCompare(b[field]);
-      } else if(typeof a[field] === 'boolean') {
+      } else if (typeof a[field] === 'boolean') {
         comparision = 1;
-      } else if(typeof a[field] === 'number') {
+      } else if (typeof a[field] === 'number') {
         comparision = a[field] - b[field];
       }
 
       return orderBy === 'asc' ? comparision : orderBy === 'desc' ? -comparision : 0;
     });
+  }
+
+  async addProduct(product) {
+    const isSuccess = await this.httpService.post(PRODUCT_ENDPOINT, product);
+
+    if (isSuccess) {
+      this.products.push(product);
+    }
+
+    return this.products;
   }
 }
