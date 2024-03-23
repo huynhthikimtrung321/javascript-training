@@ -188,6 +188,10 @@ export default class ProductView {
             </select>
           </div>
           <div class="form-group">
+            <label for="sku">SKU:</label>
+            <input type="text" id="sku" name="sku"class="form-input">
+          </div>
+          <div class="form-group">
             <label for="quantity">Quantity:</label>
             <input type="text" id="quantity" name="quantity" placeholder="0" class="form-input">
           </div>
