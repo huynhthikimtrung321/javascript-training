@@ -23,6 +23,10 @@
   content: '\2193';
 }
 
+.arrow-down::after {
+  content: '\2193';
+}
+
 .arrow-up::after {
   content: '\2191';
 }
