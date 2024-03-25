@@ -1,7 +1,7 @@
 .header-container {
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px #ccc solid;
+  border-bottom: 2px var(--color-border-primary) solid;
 }
 
 .avatar-image {
