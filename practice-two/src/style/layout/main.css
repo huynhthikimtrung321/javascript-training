@@ -47,6 +47,48 @@
   height: 20px;
 }
 
+.icon-sort {
+  width: 20px;
+  height: 15px;
+}
+
+.button-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-filter {
+  position: relative;
+  padding-right: 15px;
+  background-color: #fff;
+  line-height: 18px;
+
+  &:hover {
+    background-color: #2b2b2b;
+    color: #fff;
+  }
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.label-selection {
+  font-size: 12px;
+  color: #595656;
+}
+
+.select-filter:hover {
+  background-color: #2b2b2b;
+  color: #fff;
+  cursor: pointer;
+}
+
 .btn-action {
   background-color: transparent;
   border: none;
@@ -56,3 +98,4 @@
     scale: 1.1;
   }
 }
+

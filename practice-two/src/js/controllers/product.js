@@ -5,14 +5,18 @@ export default class ProductController {
   }
 
   async initialize() {
+    this.productView.displayHeader();
     await this.renderProducts();
     this.productView.bindSearchProducts(
       this.handleSearchProductByKeyword
     );
+    this.productView.bindFilterProductElement(
+      this.renderProducts
+    )
   }
 
-  async renderProducts() {
-    const products = await this.productModel.getProducts();
+  renderProducts = async (params = {}) => {
+    const products = await this.productModel.getProducts(params);
     this.productView.displayProducts(products);
   }
 
