@@ -7,15 +7,19 @@
   grid-template-columns: 2fr 1fr repeat(6, 1fr);
   align-items: center;
   border-bottom: 1px solid #ccc;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .icon-arrow {
   height: 15px;
 }
 
-.col-product-name::after {
+.product-label:hover {
+  cursor: pointer;
+}
+
+.product-label::after {
   content: '\2193';
 }
 
@@ -30,7 +34,9 @@
   padding-right: 10px;
   height: 25px;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .icon-search {
@@ -82,3 +88,14 @@
   color: #fff;
   cursor: pointer;
 }
+
+.btn-action {
+  background-color: transparent;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    scale: 1.1;
+  }
+}
+
