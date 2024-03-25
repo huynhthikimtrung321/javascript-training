@@ -22,10 +22,6 @@ export default class ProductModel {
   }
 
   async getProducts(params = {}) {
-    if(this.products.length) {
-      return this.products;
-    }
-
     return this.products = await this.httpService.get(PRODUCT_ENDPOINT, params);
   }
 
