@@ -100,6 +100,7 @@ export default class ProductView {
           ></use>
         </svg>
         <input type="text" class="input-search" placeholder="Search product">
+        <button id="toggle-form" class="button-add-product">Add new product</button>
       </div>
       <div class="button-filter-group">
         <svg class="icon-sort">
@@ -197,5 +198,23 @@ export default class ProductView {
         handleSortProducts(target.dataset.field, '');
       }
     })
+  }
+
+  bindToggleForm() {
+    const mainContent = document.querySelector('.main-content');
+
+    const modalOverlay = document.querySelector('.modal-overlay');
+    modalOverlay.addEventListener('click', (event) => {
+      if(event.target === modalOverlay) {
+        modalOverlay.classList.toggle('hidden');
+      }
+    });
+
+    mainContent.addEventListener('click', (e) => {
+      const target = e.target;
+      if (e.target.id === 'toggle-form') {
+        modalOverlay.classList.toggle('hidden');
+      }
+    });
   }
 }

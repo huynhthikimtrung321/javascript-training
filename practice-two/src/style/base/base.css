@@ -6,6 +6,10 @@ body {
     margin: 0 auto;
 }
 
+.hidden {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .container {
     padding-left: 15px;
