@@ -1,4 +1,4 @@
-import searchIcon from '../../assets/images/icon.svg';
+import icon from '../../assets/images/icon.svg';
 
 export default class ProductView {
   displayProducts(products) {
@@ -9,22 +9,22 @@ export default class ProductView {
       <div class="flex-space-between">
         <svg class="icon-search">
           <use
-            xlink:href="${searchIcon}#icon-search"
+            xlink:href="${icon}#icon-search"
           ></use>
         </svg>
         <input type="text" class="input-search" placeholder="Search product">
       </div>
       <div class="product-row">
-        <div class="col-product-name">
+        <div class="text-large product-label">
           Product name
         </div>
-        <div>Category</div>
-        <div>SKU</div>
-        <div>Quantity</div>
-        <div>Cost</div>
-        <div>Price</div>
-        <div>Status</div>
-        <div>Actions</div>
+        <div class="text-large product-label">Category</div>
+        <div class="text-large product-label">SKU</div>
+        <div class="text-large product-label">Quantity</div>
+        <div class="text-large product-label">Cost</div>
+        <div class="text-large product-label">Price</div>
+        <div class="text-large product-label">Status</div>
+        <div class="text-large product-label">Actions</div>
       </div>
     `;
 
@@ -63,8 +63,20 @@ export default class ProductView {
             ${status}
           </p>
           <div>
-            <button>Edit</button>
-            <button>Delete</button>
+          <button class="btn-action">
+              <svg width="24" height="24" fill="blue" viewBox="0 0 24 24">
+                <use
+                  xlink:href="${icon}#pen-icon"
+                ></use>
+              </svg>
+            </button>
+            <button class="btn-action">
+              <svg width="24 " height="24" fill="red" viewBox="0 0 41.336 41.336">
+                <use
+                  xlink:href="${icon}#trash-can"
+                ></use>
+              </svg>
+            </button>
           </div>
         </li>
       `;
