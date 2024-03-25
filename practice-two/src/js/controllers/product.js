@@ -15,7 +15,7 @@ export default class ProductController {
     )
   }
 
-  async renderProducts(params = {}) {
+  renderProducts = async (params = {}) => {
     const products = await this.productModel.getProducts(params);
     this.productView.displayProducts(products);
   }

@@ -81,7 +81,7 @@ export default class ProductView {
           </select>
         </div>
         <div class="flex">
-          <label class="label-selection"  >Category</label>
+          <label class="label-selection">Category</label>
           <select id="select-category" data-button-filter=true class="btn select-filter">
             <option selected value="">None</option>
             <option value="Skin care">Skin care</option>
@@ -122,28 +122,18 @@ export default class ProductView {
     })
   }
 
-  bindFilterProductElement(handleFilterProducts) {
+  bindFilterProductElement(renderProducts) {
     const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', (event) => {
+    mainContent.addEventListener('change', (event) => {
+      const filterParams = {};
       const target = event.target;
-      console.log(target.dataset.buttonFilter)
       if (!target.dataset.buttonFilter) return;
-
-      const activeValue = document.getElementById('select-active').checked ? 'active' : 'inactive';
+      const statusValue = document.getElementById('select-status').value;
       const categoryValue = document.getElementById('select-category').value;
-      const quantityValue = document.getElementById('select-quantity').value;
-      const priceValue = document.getElementById('select-price').value;
+      if (statusValue) filterParams.status = statusValue === 'Active';
+      if (categoryValue) filterParams.category = categoryValue;
 
-      const filterValues = {
-        active: activeValue,
-        category: categoryValue,
-        quantity: quantityValue,
-        price: priceValue
-      };
-
-      handleFilterProducts(filterValues);
+      renderProducts(filterParams);
     })
-
   }
-
 }
