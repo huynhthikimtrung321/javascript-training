@@ -138,7 +138,7 @@ export default class ProductView {
     })
   }
 
-  bindSortProduct(handleSortProduct) {
+  bindSortProduct(handleSortProducts) {
     const mainContent = document.querySelector('.main-content');
     mainContent.addEventListener('click', (event) => {
       const target = event.target;
@@ -154,14 +154,14 @@ export default class ProductView {
 
       if(!isArrowDown && !isArrowUp) {
         target.classList.add('arrow-down');
-        handleSortProduct(target.dataset.field, 'desc');
+        handleSortProducts(target.dataset.field, 'desc');
       } else if(isArrowDown) {
         target.classList.remove('arrow-down');
         target.classList.add('arrow-up');
-        handleSortProduct(target.dataset.field, 'asc');
+        handleSortProducts(target.dataset.field, 'asc');
       } else if(isArrowUp) {
         target.classList.remove('arrow-up');
-        handleSortProduct(target.dataset.field, '');
+        handleSortProducts(target.dataset.field, '');
       }
     })
 

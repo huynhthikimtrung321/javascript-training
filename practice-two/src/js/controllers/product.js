@@ -14,7 +14,7 @@ export default class ProductController {
       this.handleFilterProducts
     )
     this.productView.bindSortProduct(
-      this.handleSortProduct
+      this.handleSortProducts
     );
   }
 
@@ -32,7 +32,7 @@ export default class ProductController {
     this.productView.displayProducts(products);
   }
 
-  handleSortProduct = async (field, orderBy) => {
+  handleSortProducts = async (field, orderBy) => {
     const products = await this.productModel.sortProducts(field, orderBy);
     this.productView.displayProducts(products);
   }
