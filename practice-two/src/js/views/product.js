@@ -171,53 +171,6 @@ export default class ProductView {
   bindToggleForm() {
     const mainContent = document.querySelector('.main-content');
 
-    const formProductHTML = `
-      <div class="modal-overlay hidden">
-        <form action="" method="post" class="form-container">
-          <h2 class="add-product-title">Add products</h2>
-          <div class="form-group">
-            <label for="name">Product Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter product name" class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="category">Category:</label>
-            <select id="category" name="category" class="form-input">
-              <option>Skin care</option>
-              <option>Face care</option>
-              <option>Lips care</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="sku">SKU:</label>
-            <input type="text" id="sku" name="sku"class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="quantity">Quantity:</label>
-            <input type="text" id="quantity" name="quantity" placeholder="0" class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="text" id="price" name="price" placeholder="Enter price" class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="cost">Cost:</label>
-            <input type="text" id="cost" name="cost" placeholder="Enter cost" class="form-input">
-          </div>
-          <div class="form-group">
-            <label for="status">Status:</label>
-            <select id="status" name="status" class="form-input">
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
-          </div>
-          <div>
-            <input type="submit" value="Add Product" class="add-product-submit">
-          </div>
-        </form>
-      </div>
-    `
-    mainContent.innerHTML += formProductHTML;
-
     const modalOverlay = document.querySelector('.modal-overlay');
     modalOverlay.addEventListener('click', (event) => {
       if(event.target === modalOverlay) {
