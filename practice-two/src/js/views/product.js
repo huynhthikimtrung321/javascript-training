@@ -173,7 +173,7 @@ export default class ProductView {
 
     const formProductHTML = `
       <div class="modal-overlay hidden">
-        <form action="" method="post" class="add-product-container">
+        <form action="" method="post" class="form-container">
           <h2 class="add-product-title">Add products</h2>
           <div class="form-group">
             <label for="name">Product Name:</label>
