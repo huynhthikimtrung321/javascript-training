@@ -23,6 +23,10 @@
   content: '\2193';
 }
 
+.arrow-up::after {
+  content: '\2191';
+}
+
 .flex-space-between {
   position: relative;
   display: flex;
@@ -50,6 +54,10 @@
 .icon-sort {
   width: 20px;
   height: 15px;
+}
+
+.col-product {
+  user-select: none;
 }
 
 .button-filter-group {
