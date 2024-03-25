@@ -16,10 +16,19 @@ export default class ProductController {
     this.productView.bindSortProduct(
       this.handleSortProduct
     );
-    this.productView.bindToggleForm();
+    this.productView.bindToggleAddForm(
+      this.handleShowAddForm
+    );
+    this.productView.bindToggleEditForm(
+      this.handleShowEditForm
+    );
+    this.productView.bindRemoveModal();
     this.productView.bindAddProduct(
       this.handleAddProduct
     );
+    this.productView.bindEditProduct(
+      this.handleEditProduct
+    )
   }
 
   async renderProducts() {
@@ -42,8 +51,23 @@ export default class ProductController {
   }
 
   handleAddProduct = async (product) => {
-    console.log(product)
     const products = await this.productModel.addProduct(product);
+    this.productView.removeModal();
+    this.productView.displayProducts(products);
+
+  }
+
+  handleShowAddForm = () => {
+    this.productView.displayProductForm();
+  }
+
+  handleShowEditForm = async (id) => {
+    const product = await this.productModel.getProduct(id);
+    this.productView.displayProductForm(product);
+  }
+
+  handleEditProduct = async (id, product) => {
+    const products = await this.productModel.editProduct(id, product);
     this.productView.removeModal();
     this.productView.displayProducts(products);
   }
