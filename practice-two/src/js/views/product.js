@@ -188,12 +188,12 @@ export default class ProductView {
           <h2 class="add-product-title">Add products</h2>
           <div class="form-group">
             <label for="name">Product Name:</label>
-            <input id="name" data-field-name="Name" name="name" placeholder="Enter product name" class="form-input">
+            <input id="name" name="name" placeholder="Enter product name" class="form-input">
             <p class="error-msg" data-field-error="Name"></p>
             </div>
           <div class="form-group">
             <label for="category">Category:</label>
-            <select id="category" data-field-name="category" class="form-input">
+            <select id="category" name="category" class="form-input">
               <option>Skin care</option>
               <option>Face care</option>
               <option>Lips care</option>
@@ -201,27 +201,27 @@ export default class ProductView {
           </div>
           <div class="form-group">
             <label for="sku">SKU:</label>
-            <input type="text" id="sku" data-field-name="SKU"class="form-input">
+            <input type="text" id="sku" name="sku" class="form-input">
             <p class="error-msg" data-field-error="SKU"></p>
           </div>
           <div class="form-group">
             <label for="quantity">Quantity:</label>
-            <input id="quantity" data-field-name="Quantity" name="quantity" placeholder="0" class="form-input">
+            <input id="quantity" name="quantity" placeholder="0" class="form-input">
             <p class="error-msg" data-field-error="Quantity"></p>
           </div>
           <div class="form-group">
             <label for="price">Price:</label>
-            <input id="price" data-field-name="Price" name="price" placeholder="Enter price" class="form-input">
+            <input id="price" name="price" placeholder="Enter price" class="form-input">
             <p class="error-msg" data-field-error="Price"></p>
           </div>
           <div class="form-group">
             <label for="cost">Cost:</label>
-            <input id="cost" data-field-name="Cost" name="cost" placeholder="Enter cost" class="form-input">
+            <input id="cost" name="cost" placeholder="Enter cost" class="form-input">
             <p class="error-msg" data-field-error="Cost"></p>
           </div>
           <div class="form-group">
             <label for="status">Status:</label>
-            <select id="status" data-field-name="status" class="form-input">
+            <select id="status" name="status" class="form-input">
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
             </select>
@@ -261,13 +261,13 @@ export default class ProductView {
       if (target.id !== 'btn-add-product') return;
 
       const formElement = document.querySelector('.add-product-container');
-      const nameInputElement = formElement.querySelector('[data-field-name="Name"]');
-      const categoryInputElement = formElement.querySelector('[data-field-name="category"]');
-      const statusInputElement = formElement.querySelector('[data-field-name="status"]');
-      const skuInputElement = formElement.querySelector('[data-field-name="SKU"]')
-      const quantityInputElement = formElement.querySelector('[data-field-name="Quantity"]');
-      const priceInputElement = formElement.querySelector('[data-field-name="Price"]');
-      const costInputElement = formElement.querySelector('[data-field-name="Cost"]');
+      const nameInputElement = formElement.querySelector('[name="name"]');
+      const categoryInputElement = formElement.querySelector('[name="category"]');
+      const statusInputElement = formElement.querySelector('[name="status"]');
+      const skuInputElement = formElement.querySelector('[name="sku"]')
+      const quantityInputElement = formElement.querySelector('[name="quantity"]');
+      const priceInputElement = formElement.querySelector('[name="price"]');
+      const costInputElement = formElement.querySelector('[name="cost"]');
 
       const formFields = [
         {

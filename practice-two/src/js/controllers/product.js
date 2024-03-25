@@ -42,7 +42,6 @@ export default class ProductController {
   }
 
   handleAddProduct = async (product) => {
-    console.log(product)
     const products = await this.productModel.addProduct(product);
     this.productView.removeModal();
     this.productView.displayProducts(products);
