@@ -11,10 +11,10 @@ export default class ProductController {
       this.handleSearchProductByKeyword
     );
     this.productView.bindFilterProductElement(
-      this.handleFilterProducts
+      this.renderProducts
     )
     this.productView.bindSortProduct(
-      this.handleSortProduct
+      this.handleSortProducts
     );
     this.productView.bindToggleForm();
     this.productView.bindAddProduct(
@@ -22,27 +22,26 @@ export default class ProductController {
     );
   }
 
-  async renderProducts() {
-    const products = await this.productModel.getProducts();
+  renderProducts = async (params = {}) => {
+    const products = await this.productModel.getProducts(params);
     this.productView.displayProducts(products);
   }
 
   handleSearchProductByKeyword = async (params = {}) => {
     return await this.productModel.getProducts(params);
   }
-
+  
   handleFilterProducts = async (params) => {
     const products = await this.productModel.getProducts(params);
     this.productView.displayProducts(products);
   }
 
-  handleSortProduct = async (field, orderBy) => {
+  handleSortProducts = async (field, orderBy) => {
     const products = await this.productModel.sortProducts(field, orderBy);
     this.productView.displayProducts(products);
   }
 
   handleAddProduct = async (product) => {
-    console.log(product)
     const products = await this.productModel.addProduct(product);
     this.productView.removeModal();
     this.productView.displayProducts(products);

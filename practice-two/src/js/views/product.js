@@ -14,9 +14,32 @@ export default class ProductView {
   displayProducts(products) {
     const mainContent = document.getElementById('product-list');
     mainContent.innerHTML = '';
+    
+    const tableRowHeaderHTML = `
+      <div class="flex-space-between">
+        <svg class="icon-search">
+          <use
+            xlink:href="${icon}#icon-search"
+          ></use>
+        </svg>
+        <input type="text" class="input-search" placeholder="Search product">
+      </div>
+      <div class="product-row">
+        <div class="text-large product-label">
+          Product name
+        </div>
+        <div class="text-large product-label">Category</div>
+        <div class="text-large product-label">SKU</div>
+        <div class="text-large product-label">Quantity</div>
+        <div class="text-large product-label">Cost</div>
+        <div class="text-large product-label">Price</div>
+        <div class="text-large product-label">Status</div>
+        <div class="text-large product-label">Actions</div>
+      </div>
+    `;
 
-    let listItemHTML = '<ul class="table-header">';
-    console.log(products)
+    let listItemHTML = '<ul class="table-header">'
+
     products?.map(products => {
       const {
         name,
@@ -51,8 +74,20 @@ export default class ProductView {
             ${status ? 'Active' : 'Inactive'}
           </p>
           <div>
-            <button>Edit</button>
-            <button>Delete</button>
+          <button class="btn-action">
+              <svg width="24" height="24" fill="blue" viewBox="0 0 24 24">
+                <use
+                  xlink:href="${icon}#pen-icon"
+                ></use>
+              </svg>
+            </button>
+            <button class="btn-action">
+              <svg width="24 " height="24" fill="red" viewBox="0 0 41.336 41.336">
+                <use
+                  xlink:href="${icon}#trash-can"
+                ></use>
+              </svg>
+            </button>
           </div>
         </li>
       `;
@@ -93,7 +128,7 @@ export default class ProductView {
           </select>
         </div>
         <div class="flex">
-          <label class="label-selection"  >Category</label>
+          <label class="label-selection">Category</label>
           <select id="select-category" data-button-filter=true class="btn select-filter">
             <option selected value="">None</option>
             <option value="Skin care">Skin care</option>
@@ -132,25 +167,23 @@ export default class ProductView {
     })
   }
 
-  bindFilterProductElement(handleFilterProducts) {
+  bindFilterProductElement(renderProducts) {
     const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', (event) => {
+    mainContent.addEventListener('change', (event) => {
+      const filterParams = {};
       const target = event.target;
       if (!target.dataset.buttonFilter) return;
-
-      const activeValue = document.getElementById('select-status').value === 'Active' ? true : false;
+      
+      const statusValue = document.getElementById('select-status').value;
       const categoryValue = document.getElementById('select-category').value;
+      if (statusValue) filterParams.status = statusValue === 'Active';
+      if (categoryValue) filterParams.category = categoryValue;
 
-      const filterValues = {};
-
-      if (activeValue) filterValues.status = activeValue;
-      if (categoryValue) filterValues.category = categoryValue;
-
-      handleFilterProducts(filterValues);
+      renderProducts(filterParams);
     })
   }
 
-  bindSortProduct(handleSortProduct) {
+  bindSortProduct(handleSortProducts) {
     const mainContent = document.querySelector('.main-content');
     mainContent.addEventListener('click', (event) => {
       const target = event.target;
@@ -166,74 +199,20 @@ export default class ProductView {
 
       if (!isArrowDown && !isArrowUp) {
         target.classList.add('arrow-down');
-        handleSortProduct(target.dataset.field, 'desc');
-      } else if (isArrowDown) {
+        handleSortProducts(target.dataset.field, 'desc');
+      } else if(isArrowDown) {
         target.classList.remove('arrow-down');
         target.classList.add('arrow-up');
-        handleSortProduct(target.dataset.field, 'asc');
-      } else if (isArrowUp) {
+        handleSortProducts(target.dataset.field, 'asc');
+      } else if(isArrowUp) {
         target.classList.remove('arrow-up');
-        handleSortProduct(target.dataset.field, '');
+        handleSortProducts(target.dataset.field, '');
       }
     })
-
   }
 
   bindToggleForm() {
     const mainContent = document.querySelector('.main-content');
-
-    const formProductHTML = `
-      <div class="modal-overlay hidden">
-        <form action="javascript:void(0)" method="post" class="add-product-container">
-          <h2 class="add-product-title">Add products</h2>
-          <div class="form-group">
-            <label for="name">Product Name:</label>
-            <input id="name" data-field-name="Name" name="name" placeholder="Enter product name" class="form-input">
-            <p class="error-msg" data-field-error="Name"></p>
-            </div>
-          <div class="form-group">
-            <label for="category">Category:</label>
-            <select id="category" data-field-name="category" class="form-input">
-              <option>Skin care</option>
-              <option>Face care</option>
-              <option>Lips care</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="sku">SKU:</label>
-            <input type="text" id="sku" data-field-name="SKU"class="form-input">
-            <p class="error-msg" data-field-error="SKU"></p>
-          </div>
-          <div class="form-group">
-            <label for="quantity">Quantity:</label>
-            <input id="quantity" data-field-name="Quantity" name="quantity" placeholder="0" class="form-input">
-            <p class="error-msg" data-field-error="Quantity"></p>
-          </div>
-          <div class="form-group">
-            <label for="price">Price:</label>
-            <input id="price" data-field-name="Price" name="price" placeholder="Enter price" class="form-input">
-            <p class="error-msg" data-field-error="Price"></p>
-          </div>
-          <div class="form-group">
-            <label for="cost">Cost:</label>
-            <input id="cost" data-field-name="Cost" name="cost" placeholder="Enter cost" class="form-input">
-            <p class="error-msg" data-field-error="Cost"></p>
-          </div>
-          <div class="form-group">
-            <label for="status">Status:</label>
-            <select id="status" data-field-name="status" class="form-input">
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
-          </div>
-          <div>
-            <input type="submit" value="Add Product" class="add-product-submit" id="btn-add-product">
-          </div>
-        </form>
-      </div>
-    `
-    mainContent.innerHTML += formProductHTML;
-
     const modalOverlay = document.querySelector('.modal-overlay');
     modalOverlay.addEventListener('mousedown', (event) => {
       if (event.target === modalOverlay) {
@@ -261,13 +240,13 @@ export default class ProductView {
       if (target.id !== 'btn-add-product') return;
 
       const formElement = document.querySelector('.add-product-container');
-      const nameInputElement = formElement.querySelector('[data-field-name="Name"]');
-      const categoryInputElement = formElement.querySelector('[data-field-name="category"]');
-      const statusInputElement = formElement.querySelector('[data-field-name="status"]');
-      const skuInputElement = formElement.querySelector('[data-field-name="SKU"]')
-      const quantityInputElement = formElement.querySelector('[data-field-name="Quantity"]');
-      const priceInputElement = formElement.querySelector('[data-field-name="Price"]');
-      const costInputElement = formElement.querySelector('[data-field-name="Cost"]');
+      const nameInputElement = formElement.querySelector('[name="name"]');
+      const categoryInputElement = formElement.querySelector('[name="category"]');
+      const statusInputElement = formElement.querySelector('[name="status"]');
+      const skuInputElement = formElement.querySelector('[name="sku"]')
+      const quantityInputElement = formElement.querySelector('[name="quantity"]');
+      const priceInputElement = formElement.querySelector('[name="price"]');
+      const costInputElement = formElement.querySelector('[name="cost"]');
 
       const formFields = [
         {

@@ -17,7 +17,7 @@ const {
 const isNotEmptyField = (value) => value !== '' ? '' : EMPTY_FIELD_ERROR;
 const hasMinLength = (value, min = 5) => value.length >= min ? '' : MIN_LENGTH_ERROR;
 const isValidSKU = (value) => validSKURegex.test(value) ? '' : IS_INVALID_SKU;
-const isNumber = (value) => !isNaN(parseFloat(value)) ? '' : IS_NAN_ERROR;
+const isNumber = (value) => !isNaN(parseFloat(value)) && parseFloat(value).toString() === value ? '' : IS_NAN_ERROR;
 const isInteger = (value) => Number.isInteger(parseFloat(value)) ? '' : IS_NOT_INTEGER_ERROR;
 const isPositiveNumber = (value) => parseFloat(value) >= 0 ? '' : IS_NEGETIVE_ERROR;
 
