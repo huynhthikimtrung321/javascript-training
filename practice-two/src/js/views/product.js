@@ -58,14 +58,14 @@ export default class ProductView {
           <p> ${price}</p>
           <p>${status ? 'Active' : 'Inactive'}</p>
           <div>
-          <button class="btn-action">
+          <button class="btn-action btn-edit-product" data-product-id="${id}">
               <svg width="24" height="24" fill="blue" viewBox="0 0 24 24">
                 <use
                   xlink:href="${icon}#pen-icon"
                 ></use>
               </svg>
             </button>
-            <button class="btn-action">
+            <button class="btn-action btn-delete-product" data-product-id="${id}">
               <svg width="24 " height="24" fill="red" viewBox="0 0 41.336 41.336">
                 <use
                   xlink:href="${icon}#trash-can"
@@ -226,8 +226,9 @@ export default class ProductView {
   bindToggleEditForm(handleShowEditForm) {
     const mainContent = document.querySelector('.main-content');
     mainContent.addEventListener('click', async (event) => {
-      const target = event.target;
-      if (target.classList.contains('btn-edit-product')) {
+      let target = event.target;
+      if (target.closest('.btn-edit-product')) {
+        target = target.closest('.btn-edit-product');
         const id = target.dataset.productId;
         await handleShowEditForm(id);
       }
