@@ -2,8 +2,8 @@
     margin: 0 auto;
 }
 
-.hidden {
-  display: none !important;
+.modal.hidden {
+  display: none;
 }
 
 @media (min-width: 768px) {
