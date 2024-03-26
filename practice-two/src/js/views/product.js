@@ -395,30 +395,34 @@ export default class ProductView {
         cost: costInputElement.value,
         status: statusInputElement.value === 'active' ? true : false,
       };
+      
       handleEditProduct(productId, product);
     });
   }
 
-  bindToggleDelete() {
-    const mainContent = document.querySelector('.main-content');
-    const modalDeleteContainer = document.querySelector(
-      '.modal-delete-container'
-    );
+  confirmDeleteModal(handleDeleteProduct, id) {
+    const modalDeleteContainer = document.querySelector('.modal-delete-container');
     const btnCancel = document.querySelector('.btn-cancel');
     const btnDelete = document.querySelector('.btn-delete');
-    mainContent.addEventListener('click', (event) => {
-      const target = event.target;
-      if (target.classList.contains('btn-delete-product')) {
-        modalDeleteContainer.classList.toggle('hidden');
-      }
-    });
+    modalDeleteContainer.classList.toggle('hidden');
 
     btnCancel.addEventListener('click', () => {
       modalDeleteContainer.classList.toggle('hidden');
     });
 
     btnDelete.addEventListener('click', () => {
-      handleDeleteProduct();
+      modalDeleteContainer.classList.toggle('hidden');
+      handleDeleteProduct(id);
+    })
+  }
+
+  bindToggleDelete(handleDeleteProduct) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.classList.contains('btn-delete-product')) {
+        this.confirmDeleteModal(handleDeleteProduct, target.dataset.productId);
+      };
     });
   }
 }
