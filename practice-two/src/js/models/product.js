@@ -77,6 +77,12 @@ export default class ProductModel {
   }
 
   async deleteProduct (id) {
-    return await this.httpService.delete(`${PRODUCT_ENDPOINT}/${id}`);
+    const isSuccess = await this.httpService.delete(`${PRODUCT_ENDPOINT}/${id}`);
+
+    if (isSuccess) {
+      this.products = this.products.filter(item => item.id !== id);
+    }
+
+    return this.products;
   }
 }

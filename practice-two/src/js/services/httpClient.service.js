@@ -47,9 +47,11 @@ export default class HttpService {
     try {
       await this.axiosClient.delete(endpoint);
 
-      return response.data;
+      return true;
     } catch (error) {
       console.error(error.message);
+
+      return false;
     }
   }
 }

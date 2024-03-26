@@ -377,24 +377,29 @@ export default class ProductView {
     })
   }
 
-  bindToggleDelete(handleDeleteProduct) {
-    const mainContent = document.querySelector('.main-content');
+  confirmDeleteModal(handleDeleteProduct, id) {
     const modalDeleteContainer = document.querySelector('.modal-delete-container');
     const btnCancel = document.querySelector('.btn-cancel');
     const btnDelete = document.querySelector('.btn-delete');
-    mainContent.addEventListener('click', (event) => {
-      const target = event.target;
-      if (target.classList.contains('btn-delete-product')) {
-        modalDeleteContainer.classList.toggle('hidden');
-      };
-    })
+    modalDeleteContainer.classList.toggle('hidden');
 
     btnCancel.addEventListener('click', () => {
       modalDeleteContainer.classList.toggle('hidden');
     })
 
-    btnDelete.addEventListener('click', (event) => {
-      handleDeleteProduct(event.target.dataset.productId);
+    btnDelete.addEventListener('click', () => {
+      modalDeleteContainer.classList.toggle('hidden');
+      handleDeleteProduct(id);
     })
+  }
+
+  bindToggleDelete(handleDeleteProduct) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.classList.contains('btn-delete-product')) {
+        this.confirmDeleteModal(handleDeleteProduct, target.dataset.productId);
+      };
+    });
   }
 }
