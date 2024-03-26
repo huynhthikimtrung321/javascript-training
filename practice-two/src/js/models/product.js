@@ -75,4 +75,8 @@ export default class ProductModel {
 
     return this.products;
   }
+
+  async deleteProduct (id) {
+    return await this.httpService.delete(`${PRODUCT_ENDPOINT}/${id}`);
+  }
 }

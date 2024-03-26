@@ -22,7 +22,6 @@ export default class ProductView {
     mainContent.innerHTML = '';
 
     let listItemHTML = '<ul class="table-header">';
-    console.log(products)
     products?.map(products => {
       const {
         id,
@@ -374,12 +373,11 @@ export default class ProductView {
         cost: costInputElement.value,
         status: statusInputElement.value === 'active' ? true : false
       }
-      console.log(product)
       handleEditProduct(productId, product);
     })
   }
 
-  bindToggleDelete() {
+  bindToggleDelete(handleDeleteProduct) {
     const mainContent = document.querySelector('.main-content');
     const modalDeleteContainer = document.querySelector('.modal-delete-container');
     const btnCancel = document.querySelector('.btn-cancel');
@@ -395,8 +393,8 @@ export default class ProductView {
       modalDeleteContainer.classList.toggle('hidden');
     })
 
-    btnDelete.addEventListener('click', () => {
-      handleDeleteProduct();
+    btnDelete.addEventListener('click', (event) => {
+      handleDeleteProduct(event.target.dataset.productId);
     })
   }
 }

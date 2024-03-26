@@ -29,7 +29,9 @@ export default class ProductController {
     this.productView.bindEditProduct(
       this.handleEditProduct
     );
-    this.productView.bindToggleDelete();
+    this.productView.bindToggleDelete(
+      this.handleDeleteProduct
+    );
   }
 
   async renderProducts() {
@@ -70,6 +72,11 @@ export default class ProductController {
   handleEditProduct = async (id, product) => {
     const products = await this.productModel.editProduct(id, product);
     this.productView.removeModal();
+    this.productView.displayProducts(products);
+  }
+
+  handleDeleteProduct = async (id) => {
+    const products = await this.productModel.deleteProduct(id);
     this.productView.displayProducts(products);
   }
 
