@@ -327,9 +327,9 @@ export default class ProductView {
         name: nameInputElement.value,
         category: categoryInputElement.value,
         sku: skuInputElement.value,
-        quantity: quantityInputElement.value,
-        price: priceInputElement.value,
-        cost: costInputElement.value,
+        quantity: parseInt(quantityInputElement.value),
+        price: parseFloat(priceInputElement.value),
+        cost: parseFloat(costInputElement.value),
         status: statusInputElement.value
       }
 
