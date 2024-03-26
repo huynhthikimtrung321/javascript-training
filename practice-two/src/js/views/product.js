@@ -163,29 +163,12 @@ export default class ProductView {
       const filterParams = {};
       const target = event.target;
       if (!target.dataset.buttonFilter) return;
-
-<<<<<<< HEAD
-      const activeValue =
-        document.getElementById('select-status').value === 'Active'
-          ? true
-          : false;
-=======
       const statusValue = document.getElementById('select-status').value;
->>>>>>> javascript/practice-two
       const categoryValue = document.getElementById('select-category').value;
       if (statusValue) filterParams.status = statusValue === 'Active';
       if (categoryValue) filterParams.category = categoryValue;
 
-<<<<<<< HEAD
-      const filterValues = {};
-
-      if (activeValue) filterValues.status = activeValue;
-      if (categoryValue) filterValues.category = categoryValue;
-
-      handleFilterProducts(filterValues);
-=======
       renderProducts(filterParams);
->>>>>>> javascript/practice-two
     });
   }
 
@@ -242,14 +225,9 @@ export default class ProductView {
   bindToggleEditForm(handleShowEditForm) {
     const mainContent = document.querySelector('.main-content');
     mainContent.addEventListener('click', async (event) => {
-<<<<<<< HEAD
-      const target = event.target;
-      if (target.classList.contains('btn-edit-product')) {
-=======
       let target = event.target;
       if (target.closest('.btn-edit-product')) {
         target = target.closest('.btn-edit-product');
->>>>>>> javascript/practice-two
         const id = target.dataset.productId;
         await handleShowEditForm(id);
       }
@@ -267,8 +245,8 @@ export default class ProductView {
       const target = event.target;
       if (target.id !== 'btn-add-product') return;
 
-      const formElement = document.querySelector('.add-product-container');
-<<<<<<< HEAD
+      const formElement = document.querySelector('.form-container');
+      console.log(formElement);
       const nameInputElement = formElement.querySelector(
         '[data-field-name="Name"]'
       );
@@ -290,17 +268,6 @@ export default class ProductView {
       const costInputElement = formElement.querySelector(
         '[data-field-name="Cost"]'
       );
-=======
-      const nameInputElement = formElement.querySelector('[name="name"]');
-      const categoryInputElement =
-        formElement.querySelector('[name="category"]');
-      const statusInputElement = formElement.querySelector('[name="status"]');
-      const skuInputElement = formElement.querySelector('[name="sku"]');
-      const quantityInputElement =
-        formElement.querySelector('[name="quantity"]');
-      const priceInputElement = formElement.querySelector('[name="price"]');
-      const costInputElement = formElement.querySelector('[name="cost"]');
->>>>>>> javascript/practice-two
 
       const formFields = [
         {
@@ -342,15 +309,9 @@ export default class ProductView {
         name: nameInputElement.value,
         category: categoryInputElement.value,
         sku: skuInputElement.value,
-<<<<<<< HEAD
-        quantity: quantityInputElement.value,
-        price: priceInputElement.value,
-        cost: costInputElement.value,
-=======
         quantity: parseInt(quantityInputElement.value),
         price: parseFloat(priceInputElement.value),
         cost: parseFloat(costInputElement.value),
->>>>>>> javascript/practice-two
         status: statusInputElement.value,
       };
 
@@ -364,7 +325,7 @@ export default class ProductView {
       const target = event.target;
       if (target.id !== 'btn-edit-product') return;
 
-      const formElement = document.querySelector('.add-product-container');
+      const formElement = document.querySelector('.form-container');
       const productId = target.dataset.productId;
       const nameInputElement = formElement.querySelector(
         '[data-field-name="Name"]'
@@ -434,8 +395,6 @@ export default class ProductView {
         cost: costInputElement.value,
         status: statusInputElement.value === 'active' ? true : false,
       };
-<<<<<<< HEAD
-      console.log(product);
       handleEditProduct(productId, product);
     });
   }
@@ -462,9 +421,4 @@ export default class ProductView {
       handleDeleteProduct();
     });
   }
-=======
-      handleEditProduct(productId, product);
-    });
-  }
->>>>>>> javascript/practice-two
 }
