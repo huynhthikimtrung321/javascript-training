@@ -64,13 +64,9 @@ export default class ProductModel {
     const isSuccess = await this.httpService.put(`${PRODUCT_ENDPOINT}/${id}`, product);
 
     if (isSuccess) {
-      this.products = this.products.map(item => {
-        if (item.id === id) {
-          return { ...item, ...product };
-        }
-
-        return item;
-      });
+      this.products = this.products.map(item =>
+        item.id === id ? { ...item, ...product } : item
+      );
     }
 
     return this.products;

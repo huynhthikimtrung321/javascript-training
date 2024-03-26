@@ -1,4 +1,4 @@
-const generateFormProductHtml = (product = {}) => {
+const productFormTemplate = (product = {}) => {
   const {
     id = '',
     name = '',
@@ -9,7 +9,6 @@ const generateFormProductHtml = (product = {}) => {
     price = '',
     status = ''
   } = product;
-  console.log(status)
   const isEditForm = Object.keys(product).length > 0;
 
   const formProductHTML = `
@@ -66,4 +65,4 @@ const generateFormProductHtml = (product = {}) => {
   return formProductHTML;
 }
 
-export default generateFormProductHtml;
+export default productFormTemplate;

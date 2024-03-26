@@ -9,8 +9,7 @@ import {
   renderErrorMessages,
   validateForm
 } from '../helpers/validateForm';
-import generateFormProductHtml from './generateFormProductHtml';
-import getDataForm from '../utils/getDataForm';
+import productFormTemplate from './generateFormProductHtml'
 
 export default class ProductView {
   constructor() {
@@ -22,7 +21,6 @@ export default class ProductView {
     mainContent.innerHTML = '';
 
     let listItemHTML = '<ul class="table-header">';
-    console.log(products)
     products?.map(products => {
       const {
         id,
@@ -112,7 +110,7 @@ export default class ProductView {
   }
 
   displayProductForm(product = {}) {
-    this.mainContent.innerHTML += generateFormProductHtml(product);
+    this.mainContent.innerHTML += productFormTemplate(product);
   }
 
   bindSearchProducts(handleSearchProductByKeyword) {
@@ -374,7 +372,6 @@ export default class ProductView {
         cost: costInputElement.value,
         status: statusInputElement.value === 'active' ? true : false
       }
-      console.log(product)
       handleEditProduct(productId, product);
     })
   }
