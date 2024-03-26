@@ -25,6 +25,10 @@ export default class ProductModel {
     return this.products = await this.httpService.get(PRODUCT_ENDPOINT, params);
   }
 
+  async getProduct(id) {
+    return await this.httpService.get(`${PRODUCT_ENDPOINT}/${id}`, {});
+  }
+
   async sortProducts(field, orderBy = '') {
     const products = (await this.getProducts({})).slice();
 
@@ -48,6 +52,17 @@ export default class ProductModel {
 
     if (isSuccess) {
       this.products.push(product);
+    }
+
+    return this.products;
+  }
+  async editProduct(id, product) {
+    const isSuccess = await this.httpService.put(`${PRODUCT_ENDPOINT}/${id}`, product);
+
+    if (isSuccess) {
+      this.products = this.products.map(item =>
+        item.id === id ? { ...item, ...product } : item
+      );
     }
 
     return this.products;

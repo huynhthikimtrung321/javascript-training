@@ -6,7 +6,7 @@ export default class HttpService {
     this.axiosClient = axios.create({
       baseURL: this.baseUrl,
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       },
     });
   }
@@ -33,9 +33,9 @@ export default class HttpService {
     }
   }
 
-  async patch(endpoint, product) {
+  async put(endpoint, product) {
     try {
-      const response = await this.axiosClient.patch(endpoint, product);
+      const response = await this.axiosClient.put(endpoint, product);
 
       return response.data;
     } catch (error) {

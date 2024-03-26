@@ -7,14 +7,19 @@ import {
   isInteger,
   isPositiveNumber,
   renderErrorMessages,
-  validateForm
+  validateForm,
 } from '../helpers/validateForm';
+import productFormTemplate from './generateFormProductHtml';
 
 export default class ProductView {
+  constructor() {
+    this.mainContent = document.querySelector('.main-content');
+  }
+
   displayProducts(products) {
     const mainContent = document.getElementById('product-list');
     mainContent.innerHTML = '';
-    
+
     const tableRowHeaderHTML = `
       <div class="flex-space-between">
         <svg class="icon-search">
@@ -38,41 +43,20 @@ export default class ProductView {
       </div>
     `;
 
-    let listItemHTML = '<ul class="table-header">'
+    let listItemHTML = '<ul class="table-header">';
 
-    products?.map(products => {
-      const {
-        name,
-        category,
-        sku,
-        quantity,
-        cost,
-        price,
-        status
-      } = products;
+    products?.map((products) => {
+      const { id, name, category, sku, quantity, cost, price, status } =
+        products;
       const productRowElement = `
         <li class="product-row">
-          <h2>
-            ${name}
-          </h2>
-          <p>
-            ${category}
-          </p>
-          <p>
-            ${sku}
-          </p>
-          <p>
-            ${quantity}
-          </p>
-          <p>
-            ${cost}
-          </p>
-          <p>
-            ${price}
-          </p>
-          <p>
-            ${status ? 'Active' : 'Inactive'}
-          </p>
+          <h2>${name}</h2>
+          <p>${category}</p>
+          <p>${sku}</p>
+          <p>${quantity}</p>
+          <p>${cost}</p>
+          <p> ${price}</p>
+          <p>${status ? 'Active' : 'Inactive'}</p>
           <div>
           <button class="btn-action">
               <svg width="24" height="24" fill="blue" viewBox="0 0 24 24">
@@ -153,6 +137,10 @@ export default class ProductView {
     mainContent.innerHTML += tableRowHeaderHTML;
   }
 
+  displayProductForm(product = {}) {
+    this.mainContent.innerHTML += productFormTemplate(product);
+  }
+
   bindSearchProducts(handleSearchProductByKeyword) {
     const mainContent = document.querySelector('.main-content');
 
@@ -162,9 +150,11 @@ export default class ProductView {
       if (event.key !== 'Enter') return;
 
       const searchValue = event.target.value.toLowerCase();
-      const searchedProducts = await handleSearchProductByKeyword({ name: searchValue });
+      const searchedProducts = await handleSearchProductByKeyword({
+        name: searchValue,
+      });
       this.displayProducts(searchedProducts);
-    })
+    });
   }
 
   bindFilterProductElement(renderProducts) {
@@ -173,14 +163,14 @@ export default class ProductView {
       const filterParams = {};
       const target = event.target;
       if (!target.dataset.buttonFilter) return;
-      
+
       const statusValue = document.getElementById('select-status').value;
       const categoryValue = document.getElementById('select-category').value;
       if (statusValue) filterParams.status = statusValue === 'Active';
       if (categoryValue) filterParams.category = categoryValue;
 
       renderProducts(filterParams);
-    })
+    });
   }
 
   bindSortProduct(handleSortProducts) {
@@ -189,10 +179,12 @@ export default class ProductView {
       const target = event.target;
       if (!target.dataset.sortLabel) return;
       const targetSiblings = Array.from(target.parentNode.children);
-      targetSiblings.filter(sibling => sibling !== target).map(sibling => {
-        sibling.classList.remove('arrow-up');
-        sibling.classList.remove('arrow-down');
-      })
+      targetSiblings
+        .filter((sibling) => sibling !== target)
+        .map((sibling) => {
+          sibling.classList.remove('arrow-up');
+          sibling.classList.remove('arrow-down');
+        });
 
       const isArrowDown = target.classList.contains('arrow-down');
       const isArrowUp = target.classList.contains('arrow-up');
@@ -200,37 +192,51 @@ export default class ProductView {
       if (!isArrowDown && !isArrowUp) {
         target.classList.add('arrow-down');
         handleSortProducts(target.dataset.field, 'desc');
-      } else if(isArrowDown) {
+      } else if (isArrowDown) {
         target.classList.remove('arrow-down');
         target.classList.add('arrow-up');
         handleSortProducts(target.dataset.field, 'asc');
-      } else if(isArrowUp) {
+      } else if (isArrowUp) {
         target.classList.remove('arrow-up');
         handleSortProducts(target.dataset.field, '');
       }
-    })
+    });
   }
 
-  bindToggleForm() {
+  bindRemoveModal() {
     const mainContent = document.querySelector('.main-content');
-    const modalOverlay = document.querySelector('.modal-overlay');
-    modalOverlay.addEventListener('mousedown', (event) => {
-      if (event.target === modalOverlay) {
-        modalOverlay.classList.toggle('hidden');
+    mainContent.addEventListener('mousedown', (event) => {
+      const target = event.target;
+      if (target.classList.contains('modal-overlay')) {
+        target.remove();
       }
     });
+  }
 
-    mainContent.addEventListener('click', (e) => {
-      const target = e.target;
-      if (e.target.id === 'toggle-form') {
-        modalOverlay.classList.toggle('hidden');
+  bindToggleAddForm(handleShowAddForm) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.id === 'toggle-form') {
+        handleShowAddForm();
+      }
+    });
+  }
+
+  bindToggleEditForm(handleShowEditForm) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.addEventListener('click', async (event) => {
+      const target = event.target;
+      if (target.classList.contains('btn-edit-product')) {
+        const id = target.dataset.productId;
+        await handleShowEditForm(id);
       }
     });
   }
 
   removeModal() {
-    const modalOverlay = document.querySelector('.modal-overlay');
-    modalOverlay.classList.toggle('hidden');
+    const modalElement = document.querySelector('.modal-overlay');
+    modalElement.remove();
   }
 
   bindAddProduct(handleAddProduct) {
@@ -241,10 +247,12 @@ export default class ProductView {
 
       const formElement = document.querySelector('.add-product-container');
       const nameInputElement = formElement.querySelector('[name="name"]');
-      const categoryInputElement = formElement.querySelector('[name="category"]');
+      const categoryInputElement =
+        formElement.querySelector('[name="category"]');
       const statusInputElement = formElement.querySelector('[name="status"]');
-      const skuInputElement = formElement.querySelector('[name="sku"]')
-      const quantityInputElement = formElement.querySelector('[name="quantity"]');
+      const skuInputElement = formElement.querySelector('[name="sku"]');
+      const quantityInputElement =
+        formElement.querySelector('[name="quantity"]');
       const priceInputElement = formElement.querySelector('[name="price"]');
       const costInputElement = formElement.querySelector('[name="cost"]');
 
@@ -252,46 +260,28 @@ export default class ProductView {
         {
           field: 'Name',
           value: nameInputElement.value,
-          validators: [
-            isNotEmptyField,
-            hasMinLength
-          ]
+          validators: [isNotEmptyField, hasMinLength],
         },
         {
           field: 'SKU',
           value: skuInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isValidSKU
-          ]
+          validators: [isNotEmptyField, isValidSKU],
         },
         {
           field: 'Quantity',
           value: quantityInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isInteger,
-            isPositiveNumber
-          ]
+          validators: [isNotEmptyField, isInteger, isPositiveNumber],
         },
         {
           field: 'Price',
           value: priceInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber
-          ]
+          validators: [isNotEmptyField, isNumber, isPositiveNumber],
         },
         {
           field: 'Cost',
           value: costInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber
-          ]
-        }
+          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+        },
       ];
 
       const formError = validateForm(formFields);
@@ -309,11 +299,90 @@ export default class ProductView {
         quantity: parseInt(quantityInputElement.value),
         price: parseFloat(priceInputElement.value),
         cost: parseFloat(costInputElement.value),
-        status: statusInputElement.value
-      }
+        status: statusInputElement.value,
+      };
 
       handleAddProduct(product);
-    })
+    });
   }
 
+  bindEditProduct(handleEditProduct) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.id !== 'btn-edit-product') return;
+
+      const formElement = document.querySelector('.add-product-container');
+      const productId = target.dataset.productId;
+      const nameInputElement = formElement.querySelector(
+        '[data-field-name="Name"]'
+      );
+      const categoryInputElement = formElement.querySelector(
+        '[data-field-name="category"]'
+      );
+      const statusInputElement = formElement.querySelector(
+        '[data-field-name="status"]'
+      );
+      const skuInputElement = formElement.querySelector(
+        '[data-field-name="SKU"]'
+      );
+      const quantityInputElement = formElement.querySelector(
+        '[data-field-name="Quantity"]'
+      );
+      const priceInputElement = formElement.querySelector(
+        '[data-field-name="Price"]'
+      );
+      const costInputElement = formElement.querySelector(
+        '[data-field-name="Cost"]'
+      );
+
+      const formFields = [
+        {
+          field: 'Name',
+          value: nameInputElement.value,
+          validators: [isNotEmptyField, hasMinLength],
+        },
+        {
+          field: 'SKU',
+          value: skuInputElement.value,
+          validators: [isNotEmptyField, isValidSKU],
+        },
+        {
+          field: 'Quantity',
+          value: quantityInputElement.value,
+          validators: [isNotEmptyField, isInteger, isPositiveNumber],
+        },
+        {
+          field: 'Price',
+          value: priceInputElement.value,
+          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+        },
+        {
+          field: 'Cost',
+          value: costInputElement.value,
+          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+        },
+      ];
+
+      const formError = validateForm(formFields);
+      for (let key in formError) {
+        renderErrorMessages(formElement, {});
+        if (formError[key] !== '') {
+          return renderErrorMessages(formElement, formError);
+        }
+      }
+
+      const product = {
+        id: productId,
+        name: nameInputElement.value,
+        category: categoryInputElement.value,
+        sku: skuInputElement.value,
+        quantity: quantityInputElement.value,
+        price: priceInputElement.value,
+        cost: costInputElement.value,
+        status: statusInputElement.value === 'active' ? true : false,
+      };
+      handleEditProduct(productId, product);
+    });
+  }
 }
