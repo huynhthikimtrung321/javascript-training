@@ -7,9 +7,9 @@ const generateFormProductHtml = (product = {}) => {
     quantity = '',
     cost = '',
     price = '',
-    status = ''
+    status = '',
   } = product;
-  console.log(status)
+  console.log(status);
   const isEditForm = Object.keys(product).length > 0;
 
   const formProductHTML = `
@@ -24,9 +24,9 @@ const generateFormProductHtml = (product = {}) => {
         <div class="form-group">
           <label for="category">Category:</label>
           <select id="category" data-field-name="category" class="form-input">
-            <option ${category === "Skin care" && 'selected'}>Skin care</option>
-            <option ${category === "Face care" && 'selected'}>Face care</option>
-            <option ${category === "Lips care" && 'selected'}>Lips care</option>
+            <option ${category === 'Skin care' && 'selected'}>Skin care</option>
+            <option ${category === 'Face care' && 'selected'}>Face care</option>
+            <option ${category === 'Lips care' && 'selected'}>Lips care</option>
           </select>
         </div>
         <div class="form-group">
@@ -61,9 +61,9 @@ const generateFormProductHtml = (product = {}) => {
         </div>
       </form>
     </div>
-  `
+  `;
 
   return formProductHTML;
-}
+};
 
 export default generateFormProductHtml;

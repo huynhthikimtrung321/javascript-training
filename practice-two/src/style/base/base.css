@@ -1,5 +1,5 @@
 .container {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .modal.hidden {
@@ -10,7 +10,6 @@
   .container {
     padding-left: 15px;
     padding-right: 15px;
-
   }
 }
 
