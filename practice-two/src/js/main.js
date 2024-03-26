@@ -1,7 +1,7 @@
-import ProductModel from "./models/product";
-import ProductView from "./views/product";
-import ProductController from "./controllers/product";
-import HttpService from "./services/httpClient.service";
+import ProductModel from './models/product';
+import ProductView from './views/product';
+import ProductController from './controllers/product';
+import HttpService from './services/httpClient.service';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const httpService = new HttpService();

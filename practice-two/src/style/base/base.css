@@ -1,16 +1,19 @@
-.container {
-    margin: 0 auto;
+body {
+  font-family: 'roboto', sans-serif;
 }
 
-.hidden {
-  display: none !important;
+.container {
+  margin: 0 auto;
+}
+
+.modal.hidden {
+  display: none;
 }
 
 @media (min-width: 768px) {
   .container {
     padding-left: 15px;
     padding-right: 15px;
-
   }
 }
 

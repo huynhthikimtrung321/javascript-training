@@ -1,9 +1,18 @@
-import { API_ENDPOINT } from "../constants/endpoint";
+import { API_ENDPOINT } from '../constants/endpoint';
 
 const { PRODUCT_ENDPOINT } = API_ENDPOINT;
 
 export class Product {
-  constructor({ id, name, category, sku, quantity, cost, price, status = false }) {
+  constructor({
+    id,
+    name,
+    category,
+    sku,
+    quantity,
+    cost,
+    price,
+    status = false,
+  }) {
     this.id = id;
     this.name = name;
     this.category = category;
@@ -22,10 +31,6 @@ export default class ProductModel {
   }
 
   async getProducts(params = {}) {
-    if (this.products.length != 0) {
-      return this.products;
-    }
-
     return this.products = await this.httpService.get(PRODUCT_ENDPOINT, params);
   }
 
@@ -47,7 +52,11 @@ export default class ProductModel {
         comparision = a[field] - b[field];
       }
 
-      return orderBy === 'asc' ? comparision : orderBy === 'desc' ? -comparision : 0;
+      return orderBy === 'asc'
+        ? comparision
+        : orderBy === 'desc'
+          ? -comparision
+          : 0;
     });
   }
 
@@ -61,16 +70,25 @@ export default class ProductModel {
     return this.products;
   }
   async editProduct(id, product) {
-    const isSuccess = await this.httpService.put(`${PRODUCT_ENDPOINT}/${id}`, product);
+    const isSuccess = await this.httpService.put(
+      `${PRODUCT_ENDPOINT}/${id}`,
+      product
+    );
 
     if (isSuccess) {
-      this.products = this.products.map(item => {
+<<<<<<< HEAD
+      this.products = this.products.map((item) => {
         if (item.id === id) {
           return { ...item, ...product };
         }
 
         return item;
       });
+=======
+      this.products = this.products.map(item =>
+        item.id === id ? { ...item, ...product } : item
+      );
+>>>>>>> javascript/practice-two
     }
 
     return this.products;
