@@ -7,9 +7,9 @@ import {
   isInteger,
   isPositiveNumber,
   renderErrorMessages,
-  validateForm
+  validateForm,
 } from '../helpers/validateForm';
-import productFormTemplate from './generateFormProductHtml'
+import productFormTemplate from './generateFormProductHtml';
 
 export default class ProductView {
   constructor() {
@@ -20,18 +20,34 @@ export default class ProductView {
     const mainContent = document.getElementById('product-list');
     mainContent.innerHTML = '';
 
+    const tableRowHeaderHTML = `
+      <div class="flex-space-between">
+        <svg class="icon-search">
+          <use
+            xlink:href="${icon}#icon-search"
+          ></use>
+        </svg>
+        <input type="text" class="input-search" placeholder="Search product">
+      </div>
+      <div class="product-row">
+        <div class="text-large product-label">
+          Product name
+        </div>
+        <div class="text-large product-label">Category</div>
+        <div class="text-large product-label">SKU</div>
+        <div class="text-large product-label">Quantity</div>
+        <div class="text-large product-label">Cost</div>
+        <div class="text-large product-label">Price</div>
+        <div class="text-large product-label">Status</div>
+        <div class="text-large product-label">Actions</div>
+      </div>
+    `;
+
     let listItemHTML = '<ul class="table-header">';
-    products?.map(products => {
-      const {
-        id,
-        name,
-        category,
-        sku,
-        quantity,
-        cost,
-        price,
-        status
-      } = products;
+
+    products?.map((products) => {
+      const { id, name, category, sku, quantity, cost, price, status } =
+        products;
       const productRowElement = `
         <li class="product-row">
           <h2>${name}</h2>
@@ -42,8 +58,20 @@ export default class ProductView {
           <p> ${price}</p>
           <p>${status ? 'Active' : 'Inactive'}</p>
           <div>
-            <button data-product-id="${id}" class="btn-edit-product">Edit</button>
-            <button data-product-id="${id}" class="btn-delete-product">Delete</button>
+          <button class="btn-action">
+              <svg width="24" height="24" fill="blue" viewBox="0 0 24 24">
+                <use
+                  xlink:href="${icon}#pen-icon"
+                ></use>
+              </svg>
+            </button>
+            <button class="btn-action">
+              <svg width="24 " height="24" fill="red" viewBox="0 0 41.336 41.336">
+                <use
+                  xlink:href="${icon}#trash-can"
+                ></use>
+              </svg>
+            </button>
           </div>
         </li>
       `;
@@ -84,7 +112,7 @@ export default class ProductView {
           </select>
         </div>
         <div class="flex">
-          <label class="label-selection"  >Category</label>
+          <label class="label-selection">Category</label>
           <select id="select-category" data-button-filter=true class="btn select-filter">
             <option selected value="">None</option>
             <option value="Skin care">Skin care</option>
@@ -122,55 +150,57 @@ export default class ProductView {
       if (event.key !== 'Enter') return;
 
       const searchValue = event.target.value.toLowerCase();
-      const searchedProducts = await handleSearchProductByKeyword({ name: searchValue });
+      const searchedProducts = await handleSearchProductByKeyword({
+        name: searchValue,
+      });
       this.displayProducts(searchedProducts);
-    })
+    });
   }
 
-  bindFilterProductElement(handleFilterProducts) {
+  bindFilterProductElement(renderProducts) {
     const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', (event) => {
+    mainContent.addEventListener('change', (event) => {
+      const filterParams = {};
       const target = event.target;
       if (!target.dataset.buttonFilter) return;
 
-      const activeValue = document.getElementById('select-status').value === 'Active' ? true : false;
+      const statusValue = document.getElementById('select-status').value;
       const categoryValue = document.getElementById('select-category').value;
+      if (statusValue) filterParams.status = statusValue === 'Active';
+      if (categoryValue) filterParams.category = categoryValue;
 
-      const filterValues = {};
-
-      if (activeValue) filterValues.status = activeValue;
-      if (categoryValue) filterValues.category = categoryValue;
-
-      handleFilterProducts(filterValues);
-    })
+      renderProducts(filterParams);
+    });
   }
 
-  bindSortProduct(handleSortProduct) {
+  bindSortProduct(handleSortProducts) {
     const mainContent = document.querySelector('.main-content');
     mainContent.addEventListener('click', (event) => {
       const target = event.target;
       if (!target.dataset.sortLabel) return;
       const targetSiblings = Array.from(target.parentNode.children);
-      targetSiblings.filter(sibling => sibling !== target).map(sibling => {
-        sibling.classList.remove('arrow-up');
-        sibling.classList.remove('arrow-down');
-      })
+      targetSiblings
+        .filter((sibling) => sibling !== target)
+        .map((sibling) => {
+          sibling.classList.remove('arrow-up');
+          sibling.classList.remove('arrow-down');
+        });
 
       const isArrowDown = target.classList.contains('arrow-down');
       const isArrowUp = target.classList.contains('arrow-up');
 
       if (!isArrowDown && !isArrowUp) {
         target.classList.add('arrow-down');
-        handleSortProduct(target.dataset.field, 'desc');
+        handleSortProducts(target.dataset.field, 'desc');
       } else if (isArrowDown) {
         target.classList.remove('arrow-down');
         target.classList.add('arrow-up');
-        handleSortProduct(target.dataset.field, 'asc');
+        handleSortProducts(target.dataset.field, 'asc');
       } else if (isArrowUp) {
         target.classList.remove('arrow-up');
-        handleSortProduct(target.dataset.field, '');
+        handleSortProducts(target.dataset.field, '');
       }
-    })
+    });
   }
 
   bindRemoveModal() {
@@ -187,7 +217,7 @@ export default class ProductView {
     const mainContent = document.querySelector('.main-content');
     mainContent.addEventListener('click', (event) => {
       const target = event.target;
-      if(target.id === 'toggle-form') {
+      if (target.id === 'toggle-form') {
         handleShowAddForm();
       }
     });
@@ -197,7 +227,7 @@ export default class ProductView {
     const mainContent = document.querySelector('.main-content');
     mainContent.addEventListener('click', async (event) => {
       const target = event.target;
-      if(target.classList.contains('btn-edit-product')) {
+      if (target.classList.contains('btn-edit-product')) {
         const id = target.dataset.productId;
         await handleShowEditForm(id);
       }
@@ -216,58 +246,42 @@ export default class ProductView {
       if (target.id !== 'btn-add-product') return;
 
       const formElement = document.querySelector('.add-product-container');
-      const nameInputElement = formElement.querySelector('[data-field-name="Name"]');
-      const categoryInputElement = formElement.querySelector('[data-field-name="category"]');
-      const statusInputElement = formElement.querySelector('[data-field-name="status"]');
-      const skuInputElement = formElement.querySelector('[data-field-name="SKU"]')
-      const quantityInputElement = formElement.querySelector('[data-field-name="Quantity"]');
-      const priceInputElement = formElement.querySelector('[data-field-name="Price"]');
-      const costInputElement = formElement.querySelector('[data-field-name="Cost"]');
+      const nameInputElement = formElement.querySelector('[name="name"]');
+      const categoryInputElement =
+        formElement.querySelector('[name="category"]');
+      const statusInputElement = formElement.querySelector('[name="status"]');
+      const skuInputElement = formElement.querySelector('[name="sku"]');
+      const quantityInputElement =
+        formElement.querySelector('[name="quantity"]');
+      const priceInputElement = formElement.querySelector('[name="price"]');
+      const costInputElement = formElement.querySelector('[name="cost"]');
 
       const formFields = [
         {
           field: 'Name',
           value: nameInputElement.value,
-          validators: [
-            isNotEmptyField,
-            hasMinLength
-          ]
+          validators: [isNotEmptyField, hasMinLength],
         },
         {
           field: 'SKU',
           value: skuInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isValidSKU
-          ]
+          validators: [isNotEmptyField, isValidSKU],
         },
         {
           field: 'Quantity',
           value: quantityInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isInteger,
-            isPositiveNumber
-          ]
+          validators: [isNotEmptyField, isInteger, isPositiveNumber],
         },
         {
           field: 'Price',
           value: priceInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber
-          ]
+          validators: [isNotEmptyField, isNumber, isPositiveNumber],
         },
         {
           field: 'Cost',
           value: costInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber
-          ]
-        }
+          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+        },
       ];
 
       const formError = validateForm(formFields);
@@ -282,14 +296,14 @@ export default class ProductView {
         name: nameInputElement.value,
         category: categoryInputElement.value,
         sku: skuInputElement.value,
-        quantity: quantityInputElement.value,
-        price: priceInputElement.value,
-        cost: costInputElement.value,
-        status: statusInputElement.value
-      }
+        quantity: parseInt(quantityInputElement.value),
+        price: parseFloat(priceInputElement.value),
+        cost: parseFloat(costInputElement.value),
+        status: statusInputElement.value,
+      };
 
       handleAddProduct(product);
-    })
+    });
   }
 
   bindEditProduct(handleEditProduct) {
@@ -300,58 +314,54 @@ export default class ProductView {
 
       const formElement = document.querySelector('.add-product-container');
       const productId = target.dataset.productId;
-      const nameInputElement = formElement.querySelector('[data-field-name="Name"]');
-      const categoryInputElement = formElement.querySelector('[data-field-name="category"]');
-      const statusInputElement = formElement.querySelector('[data-field-name="status"]');
-      const skuInputElement = formElement.querySelector('[data-field-name="SKU"]')
-      const quantityInputElement = formElement.querySelector('[data-field-name="Quantity"]');
-      const priceInputElement = formElement.querySelector('[data-field-name="Price"]');
-      const costInputElement = formElement.querySelector('[data-field-name="Cost"]');
+      const nameInputElement = formElement.querySelector(
+        '[data-field-name="Name"]'
+      );
+      const categoryInputElement = formElement.querySelector(
+        '[data-field-name="category"]'
+      );
+      const statusInputElement = formElement.querySelector(
+        '[data-field-name="status"]'
+      );
+      const skuInputElement = formElement.querySelector(
+        '[data-field-name="SKU"]'
+      );
+      const quantityInputElement = formElement.querySelector(
+        '[data-field-name="Quantity"]'
+      );
+      const priceInputElement = formElement.querySelector(
+        '[data-field-name="Price"]'
+      );
+      const costInputElement = formElement.querySelector(
+        '[data-field-name="Cost"]'
+      );
 
       const formFields = [
         {
           field: 'Name',
           value: nameInputElement.value,
-          validators: [
-            isNotEmptyField,
-            hasMinLength
-          ]
+          validators: [isNotEmptyField, hasMinLength],
         },
         {
           field: 'SKU',
           value: skuInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isValidSKU
-          ]
+          validators: [isNotEmptyField, isValidSKU],
         },
         {
           field: 'Quantity',
           value: quantityInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isInteger,
-            isPositiveNumber
-          ]
+          validators: [isNotEmptyField, isInteger, isPositiveNumber],
         },
         {
           field: 'Price',
           value: priceInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber
-          ]
+          validators: [isNotEmptyField, isNumber, isPositiveNumber],
         },
         {
           field: 'Cost',
           value: costInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber
-          ]
-        }
+          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+        },
       ];
 
       const formError = validateForm(formFields);
@@ -370,10 +380,9 @@ export default class ProductView {
         quantity: quantityInputElement.value,
         price: priceInputElement.value,
         cost: costInputElement.value,
-        status: statusInputElement.value === 'active' ? true : false
-      }
+        status: statusInputElement.value === 'active' ? true : false,
+      };
       handleEditProduct(productId, product);
-    })
+    });
   }
-
 }
