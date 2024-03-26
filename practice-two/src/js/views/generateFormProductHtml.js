@@ -1,4 +1,4 @@
-const generateFormProductHtml = (product = {}) => {
+const productFormTemplate = (product = {}) => {
   const {
     id = '',
     name = '',
@@ -9,12 +9,11 @@ const generateFormProductHtml = (product = {}) => {
     price = '',
     status = '',
   } = product;
-  console.log(status);
   const isEditForm = Object.keys(product).length > 0;
 
   const formProductHTML = `
     <div class="modal-overlay">
-      <form action="javascript:void(0)" method="post" class="add-product-container">
+      <form action="javascript:void(0)" method="post" class="form-container">
         <h2 class="add-product-title">${isEditForm ? 'Edit Product' : 'Add Product'}</h2>
         <div class="form-group">
           <label for="name">Product Name:</label>
@@ -66,4 +65,4 @@ const generateFormProductHtml = (product = {}) => {
   return formProductHTML;
 };
 
-export default generateFormProductHtml;
+export default productFormTemplate;

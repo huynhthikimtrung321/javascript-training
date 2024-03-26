@@ -31,14 +31,7 @@ export default class ProductModel {
   }
 
   async getProducts(params = {}) {
-    if (this.products.length != 0) {
-      return this.products;
-    }
-
-    return (this.products = await this.httpService.get(
-      PRODUCT_ENDPOINT,
-      params
-    ));
+    return this.products = await this.httpService.get(PRODUCT_ENDPOINT, params);
   }
 
   async getProduct(id) {
@@ -83,6 +76,7 @@ export default class ProductModel {
     );
 
     if (isSuccess) {
+<<<<<<< HEAD
       this.products = this.products.map((item) => {
         if (item.id === id) {
           return { ...item, ...product };
@@ -90,6 +84,11 @@ export default class ProductModel {
 
         return item;
       });
+=======
+      this.products = this.products.map(item =>
+        item.id === id ? { ...item, ...product } : item
+      );
+>>>>>>> javascript/practice-two
     }
 
     return this.products;
