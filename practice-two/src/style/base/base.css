@@ -3,10 +3,10 @@ body {
 }
 
 .container {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
-.hidden {
+.modal.hidden {
   display: none;
 }
 
@@ -14,7 +14,6 @@ body {
   .container {
     padding-left: 15px;
     padding-right: 15px;
-
   }
 }
 
