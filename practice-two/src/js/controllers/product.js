@@ -28,7 +28,8 @@ export default class ProductController {
     );
     this.productView.bindEditProduct(
       this.handleEditProduct
-    )
+    );
+    this.productView.bindToggleDelete();
   }
 
   async renderProducts() {
@@ -71,4 +72,5 @@ export default class ProductController {
     this.productView.removeModal();
     this.productView.displayProducts(products);
   }
+
 }

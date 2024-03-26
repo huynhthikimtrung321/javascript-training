@@ -379,4 +379,24 @@ export default class ProductView {
     })
   }
 
+  bindToggleDelete() {
+    const mainContent = document.querySelector('.main-content');
+    const modalDeleteContainer = document.querySelector('.modal-delete-container');
+    const btnCancel = document.querySelector('.btn-cancel');
+    const btnDelete = document.querySelector('.btn-delete');
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.classList.contains('btn-delete-product')) {
+        modalDeleteContainer.classList.toggle('hidden');
+      };
+    })
+
+    btnCancel.addEventListener('click', () => {
+      modalDeleteContainer.classList.toggle('hidden');
+    })
+
+    btnDelete.addEventListener('click', () => {
+      handleDeleteProduct();
+    })
+  }
 }
