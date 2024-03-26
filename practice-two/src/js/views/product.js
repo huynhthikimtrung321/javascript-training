@@ -1,10 +1,20 @@
 import icon from '../../assets/images/icon.svg';
+import {
+  isNotEmptyField,
+  hasMinLength,
+  isValidSKU,
+  isNumber,
+  isInteger,
+  isPositiveNumber,
+  renderErrorMessages,
+  validateForm
+} from '../helpers/validateForm';
 
 export default class ProductView {
   displayProducts(products) {
     const mainContent = document.getElementById('product-list');
     mainContent.innerHTML = '';
-
+    
     const tableRowHeaderHTML = `
       <div class="flex-space-between">
         <svg class="icon-search">
@@ -29,6 +39,7 @@ export default class ProductView {
     `;
 
     let listItemHTML = '<ul class="table-header">'
+
     products?.map(products => {
       const {
         name,
@@ -151,7 +162,7 @@ export default class ProductView {
       if (event.key !== 'Enter') return;
 
       const searchValue = event.target.value.toLowerCase();
-      const searchedProducts = await handleSearchProductByKeyword({name: searchValue});
+      const searchedProducts = await handleSearchProductByKeyword({ name: searchValue });
       this.displayProducts(searchedProducts);
     })
   }
@@ -176,7 +187,7 @@ export default class ProductView {
     const mainContent = document.querySelector('.main-content');
     mainContent.addEventListener('click', (event) => {
       const target = event.target;
-      if(!target.dataset.sortLabel) return;
+      if (!target.dataset.sortLabel) return;
       const targetSiblings = Array.from(target.parentNode.children);
       targetSiblings.filter(sibling => sibling !== target).map(sibling => {
         sibling.classList.remove('arrow-up');
@@ -186,7 +197,7 @@ export default class ProductView {
       const isArrowDown = target.classList.contains('arrow-down');
       const isArrowUp = target.classList.contains('arrow-up');
 
-      if(!isArrowDown && !isArrowUp) {
+      if (!isArrowDown && !isArrowUp) {
         target.classList.add('arrow-down');
         handleSortProducts(target.dataset.field, 'desc');
       } else if(isArrowDown) {
@@ -202,10 +213,9 @@ export default class ProductView {
 
   bindToggleForm() {
     const mainContent = document.querySelector('.main-content');
-
     const modalOverlay = document.querySelector('.modal-overlay');
-    modalOverlay.addEventListener('click', (event) => {
-      if(event.target === modalOverlay) {
+    modalOverlay.addEventListener('mousedown', (event) => {
+      if (event.target === modalOverlay) {
         modalOverlay.classList.toggle('hidden');
       }
     });
@@ -217,4 +227,93 @@ export default class ProductView {
       }
     });
   }
+
+  removeModal() {
+    const modalOverlay = document.querySelector('.modal-overlay');
+    modalOverlay.classList.toggle('hidden');
+  }
+
+  bindAddProduct(handleAddProduct) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target.id !== 'btn-add-product') return;
+
+      const formElement = document.querySelector('.add-product-container');
+      const nameInputElement = formElement.querySelector('[name="name"]');
+      const categoryInputElement = formElement.querySelector('[name="category"]');
+      const statusInputElement = formElement.querySelector('[name="status"]');
+      const skuInputElement = formElement.querySelector('[name="sku"]')
+      const quantityInputElement = formElement.querySelector('[name="quantity"]');
+      const priceInputElement = formElement.querySelector('[name="price"]');
+      const costInputElement = formElement.querySelector('[name="cost"]');
+
+      const formFields = [
+        {
+          field: 'Name',
+          value: nameInputElement.value,
+          validators: [
+            isNotEmptyField,
+            hasMinLength
+          ]
+        },
+        {
+          field: 'SKU',
+          value: skuInputElement.value,
+          validators: [
+            isNotEmptyField,
+            isValidSKU
+          ]
+        },
+        {
+          field: 'Quantity',
+          value: quantityInputElement.value,
+          validators: [
+            isNotEmptyField,
+            isInteger,
+            isPositiveNumber
+          ]
+        },
+        {
+          field: 'Price',
+          value: priceInputElement.value,
+          validators: [
+            isNotEmptyField,
+            isNumber,
+            isPositiveNumber
+          ]
+        },
+        {
+          field: 'Cost',
+          value: costInputElement.value,
+          validators: [
+            isNotEmptyField,
+            isNumber,
+            isPositiveNumber
+          ]
+        }
+      ];
+
+      const formError = validateForm(formFields);
+      for (let key in formError) {
+        renderErrorMessages(formElement, {});
+        if (formError[key] !== '') {
+          return renderErrorMessages(formElement, formError);
+        }
+      }
+
+      const product = {
+        name: nameInputElement.value,
+        category: categoryInputElement.value,
+        sku: skuInputElement.value,
+        quantity: parseInt(quantityInputElement.value),
+        price: parseFloat(priceInputElement.value),
+        cost: parseFloat(costInputElement.value),
+        status: statusInputElement.value
+      }
+
+      handleAddProduct(product);
+    })
+  }
+
 }

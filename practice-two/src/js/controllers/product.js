@@ -17,6 +17,9 @@ export default class ProductController {
       this.handleSortProducts
     );
     this.productView.bindToggleForm();
+    this.productView.bindAddProduct(
+      this.handleAddProduct
+    );
   }
 
   renderProducts = async (params = {}) => {
@@ -24,7 +27,7 @@ export default class ProductController {
     this.productView.displayProducts(products);
   }
 
-  handleSearchProductByKeyword = async (params={}) => {
+  handleSearchProductByKeyword = async (params = {}) => {
     return await this.productModel.getProducts(params);
   }
   
@@ -35,6 +38,12 @@ export default class ProductController {
 
   handleSortProducts = async (field, orderBy) => {
     const products = await this.productModel.sortProducts(field, orderBy);
+    this.productView.displayProducts(products);
+  }
+
+  handleAddProduct = async (product) => {
+    const products = await this.productModel.addProduct(product);
+    this.productView.removeModal();
     this.productView.displayProducts(products);
   }
 }

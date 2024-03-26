@@ -25,9 +25,11 @@ export default class HttpService {
     try {
       const response = await this.axiosClient.post(endpoint, product);
 
-      return response.data;
+      return true;
     } catch (error) {
       console.error(error.message);
+
+      return false;
     }
   }
 
