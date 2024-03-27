@@ -11,6 +11,6 @@
 
 .header-title {
   line-height: 64px;
-  font-size: 32px;
+  font-size: var(--font-size-l);
   color: var(--color-primary);
 }

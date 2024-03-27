@@ -3,4 +3,9 @@
   --color-primary: #a51212;
   --color-secondary: #ccc;
   --color-border-secondary: #6e6eff;
+
+  --font-size-xs: 12px;
+  --font-size-s: 15px;
+  --font-size-m: 20px;
+  --font-size-l: 32px;
 }
