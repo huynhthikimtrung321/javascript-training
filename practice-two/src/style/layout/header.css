@@ -1,7 +1,7 @@
 .header-container {
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px var(--color-border-primary) solid;
+  border-bottom: 2px var(--color-secondary) solid;
 }
 
 .avatar-image {
@@ -12,4 +12,5 @@
 .header-title {
   line-height: 64px;
   font-size: 32px;
+  color: var(--color-primary);
 }

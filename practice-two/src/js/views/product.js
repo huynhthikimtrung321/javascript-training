@@ -104,34 +104,34 @@ export default class ProductView {
           ></use>
         </svg>
         <div class="flex">
-          <label class="label-selection">Status</label>
           <select id="select-status" data-button-filter=true class="btn select-filter">
-            <option selected value="">None</option>
+            <option selected value="">Status</option>
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
         </div>
         <div class="flex">
-          <label class="label-selection">Category</label>
           <select id="select-category" data-button-filter=true class="btn select-filter">
-            <option selected value="">None</option>
+            <option selected value="">Category</option>
             <option value="Skin care">Skin care</option>
             <option value="Face care">Face care</option>
-            <option value="Lip care">Lips care</option>
+            <option value="Lips care">Lips care</option>
           </select>
         </div>
       </div>
-      <div class="product-row">
-        <div class="col-product" data-field="name" data-sort-label=true>Product name</div>
-        <div class="col-product" data-field="category" data-sort-label=true>Category</div>
-        <div class="col-product" data-field="sku" data-sort-label=true>SKU</div>
-        <div class="col-product" data-field="quantity" data-sort-label=true>Quantity</div>
-        <div class="col-product" data-field="cost" data-sort-label=true>Cost</div>
-        <div class="col-product" data-field="price" data-sort-label=true>Price</div>
-        <div class="col-product" data-field="status" data-sort-label=true>Status</div>
-        <div>Actions</div>
+      <div class="table-container">
+        <div class="product-row">
+          <div class="col-product" data-field="name" data-sort-label=true>Product name</div>
+          <div class="col-product" data-field="category" data-sort-label=true>Category</div>
+          <div class="col-product" data-field="sku" data-sort-label=true>SKU</div>
+          <div class="col-product" data-field="quantity" data-sort-label=true>Quantity</div>
+          <div class="col-product" data-field="cost" data-sort-label=true>Cost</div>
+          <div class="col-product" data-field="price" data-sort-label=true>Price</div>
+          <div class="col-product" data-field="status" data-sort-label=true>Status</div>
+          <div>Actions</div>
+        </div>
+        <div id="product-list"></div>
       </div>
-      <div id="product-list"></div>
     `;
 
     mainContent.innerHTML += tableRowHeaderHTML;
@@ -311,7 +311,7 @@ export default class ProductView {
         quantity: parseInt(quantityInputElement.value),
         price: parseFloat(priceInputElement.value),
         cost: parseFloat(costInputElement.value),
-        status: statusInputElement.value,
+        status: statusInputElement.value === 'Active',
       };
 
       handleAddProduct(product);
