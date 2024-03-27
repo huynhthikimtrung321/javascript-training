@@ -9,19 +9,13 @@ export default class ProductController {
     await this.renderProducts();
     this.productView.bindSearchProducts(this.handleSearchProductByKeyword);
     this.productView.bindFilterProductElement(this.handleFilterProducts);
-    this.productView.bindSortProduct(this.handleSortProduct);
+    this.productView.bindSortProduct(this.handleSortProducts);
     this.productView.bindToggleAddForm(this.handleShowAddForm);
     this.productView.bindToggleEditForm(this.handleShowEditForm);
     this.productView.bindRemoveModal();
-    this.productView.bindAddProduct(
-      this.handleAddProduct
-    );
-    this.productView.bindEditProduct(
-      this.handleEditProduct
-    );
-    this.productView.bindToggleDelete(
-      this.handleDeleteProduct
-    );
+    this.productView.bindAddProduct(this.handleAddProduct);
+    this.productView.bindEditProduct(this.handleEditProduct);
+    this.productView.bindDeleteProduct(this.handleDeleteProduct);
   }
 
   renderProducts = async (params = {}) => {

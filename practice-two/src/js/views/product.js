@@ -246,7 +246,6 @@ export default class ProductView {
       if (target.id !== 'btn-add-product') return;
 
       const formElement = document.querySelector('.form-container');
-      console.log(formElement);
       const nameInputElement = formElement.querySelector(
         '[data-field-name="Name"]'
       );
@@ -395,16 +394,27 @@ export default class ProductView {
         cost: costInputElement.value,
         status: statusInputElement.value === 'active' ? true : false,
       };
-      
+
       handleEditProduct(productId, product);
     });
   }
 
-  confirmDeleteModal(handleDeleteProduct, id) {
-    const modalDeleteContainer = document.querySelector('.modal-delete-container');
+  bindDeleteProduct(handleDeleteProduct) {
+    const mainContent = document.querySelector('.main-content');
+    const modalDeleteContainer = document.querySelector(
+      '.modal-delete-container'
+    );
     const btnCancel = document.querySelector('.btn-cancel');
     const btnDelete = document.querySelector('.btn-delete');
-    modalDeleteContainer.classList.toggle('hidden');
+    let productId;
+
+    mainContent.addEventListener('click', (event) => {
+      const target = event.target.closest('.btn-delete-product');
+      if (target) {
+        productId = target.dataset.productId;
+        modalDeleteContainer.classList.toggle('hidden');
+      }
+    });
 
     btnCancel.addEventListener('click', () => {
       modalDeleteContainer.classList.toggle('hidden');
@@ -412,17 +422,7 @@ export default class ProductView {
 
     btnDelete.addEventListener('click', () => {
       modalDeleteContainer.classList.toggle('hidden');
-      handleDeleteProduct(id);
-    })
-  }
-
-  bindToggleDelete(handleDeleteProduct) {
-    const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', (event) => {
-      const target = event.target;
-      if (target.classList.contains('btn-delete-product')) {
-        this.confirmDeleteModal(handleDeleteProduct, target.dataset.productId);
-      };
+      handleDeleteProduct(productId);
     });
   }
 }
