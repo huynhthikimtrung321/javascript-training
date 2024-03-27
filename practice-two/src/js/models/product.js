@@ -31,7 +31,10 @@ export default class ProductModel {
   }
 
   async getProducts(params = {}) {
-    return this.products = await this.httpService.get(PRODUCT_ENDPOINT, params);
+    return (this.products = await this.httpService.get(
+      PRODUCT_ENDPOINT,
+      params
+    ));
   }
 
   async getProduct(id) {
@@ -76,29 +79,21 @@ export default class ProductModel {
     );
 
     if (isSuccess) {
-<<<<<<< HEAD
-      this.products = this.products.map((item) => {
-        if (item.id === id) {
-          return { ...item, ...product };
-        }
-
-        return item;
-      });
-=======
-      this.products = this.products.map(item =>
+      this.products = this.products.map((item) =>
         item.id === id ? { ...item, ...product } : item
       );
->>>>>>> javascript/practice-two
     }
 
     return this.products;
   }
 
-  async deleteProduct (id) {
-    const isSuccess = await this.httpService.delete(`${PRODUCT_ENDPOINT}/${id}`);
+  async deleteProduct(id) {
+    const isSuccess = await this.httpService.delete(
+      `${PRODUCT_ENDPOINT}/${id}`
+    );
 
     if (isSuccess) {
-      this.products = this.products.filter(item => item.id !== id);
+      this.products = this.products.filter((item) => item.id !== id);
     }
 
     return this.products;

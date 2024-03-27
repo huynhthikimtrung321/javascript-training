@@ -120,7 +120,7 @@ export default class ProductView {
         </div>
       </div>
       <div class="table-container">
-        <div class="product-row">
+        <div class="product-row product-header text-large">
           <div class="col-product" data-field="name" data-sort-label=true>Product name</div>
           <div class="col-product" data-field="category" data-sort-label=true>Category</div>
           <div class="col-product" data-field="sku" data-sort-label=true>SKU</div>
