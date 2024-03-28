@@ -14,7 +14,7 @@ const productFormTemplate = (product = {}) => {
   const formProductHTML = `
     <div class="modal-overlay">
       <form action="javascript:void(0)" method="post" class="form-container">
-        <h2 class="add-product-title">${isEditForm ? 'Edit Product' : 'Add Product'}</h2>
+        <h2 class="modal-form-title">${isEditForm ? 'Edit Product' : 'Add Product'}</h2>
         <div class="form-group">
           <label for="name">Product Name:</label>
           <input id="name" data-field-name="Name" name="name" value="${name}" placeholder="Enter product name" class="form-input">
