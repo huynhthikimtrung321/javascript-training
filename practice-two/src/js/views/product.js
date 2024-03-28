@@ -120,9 +120,7 @@ export default class ProductView {
   bindSearchProducts(handleSearchProductByKeyword) {
     this.mainContent.addEventListener('keydown', async (event) => {
       if (!event.target.classList.contains('input-search')) return;
-
       if (event.key !== 'Enter') return;
-
       const searchValue = event.target.value.toLowerCase();
       const searchedProducts = await handleSearchProductByKeyword({
         name: searchValue,
@@ -212,7 +210,6 @@ export default class ProductView {
     this.mainContent.addEventListener('click', (event) => {
       const target = event.target;
       if (target.id !== 'btn-add-product') return;
-
       const formElement = document.querySelector('.form-container');
       const nameInputElement = formElement.querySelector(
         '[data-field-name="Name"]'
@@ -356,9 +353,9 @@ export default class ProductView {
         name: nameInputElement.value,
         category: categoryInputElement.value,
         sku: skuInputElement.value,
-        quantity: quantityInputElement.value,
-        price: priceInputElement.value,
-        cost: costInputElement.value,
+        quantity: parseInt(quantityInputElement.value),
+        price: parseFloat(priceInputElement.value),
+        cost: parseFloat(costInputElement.value),
         status: statusInputElement.value === 'active' ? true : false,
       };
 
