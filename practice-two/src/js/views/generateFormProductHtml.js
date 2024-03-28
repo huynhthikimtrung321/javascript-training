@@ -51,8 +51,11 @@ const productFormTemplate = (product = {}) => {
         <div class="form-group">
           <label for="status">Status:</label>
           <select id="status" data-field-name="status" class="form-input">
-            <option ${status === true && 'selected'} value="active">Active</option>
-            <option ${status === false && 'selected'} value="inactive">Inactive</option>
+            <option ${status === 'Best-seller' && 'selected'}>Best-seller</option>
+            <option ${status === 'Poor seller' && 'selected'}>Poor seller</option>
+            <option ${status === 'On sale' && 'selected'}>On sale</option>
+            <option ${status === 'New arrival' && 'selected'}>New arrival</option>
+            <option ${status === 'Low stock' && 'selected'}>Low stock</option>
           </select>
         </div>
         <div>

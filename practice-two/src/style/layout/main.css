@@ -18,12 +18,18 @@
 }
 
 .product-header {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  background: rgb(240, 240, 240);
+  color: rgb(70, 70, 70);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 32px;
 }
 
-.table-header .product-row:nth-child(2n) {
-  background-color: #f7f7f7;
+.product-items {
+  color: rgb(116, 130, 143);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 32px;
 }
 
 .icon-arrow {
@@ -49,15 +55,42 @@
 .flex-space-between {
   position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  gap: 20px;
+  margin-bottom: 35px;
+  align-items: flex-end;
+}
+
+.label {
+  width: fit-content;
+  padding: 0px 7px;
+  border-radius: 20px;
+  color: #222222;
+}
+
+.best-seller-label {
+  background: rgb(212, 248, 211);
+}
+
+.poor-seller-label {
+  background: rgb(248, 244, 211);
+}
+
+.on-sale-label {
+  background: rgb(237, 231, 251);
+}
+
+.new-arrival-label {
+  background-color: #f5e5e2;
+}
+
+.low-stock-label {
+  background-color: #da8a7bd6;
 }
 
 .input-search {
   padding: 7px 30px 7px 37px;
   height: 25px;
   margin-top: 5px;
-  margin-bottom: 15px;
   border: 1px solid var(--color-primary);
   border-radius: 5px;
 
@@ -91,8 +124,19 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  margin-top: 10px;
-  margin-bottom: 30px;
+}
+
+.btn-reset {
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: var(--color-base);
+
+  &:hover {
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 4px 0 var(--color-primary);
+  }
 }
 
 .btn-filter {
@@ -119,7 +163,7 @@
 }
 
 .select-filter {
-  padding: 5px 10px 5px 5px;
+  padding: 5px 10px 5px 0px;
   color: var(--color-primary);
   cursor: pointer;
 
@@ -135,27 +179,19 @@
 }
 
 .button-add-product {
-  border: 0;
   cursor: pointer;
   background-color: var(--color-base);
-  box-shadow:
-    0px 2px 4px rgb(45 35 66 / 40%),
-    0px 7px 13px -3px rgb(45 35 66 / 30%),
-    inset 0px -3px 0px #d6d6e7;
   height: 38px;
-  padding: 0 20px;
+  padding: 0 10px;
   font-size: var(--font-size-s);
   font-weight: 700;
-  border-radius: 6px;
-  color: #36395a;
+  border-radius: 5px;
   text-transform: uppercase;
+  border: 1px solid var(--color-primary);
+  margin-left: auto;
 
   &:hover {
-    box-shadow:
-      0px 4px 8px rgb(45 35 66 / 40%),
-      0px 7px 13px -3px rgb(45 35 66 / 30%),
-      inset 0px -3px 0px #d6d6e7;
-    transform: translateY(-2px);
+    background-color: var(--color-primary);
   }
 }
 
