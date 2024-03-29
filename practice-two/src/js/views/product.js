@@ -57,7 +57,7 @@ export default class ProductView {
         'Low stock': 'low-stock-label',
       };
       const productRowElement = `
-        <li class="product-row">
+        <li class="product-row product-item">
           <h2>${name}</h2>
           <p>${category}</p>
           <p>${sku}</p>
@@ -106,7 +106,8 @@ export default class ProductView {
         <div class="button-filter-group">
           <div class="flex">
             <select id="select-status" data-button-filter=true class="btn select-filter">
-              <option selected value="">All</option>
+              <option selected disabled value="">Status</option>
+              <option value="">All</option>
               <option value="Best-seller">Best-seller</option>
               <option value="Poor seller">Poor seller</option>
               <option value="On sale">On sale</option>
@@ -116,7 +117,8 @@ export default class ProductView {
           </div>
           <div class="flex">
             <select id="select-category" data-button-filter=true class="btn select-filter">
-              <option selected value="">All</option>
+              <option selected disabled value="">Category</option>
+              <option value="">All</option>
               <option value="Skin care">Skin care</option>
               <option value="Face care">Face care</option>
               <option value="Lips care">Lips care</option>
