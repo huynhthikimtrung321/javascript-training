@@ -1,11 +1,16 @@
 import icon from '../../assets/images/icon.svg';
 import {
   isNotEmptyField,
+  isAllowedString,
   hasMinLength,
+  isGreaterOrEqual,
+  isLesserOrEqual,
   isValidSKU,
   isNumber,
   isInteger,
   isPositiveNumber,
+  isGreaterOrEqual,
+  isLesserOrEqual,
   renderErrorMessages,
   validateForm,
 } from '../helpers/validateForm';
@@ -45,18 +50,20 @@ export default class ProductView {
 
     let listItemHTML = '<ul class="table-header">';
 
-    products?.map((products) => {
-      const { id, name, category, sku, quantity, cost, price, status } =
-        products;
-      const statuses = {
-        'Best-seller': 'best-seller-label',
-        'Low stock': 'low-stock-label',
-        'Poor seller': 'poor-seller-label',
-        'On sale': 'on-sale-label',
-        'New arrival': 'new-arrival-label',
-        'Low stock': 'low-stock-label',
-      };
-      const productRowElement = `
+    products
+      ?.sort((a, b) => parseInt(b.id) - parseInt(a.id))
+      .map((products) => {
+        const { id, name, category, sku, quantity, cost, price, status } =
+          products;
+        const statuses = {
+          'Best-seller': 'best-seller-label',
+          'Low stock': 'low-stock-label',
+          'Poor seller': 'poor-seller-label',
+          'On sale': 'on-sale-label',
+          'New arrival': 'new-arrival-label',
+          'Low stock': 'low-stock-label',
+        };
+        const productRowElement = `
         <li class="product-row product-item">
           <h2>${name}</h2>
           <p>${category}</p>
@@ -65,8 +72,8 @@ export default class ProductView {
           <p>${cost}</p>
           <p> ${price}</p>
           <p class="label ${statuses[status]}">${status}</p>
-          <div>
-          <button class="btn-action btn-edit-product" data-product-id="${id}">
+          <div class="btn-action-group">
+            <button class="btn-action btn-edit-product" data-product-id="${id}">
               <svg width="20" height="20" fill="blue" viewBox="0 0 24 24">
                 <use
                   xlink:href="${icon}#pen-icon"
@@ -84,8 +91,8 @@ export default class ProductView {
         </li>
       `;
 
-      listItemHTML += productRowElement;
-    });
+        listItemHTML += productRowElement;
+      });
     listItemHTML += '</ul>';
 
     mainContent.innerHTML += listItemHTML;
@@ -168,17 +175,32 @@ export default class ProductView {
 
   bindFilterProductElement(renderProducts) {
     const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('change', (event) => {
-      const filterParams = {};
-      const target = event.target;
-      if (!target.dataset.buttonFilter) return;
+    let filterParams = {};
+
+    mainContent.addEventListener('keyup', async (event) => {
+      if (!event.target.classList.contains('input-search')) return;
+      if (event.key !== 'Enter') return;
+
+      const searchValue = event.target.value.toLowerCase();
+      filterParams.name = searchValue;
+      renderProducts(filterParams);
+    });
+
+    mainContent.addEventListener('change', async (event) => {
+      if (!event.target.dataset.buttonFilter) return;
+
       const statusValue = document.getElementById('select-status').value;
       const categoryValue = document.getElementById('select-category').value;
-      if (statusValue) filterParams.status = statusValue;
-      console.log(statusValue);
-      if (categoryValue) filterParams.category = categoryValue;
-
+      filterParams.status = statusValue;
+      filterParams.category = categoryValue;
       renderProducts(filterParams);
+    });
+
+    mainContent.addEventListener('click', async (event) => {
+      if (!event.target.classList.contains('btn-reset')) return;
+
+      this.displayHeader();
+      renderProducts({});
     });
   }
 
@@ -245,8 +267,7 @@ export default class ProductView {
   }
 
   removeModal() {
-    const modalElement = document.querySelector('.modal-overlay');
-    modalElement.remove();
+    document.querySelector('.modal-overlay').remove();
   }
 
   bindAddProduct(handleAddProduct) {
@@ -282,7 +303,7 @@ export default class ProductView {
         {
           field: 'Name',
           value: nameInputElement.value,
-          validators: [isNotEmptyField, hasMinLength],
+          validators: [isNotEmptyField, isAllowedString, hasMinLength],
         },
         {
           field: 'SKU',
@@ -297,12 +318,30 @@ export default class ProductView {
         {
           field: 'Price',
           value: priceInputElement.value,
-          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+          validators: [
+            isNotEmptyField,
+            isNumber,
+            isPositiveNumber,
+            () =>
+              isGreaterOrEqual(priceInputElement.value, {
+                value: costInputElement.value,
+                field: 'Cost',
+              }),
+          ],
         },
         {
           field: 'Cost',
           value: costInputElement.value,
-          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+          validators: [
+            isNotEmptyField,
+            isNumber,
+            isPositiveNumber,
+            () =>
+              isLesserOrEqual(costInputElement.value, {
+                value: priceInputElement.value,
+                field: 'Price',
+              }),
+          ],
         },
       ];
 
@@ -321,7 +360,7 @@ export default class ProductView {
         quantity: parseInt(quantityInputElement.value),
         price: parseFloat(priceInputElement.value),
         cost: parseFloat(costInputElement.value),
-        status: statusInputElement.value === 'Active',
+        status: statusInputElement.value,
       };
 
       handleAddProduct(product);
@@ -362,7 +401,7 @@ export default class ProductView {
         {
           field: 'Name',
           value: nameInputElement.value,
-          validators: [isNotEmptyField, hasMinLength],
+          validators: [isNotEmptyField, isAllowedString, hasMinLength],
         },
         {
           field: 'SKU',
@@ -377,12 +416,30 @@ export default class ProductView {
         {
           field: 'Price',
           value: priceInputElement.value,
-          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+          validators: [
+            isNotEmptyField,
+            isNumber,
+            isPositiveNumber,
+            () =>
+              isGreaterOrEqual(priceInputElement.value, {
+                value: costInputElement.value,
+                field: 'Cost',
+              }),
+          ],
         },
         {
           field: 'Cost',
           value: costInputElement.value,
-          validators: [isNotEmptyField, isNumber, isPositiveNumber],
+          validators: [
+            isNotEmptyField,
+            isNumber,
+            isPositiveNumber,
+            () =>
+              isLesserOrEqual(costInputElement.value, {
+                value: priceInputElement.value,
+                field: 'Price',
+              }),
+          ],
         },
       ];
 
@@ -402,7 +459,7 @@ export default class ProductView {
         quantity: quantityInputElement.value,
         price: priceInputElement.value,
         cost: costInputElement.value,
-        status: statusInputElement.value === 'active' ? true : false,
+        status: statusInputElement.value,
       };
 
       handleEditProduct(productId, product);
@@ -414,7 +471,7 @@ export default class ProductView {
     const modalDeleteContainer = document.querySelector(
       '.modal-delete-container'
     );
-    const btnCancel = document.querySelector('.btn-cancel');
+    // const btnCancel = document.querySelector('.btn-cancel');
     const btnDelete = document.querySelector('.btn-delete');
     let productId;
 
@@ -426,9 +483,9 @@ export default class ProductView {
       }
     });
 
-    btnCancel.addEventListener('click', () => {
-      modalDeleteContainer.classList.toggle('hidden');
-    });
+    // btnCancel.addEventListener('click', () => {
+    //   modalDeleteContainer.classList.toggle('hidden');
+    // });
 
     btnDelete.addEventListener('click', () => {
       modalDeleteContainer.classList.toggle('hidden');

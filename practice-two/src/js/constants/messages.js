@@ -1,13 +1,18 @@
-const ERROR_MESSAGES = {
-  GET_FAILED_MSG: 'Getting data is failed!',
-  POST_FAILED_MSG: 'Posting data is failed!',
-  EDIT_FAILED_MSG: 'Updating data is failed!',
-  DELETE_FAILED_MSG: 'Deleting data is failed!',
+const ALERT_MESSAGES = {
+  ADD_SUCCESS_MSG: 'Product added successfully',
+  ADD_FAILED_MSG: 'Adding failed products',
+  EDIT_SUCCESS_MSG: 'Product edited successfully',
+  EDIT_FAILED_MSG: 'Editing failed products',
+  DELETE_SUCCESS_MSG: 'Product deleted successfully',
+  DELETE_FAILED_MSG: 'Delete failed products',
 };
 
 const VALIDATION_ERRORS = {
   EMPTY_FIELD_ERROR: 'This field cannot be empty!',
-  MIN_LENGTH_ERROR: 'This field should has at least 5 characters',
+  IS_NOT_GREATER_OR_EQUAL: (target) =>
+    `this field should have value \u2265 ${target}'s value!`,
+  IS_NOT_LESSER_OR_EQUAL: (target) =>
+    `this field should have value \u2264 ${target}'s value!`,
   IS_INVALID_SKU:
     'This SKU is invalid, please only enter 2 aplhabetic characters',
   IS_NAN_ERROR: 'This field should only contain number',
@@ -15,4 +20,4 @@ const VALIDATION_ERRORS = {
   IS_NEGETIVE_ERROR: 'This field should only contain positive number',
 };
 
-export { ERROR_MESSAGES, VALIDATION_ERRORS };
+export { ERROR_MESSAGES, VALIDATION_ERRORS, ALERT_MESSAGES };
