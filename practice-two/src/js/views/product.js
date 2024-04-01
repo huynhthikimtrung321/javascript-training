@@ -104,7 +104,7 @@ export default class ProductView {
         </svg>
         <input type="text" class="input-search" placeholder="Search product">
         <div class="button-filter-group">
-          <div class="flex">
+          <div class="select-filter-wrapper flex">
             <select id="select-status" data-button-filter=true class="btn select-filter">
               <option selected disabled value="">Status</option>
               <option value="">All</option>
@@ -115,7 +115,7 @@ export default class ProductView {
               <option value="Low stock">Low stock</option>
             </select>
           </div>
-          <div class="flex">
+          <div class="select-filter-wrapper flex">
             <select id="select-category" data-button-filter=true class="btn select-filter">
               <option selected disabled value="">Category</option>
               <option value="">All</option>
@@ -124,7 +124,7 @@ export default class ProductView {
               <option value="Lips care">Lips care</option>
             </select>
           </div>
-          <button class="btn btn-reset">Reset</button>
+          <button class="btn-reset">Reset</button>
         </div>
         <button id="toggle-form" class="button-add-product">Add new product</button>
       </div>

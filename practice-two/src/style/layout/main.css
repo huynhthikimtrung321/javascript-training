@@ -99,7 +99,7 @@
   border-radius: 5px;
 
   :focus {
-    border-color: #d14d7b;
+    border-color: var(--color-primary);
   }
 }
 
@@ -131,11 +131,12 @@
 }
 
 .btn-reset {
-  color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-base);
   cursor: pointer;
   padding: 5px;
+  border: 1px solid black;
   border-radius: 5px;
-  background-color: var(--color-base);
 
   &:hover {
     border: 1px solid var(--color-primary);
@@ -167,9 +168,11 @@
 }
 
 .select-filter {
-  padding: 5px 10px 5px 0px;
+  position: relative;
+  padding: 8px 20px 8px 12px;
   color: var(--color-primary);
   cursor: pointer;
+  appearance: none;
 
   &:hover {
     border: 1px solid var(--color-primary);
@@ -179,6 +182,23 @@
   option {
     background-color: var(--color-primary);
     color: var(--color-base);
+  }
+}
+
+.select-filter-wrapper {
+  position: relative;
+
+  &::after {
+    content: '\23F7';
+    position: absolute;
+    top: 45%;
+    right: 0;
+    transform: translateY(-50%);
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    padding-right: 8px;
+    color: var(--color-primary);
   }
 }
 
