@@ -4,8 +4,6 @@
 
 * This document provides requirements, technical stack, and estimation for JavaScript Practice.
 
-![Design](https://i.ibb.co/GVLqVty/iu.png)
-
 ## TECHNICAL STACKS
 
 * HTML/CSS
@@ -41,6 +39,8 @@ git clone https://github.com/huynhthikimtrung321/javascript-training.git
 ```bash
 cd JavaScript-Training/practice-two
 ```
+
+* Edit the content of env.sample and rename it into .env
 
 * Install packages
 
