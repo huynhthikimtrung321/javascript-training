@@ -65,8 +65,8 @@ export default class ProductView {
           <p>${cost}</p>
           <p> ${price}</p>
           <p class="label ${statuses[status]}">${status}</p>
-          <div>
-          <button class="btn-action btn-edit-product" data-product-id="${id}">
+          <div class="btn-actions-group">
+            <button class="btn-action btn-edit-product" data-product-id="${id}">
               <svg width="20" height="20" fill="blue" viewBox="0 0 24 24">
                 <use
                   xlink:href="${icon}#pen-icon"

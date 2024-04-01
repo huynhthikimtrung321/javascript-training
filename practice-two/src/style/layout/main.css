@@ -15,15 +15,15 @@
 .product-header {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background: rgb(240, 240, 240);
-  color: rgb(70, 70, 70);
+  background: #f0f0f0;
+  color: #464646;
   font-size: 14px;
   font-weight: 400;
   line-height: 32px;
 }
 
 .product-items {
-  color: rgb(116, 130, 143);
+  color: #74828f;
   font-size: 14px;
   font-weight: 500;
   line-height: 32px;
@@ -72,15 +72,15 @@
 }
 
 .best-seller-label {
-  background: rgb(212, 248, 211);
+  background: #d4f8d3;
 }
 
 .poor-seller-label {
-  background: rgb(248, 244, 211);
+  background: #f8f4d3;
 }
 
 .on-sale-label {
-  background: rgb(237, 231, 251);
+  background: #ede7fb;
 }
 
 .new-arrival-label {
@@ -177,7 +177,7 @@
   }
 
   option {
-    background-color: #d14d7b;
+    background-color: var(--color-primary);
     color: var(--color-base);
   }
 }
@@ -199,6 +199,11 @@
     background-color: var(--color-primary);
     color: var(--color-base);
   }
+}
+
+.btn-actions-group {
+  display: flex;
+  gap: 10px;
 }
 
 .btn-action {
