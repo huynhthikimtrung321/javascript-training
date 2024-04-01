@@ -15,7 +15,7 @@
 ## TIMELINE
 
 * Estimation: 11/3/2024 - 20/3/2024 (56 hours)
-* Actual time: 
+* Actual time: 11/3/2024 - 3/4/2024 (102 hours)
 
 ## TOOLS
 
@@ -25,6 +25,12 @@
 ## TASK MANAGEMENT
 
 * [Trello](https://trello.com/b/4Y2WYepp/javascript-practice-two)
+
+## TARGET
+
+* DOM manipulation
+* Structure project following MVC pattern
+* ES6 features
 
 ## GETTING STARTED
 

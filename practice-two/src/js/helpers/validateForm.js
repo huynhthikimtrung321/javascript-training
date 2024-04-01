@@ -57,8 +57,8 @@ const validateForm = (formFields) => {
 const renderErrorMessages = (element = document, formError) => {
   const errorMsgElements = element.querySelectorAll('.error-msg');
 
-  errorMsgElements.forEach((elem) => {
-    const field = elem.dataset.fieldError;
+  errorMsgElements.forEach((element) => {
+    const field = element.dataset.fieldError;
     elem.textContent = formError[field];
   });
 };

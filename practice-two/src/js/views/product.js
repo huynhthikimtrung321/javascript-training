@@ -47,7 +47,7 @@ export default class ProductView {
           <p>${sku}</p>
           <p>${quantity}</p>
           <p>${cost}</p>
-          <p> ${price}</p>
+          <p>${price}</p>
           <p class="label ${statuses[status]}">${status}</p>
           <div class="btn-actions-group">
             <button class="btn-action btn-edit-product" data-product-id="${id}">
@@ -444,7 +444,7 @@ export default class ProductView {
     const modalDeleteContainer = document.querySelector(
       '.modal-delete-container'
     );
-    // const btnCancel = document.querySelector('.btn-cancel');
+
     const btnDelete = document.querySelector('.btn-delete');
     let productId;
 
@@ -455,10 +455,6 @@ export default class ProductView {
         modalDeleteContainer.classList.toggle('hidden');
       }
     });
-
-    // btnCancel.addEventListener('click', () => {
-    //   modalDeleteContainer.classList.toggle('hidden');
-    // });
 
     btnDelete.addEventListener('click', () => {
       modalDeleteContainer.classList.toggle('hidden');
