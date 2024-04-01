@@ -1,10 +1,10 @@
 .modal-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #3333333a;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .form-container {
@@ -16,7 +16,7 @@
   background-color: var(--color-base);
 }
 
-.add-product-title {
+.modal-form-title {
   font-size: 20px;
   font-weight: 700;
   color: #333;
@@ -34,7 +34,7 @@
 .form-input {
   border-radius: 3px;
   padding: 8px;
-  border: 1px solid var(--color-border-primary);
+  border: 1px solid var(--color-secondary);
 
   &:focus {
     outline: none;
@@ -58,12 +58,12 @@
 }
 
 label {
-  font-size: 15px;
+  font-size: var(--font-size-s);
   font-weight: 700;
 }
 
 .error-msg {
-  font-size: 14px;
+  font-size: var(--font-size-s);
   font-weight: 700;
   color: rgba(255, 0, 0, 0.6);
 }

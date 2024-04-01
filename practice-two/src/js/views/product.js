@@ -48,25 +48,33 @@ export default class ProductView {
     products?.map((products) => {
       const { id, name, category, sku, quantity, cost, price, status } =
         products;
+      const statuses = {
+        'Best-seller': 'best-seller-label',
+        'Low stock': 'low-stock-label',
+        'Poor seller': 'poor-seller-label',
+        'On sale': 'on-sale-label',
+        'New arrival': 'new-arrival-label',
+        'Low stock': 'low-stock-label',
+      };
       const productRowElement = `
-        <li class="product-row">
+        <li class="product-row product-item">
           <h2>${name}</h2>
           <p>${category}</p>
           <p>${sku}</p>
           <p>${quantity}</p>
           <p>${cost}</p>
           <p> ${price}</p>
-          <p>${status ? 'Active' : 'Inactive'}</p>
-          <div>
-          <button class="btn-action btn-edit-product" data-product-id="${id}">
-              <svg width="24" height="24" fill="blue" viewBox="0 0 24 24">
+          <p class="label ${statuses[status]}">${status}</p>
+          <div class="btn-actions-group">
+            <button class="btn-action btn-edit-product" data-product-id="${id}">
+              <svg width="20" height="20" fill="blue" viewBox="0 0 24 24">
                 <use
                   xlink:href="${icon}#pen-icon"
                 ></use>
               </svg>
             </button>
             <button class="btn-action btn-delete-product" data-product-id="${id}">
-              <svg width="24 " height="24" fill="red" viewBox="0 0 41.336 41.336">
+              <svg width="20 " height="20" fill="red" viewBox="0 0 41.336 41.336">
                 <use
                   xlink:href="${icon}#trash-can"
                 ></use>
@@ -95,43 +103,44 @@ export default class ProductView {
           ></use>
         </svg>
         <input type="text" class="input-search" placeholder="Search product">
+        <div class="button-filter-group">
+          <div class="select-filter-wrapper flex">
+            <select id="select-status" data-button-filter=true class="btn select-filter">
+              <option selected disabled value="">Status</option>
+              <option value="">All</option>
+              <option value="Best-seller">Best-seller</option>
+              <option value="Poor seller">Poor seller</option>
+              <option value="On sale">On sale</option>
+              <option value="New arrival">New arrival</option>
+              <option value="Low stock">Low stock</option>
+            </select>
+          </div>
+          <div class="select-filter-wrapper flex">
+            <select id="select-category" data-button-filter=true class="btn select-filter">
+              <option selected disabled value="">Category</option>
+              <option value="">All</option>
+              <option value="Skin care">Skin care</option>
+              <option value="Face care">Face care</option>
+              <option value="Lips care">Lips care</option>
+            </select>
+          </div>
+          <button class="btn-reset">Reset</button>
+        </div>
         <button id="toggle-form" class="button-add-product">Add new product</button>
       </div>
-      <div class="button-filter-group">
-        <svg class="icon-sort">
-          <use
-            xlink:href="${icon}#icon-sort"
-          ></use>
-        </svg>
-        <div class="flex">
-          <label class="label-selection">Status</label>
-          <select id="select-status" data-button-filter=true class="btn select-filter">
-            <option selected value="">None</option>
-            <option value="Active">Active</option>
-            <option value="Inactive">Inactive</option>
-          </select>
+      <div class="table-container">
+        <div class="product-row product-header text-large">
+          <div class="col-product" data-field="name" data-sort-label=true>Product name</div>
+          <div class="col-product" data-field="category" data-sort-label=true>Category</div>
+          <div class="col-product" data-field="sku" data-sort-label=true>SKU</div>
+          <div class="col-product" data-field="quantity" data-sort-label=true>Quantity</div>
+          <div class="col-product" data-field="cost" data-sort-label=true>Cost</div>
+          <div class="col-product" data-field="price" data-sort-label=true>Price</div>
+          <div class="col-product" data-field="status" data-sort-label=true>Status</div>
+          <div>Actions</div>
         </div>
-        <div class="flex">
-          <label class="label-selection">Category</label>
-          <select id="select-category" data-button-filter=true class="btn select-filter">
-            <option selected value="">None</option>
-            <option value="Skin care">Skin care</option>
-            <option value="Face care">Face care</option>
-            <option value="Lip care">Lips care</option>
-          </select>
-        </div>
+        <div id="product-list" class="product-items"></div>
       </div>
-      <div class="product-row">
-        <div class="col-product" data-field="name" data-sort-label=true>Product name</div>
-        <div class="col-product" data-field="category" data-sort-label=true>Category</div>
-        <div class="col-product" data-field="sku" data-sort-label=true>SKU</div>
-        <div class="col-product" data-field="quantity" data-sort-label=true>Quantity</div>
-        <div class="col-product" data-field="cost" data-sort-label=true>Cost</div>
-        <div class="col-product" data-field="price" data-sort-label=true>Price</div>
-        <div class="col-product" data-field="status" data-sort-label=true>Status</div>
-        <div>Actions</div>
-      </div>
-      <div id="product-list"></div>
     `;
 
     mainContent.innerHTML += tableRowHeaderHTML;
@@ -165,7 +174,8 @@ export default class ProductView {
       if (!target.dataset.buttonFilter) return;
       const statusValue = document.getElementById('select-status').value;
       const categoryValue = document.getElementById('select-category').value;
-      if (statusValue) filterParams.status = statusValue === 'Active';
+      if (statusValue) filterParams.status = statusValue;
+      console.log(statusValue);
       if (categoryValue) filterParams.category = categoryValue;
 
       renderProducts(filterParams);
@@ -311,7 +321,7 @@ export default class ProductView {
         quantity: parseInt(quantityInputElement.value),
         price: parseFloat(priceInputElement.value),
         cost: parseFloat(costInputElement.value),
-        status: statusInputElement.value,
+        status: statusInputElement.value === 'Active',
       };
 
       handleAddProduct(product);
