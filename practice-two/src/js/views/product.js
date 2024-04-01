@@ -25,29 +25,6 @@ export default class ProductView {
     const mainContent = document.getElementById('product-list');
     mainContent.innerHTML = '';
 
-    const tableRowHeaderHTML = `
-      <div class="flex-space-between">
-        <svg class="icon-search">
-          <use
-            xlink:href="${icon}#icon-search"
-          ></use>
-        </svg>
-        <input type="text" class="input-search" placeholder="Search product">
-      </div>
-      <div class="product-row">
-        <div class="text-large product-label">
-          Product name
-        </div>
-        <div class="text-large product-label">Category</div>
-        <div class="text-large product-label">SKU</div>
-        <div class="text-large product-label">Quantity</div>
-        <div class="text-large product-label">Cost</div>
-        <div class="text-large product-label">Price</div>
-        <div class="text-large product-label">Status</div>
-        <div class="text-large product-label">Actions</div>
-      </div>
-    `;
-
     let listItemHTML = '<ul class="table-header">';
 
     products
@@ -72,7 +49,7 @@ export default class ProductView {
           <p>${cost}</p>
           <p> ${price}</p>
           <p class="label ${statuses[status]}">${status}</p>
-          <div class="btn-action-group">
+          <div class="btn-actions-group">
             <button class="btn-action btn-edit-product" data-product-id="${id}">
               <svg width="20" height="20" fill="blue" viewBox="0 0 24 24">
                 <use
@@ -99,8 +76,7 @@ export default class ProductView {
   }
 
   displayHeader() {
-    const mainContent = document.querySelector('.main-content');
-    mainContent.innerHTML = '';
+    this.mainContent.innerHTML = '';
 
     const tableRowHeaderHTML = `
       <div class="flex-space-between">
@@ -111,7 +87,7 @@ export default class ProductView {
         </svg>
         <input type="text" class="input-search" placeholder="Search product">
         <div class="button-filter-group">
-          <div class="flex">
+          <div class="select-filter-wrapper flex">
             <select id="select-status" data-button-filter=true class="btn select-filter">
               <option selected disabled value="">Status</option>
               <option value="">All</option>
@@ -122,7 +98,7 @@ export default class ProductView {
               <option value="Low stock">Low stock</option>
             </select>
           </div>
-          <div class="flex">
+          <div class="select-filter-wrapper flex">
             <select id="select-category" data-button-filter=true class="btn select-filter">
               <option selected disabled value="">Category</option>
               <option value="">All</option>
@@ -131,7 +107,7 @@ export default class ProductView {
               <option value="Lips care">Lips care</option>
             </select>
           </div>
-          <button class="btn btn-reset">Reset</button>
+          <button class="btn-reset">Reset</button>
         </div>
         <button id="toggle-form" class="button-add-product">Add new product</button>
       </div>
@@ -150,7 +126,7 @@ export default class ProductView {
       </div>
     `;
 
-    mainContent.innerHTML += tableRowHeaderHTML;
+    this.mainContent.innerHTML += tableRowHeaderHTML;
   }
 
   displayProductForm(product = {}) {
@@ -158,13 +134,9 @@ export default class ProductView {
   }
 
   bindSearchProducts(handleSearchProductByKeyword) {
-    const mainContent = document.querySelector('.main-content');
-
-    mainContent.addEventListener('keydown', async (event) => {
+    this.mainContent.addEventListener('keydown', async (event) => {
       if (!event.target.classList.contains('input-search')) return;
-
       if (event.key !== 'Enter') return;
-
       const searchValue = event.target.value.toLowerCase();
       const searchedProducts = await handleSearchProductByKeyword({
         name: searchValue,
@@ -188,7 +160,6 @@ export default class ProductView {
 
     mainContent.addEventListener('change', async (event) => {
       if (!event.target.dataset.buttonFilter) return;
-
       const statusValue = document.getElementById('select-status').value;
       const categoryValue = document.getElementById('select-category').value;
       filterParams.status = statusValue;
@@ -205,8 +176,7 @@ export default class ProductView {
   }
 
   bindSortProduct(handleSortProducts) {
-    const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', (event) => {
+    this.mainContent.addEventListener('click', (event) => {
       const target = event.target;
       if (!target.dataset.sortLabel) return;
       const targetSiblings = Array.from(target.parentNode.children);
@@ -235,8 +205,7 @@ export default class ProductView {
   }
 
   bindRemoveModal() {
-    const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('mousedown', (event) => {
+    this.mainContent.addEventListener('mousedown', (event) => {
       const target = event.target;
       if (target.classList.contains('modal-overlay')) {
         target.remove();
@@ -245,8 +214,7 @@ export default class ProductView {
   }
 
   bindToggleAddForm(handleShowAddForm) {
-    const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', (event) => {
+    this.mainContent.addEventListener('click', (event) => {
       const target = event.target;
       if (target.id === 'toggle-form') {
         handleShowAddForm();
@@ -255,8 +223,7 @@ export default class ProductView {
   }
 
   bindToggleEditForm(handleShowEditForm) {
-    const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', async (event) => {
+    this.mainContent.addEventListener('click', async (event) => {
       let target = event.target;
       if (target.closest('.btn-edit-product')) {
         target = target.closest('.btn-edit-product');
@@ -271,11 +238,9 @@ export default class ProductView {
   }
 
   bindAddProduct(handleAddProduct) {
-    const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', (event) => {
+    this.mainContent.addEventListener('click', (event) => {
       const target = event.target;
       if (target.id !== 'btn-add-product') return;
-
       const formElement = document.querySelector('.form-container');
       const nameInputElement = formElement.querySelector(
         '[data-field-name="Name"]'
@@ -368,8 +333,7 @@ export default class ProductView {
   }
 
   bindEditProduct(handleEditProduct) {
-    const mainContent = document.querySelector('.main-content');
-    mainContent.addEventListener('click', (event) => {
+    this.mainContent.addEventListener('click', (event) => {
       const target = event.target;
       if (target.id !== 'btn-edit-product') return;
 
@@ -456,13 +420,22 @@ export default class ProductView {
         name: nameInputElement.value,
         category: categoryInputElement.value,
         sku: skuInputElement.value,
-        quantity: quantityInputElement.value,
-        price: priceInputElement.value,
-        cost: costInputElement.value,
+        quantity: parseInt(quantityInputElement.value),
+        price: parseFloat(priceInputElement.value),
+        cost: parseFloat(costInputElement.value),
         status: statusInputElement.value,
       };
 
       handleEditProduct(productId, product);
+    });
+  }
+
+  bindRemoveModalDelete() {
+    const modalDelete = document.querySelector('.modal-delete-container');
+    modalDelete.addEventListener('mousedown', (event) => {
+      if (event.target === modalDelete) {
+        modalDelete.classList.add('hidden');
+      }
     });
   }
 

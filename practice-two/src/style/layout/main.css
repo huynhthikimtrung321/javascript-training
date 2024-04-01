@@ -15,15 +15,15 @@
 .product-header {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background: rgb(240, 240, 240);
-  color: rgb(70, 70, 70);
+  background: #f0f0f0;
+  color: #464646;
   font-size: 14px;
   font-weight: 400;
   line-height: 32px;
 }
 
 .product-items {
-  color: rgb(116, 130, 143);
+  color: #74828f;
   font-size: 14px;
   font-weight: 500;
   line-height: 32px;
@@ -72,15 +72,15 @@
 }
 
 .best-seller-label {
-  background: rgb(212, 248, 211);
+  background: #d4f8d3;
 }
 
 .poor-seller-label {
-  background: rgb(248, 244, 211);
+  background: #f8f4d3;
 }
 
 .on-sale-label {
-  background: rgb(237, 231, 251);
+  background: #ede7fb;
 }
 
 .new-arrival-label {
@@ -99,7 +99,7 @@
   border-radius: 5px;
 
   :focus {
-    border-color: #d14d7b;
+    border-color: var(--color-primary);
   }
 }
 
@@ -131,11 +131,12 @@
 }
 
 .btn-reset {
-  color: var(--color-primary);
+  background-color: var(--color-primary);
+  color: var(--color-base);
   cursor: pointer;
   padding: 5px;
+  border: 1px solid black;
   border-radius: 5px;
-  background-color: var(--color-base);
 
   &:hover {
     border: 1px solid var(--color-primary);
@@ -167,9 +168,11 @@
 }
 
 .select-filter {
-  padding: 5px 10px 5px 0px;
+  position: relative;
+  padding: 8px 20px 8px 12px;
   color: var(--color-primary);
   cursor: pointer;
+  appearance: none;
 
   &:hover {
     border: 1px solid var(--color-primary);
@@ -177,8 +180,25 @@
   }
 
   option {
-    background-color: #d14d7b;
+    background-color: var(--color-primary);
     color: var(--color-base);
+  }
+}
+
+.select-filter-wrapper {
+  position: relative;
+
+  &::after {
+    content: '\23F7';
+    position: absolute;
+    top: 45%;
+    right: 0;
+    transform: translateY(-50%);
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    padding-right: 8px;
+    color: var(--color-primary);
   }
 }
 
@@ -199,6 +219,11 @@
     background-color: var(--color-primary);
     color: var(--color-base);
   }
+}
+
+.btn-actions-group {
+  display: flex;
+  gap: 10px;
 }
 
 .btn-action {

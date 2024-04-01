@@ -27,6 +27,7 @@ export default class ProductController {
     this.productView.bindAddProduct(this.handleAddProduct);
     this.productView.bindEditProduct(this.handleEditProduct);
     this.productView.bindDeleteProduct(this.handleDeleteProduct);
+    this.productView.bindRemoveModalDelete();
   }
 
   renderProducts = async (params = {}) => {
