@@ -6,7 +6,7 @@ export default class HttpService {
     this.axiosClient = axios.create({
       baseURL: this.baseUrl,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
     });
   }
@@ -22,36 +22,32 @@ export default class HttpService {
   }
 
   async post(endpoint, product) {
-    try {
-      const response = await this.axiosClient.post(endpoint, product);
+    const response = await this.axiosClient.post(endpoint, product);
 
-      return true;
-    } catch (error) {
-      console.error(error.message);
-
-      return false;
+    if (response.status >= 200 && response.status <= 299) {
+      return response.data;
+    } else {
+      throw new Error(`Post Failed: ${response.status}!`);
     }
   }
 
   async put(endpoint, product) {
-    try {
-      const response = await this.axiosClient.put(endpoint, product);
+    const response = await this.axiosClient.put(endpoint, product);
 
+    if (response.status >= 200 && response.status <= 299) {
       return response.data;
-    } catch (error) {
-      console.error(error.message);
+    } else {
+      throw new Error(`Post Failed: ${response.status}!`);
     }
   }
 
   async delete(endpoint) {
-    try {
-      await this.axiosClient.delete(endpoint);
+    const response = await this.axiosClient.delete(endpoint);
 
-      return true;
-    } catch (error) {
-      console.error(error.message);
-
-      return false;
+    if (response.status >= 200 && response.status <= 299) {
+      return response.data;
+    } else {
+      throw new Error(`Post Failed: ${response.status}!`);
     }
   }
 }

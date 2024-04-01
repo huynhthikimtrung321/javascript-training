@@ -64,14 +64,13 @@ export default class ProductModel {
   }
 
   async addProduct(product) {
-    const isSuccess = await this.httpService.post(PRODUCT_ENDPOINT, product);
+    const data = await this.httpService.post(PRODUCT_ENDPOINT, product);
 
-    if (isSuccess) {
-      this.products.push(product);
-    }
+    this.products.push(data);
 
     return this.products;
   }
+
   async editProduct(id, product) {
     const isSuccess = await this.httpService.put(
       `${PRODUCT_ENDPOINT}/${id}`,

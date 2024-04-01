@@ -1,3 +1,15 @@
+import { showError, showSuccess } from '../views/toast';
+import { ALERT_MESSAGES } from '../constants/messages';
+
+const {
+  ADD_SUCCESS_MSG,
+  ADD_FAILED_MSG,
+  EDIT_SUCCESS_MSG,
+  EDIT_FAILED_MSG,
+  DELETE_SUCCESS_MSG,
+  DELETE_FAILED_MSG,
+} = ALERT_MESSAGES;
+
 export default class ProductController {
   constructor(model, view) {
     this.productModel = model;
@@ -7,7 +19,6 @@ export default class ProductController {
   async initialize() {
     this.productView.displayHeader();
     await this.renderProducts();
-    this.productView.bindSearchProducts(this.handleSearchProductByKeyword);
     this.productView.bindFilterProductElement(this.handleFilterProducts);
     this.productView.bindSortProduct(this.handleSortProducts);
     this.productView.bindToggleAddForm(this.handleShowAddForm);
@@ -39,10 +50,19 @@ export default class ProductController {
   };
 
   handleAddProduct = async (product) => {
-    const products = await this.productModel.addProduct(product);
-    this.productView.removeModal();
-    this.productView.displayProducts(products);
+    try {
+      const products = await this.productModel.addProduct(product);
+      showSuccess({ text: ADD_SUCCESS_MSG });
+      this.productView.removeModal();
+      this.productView.displayProducts(products);
+    } catch (error) {
+      showError({ text: ADD_FAILED_MSG });
+    }
   };
+
+  handleRemoveModal() {
+    this.productView.removeModal();
+  }
 
   handleShowAddForm = () => {
     this.productView.displayProductForm();
@@ -54,13 +74,23 @@ export default class ProductController {
   };
 
   handleEditProduct = async (id, product) => {
-    const products = await this.productModel.editProduct(id, product);
-    this.productView.removeModal();
-    this.productView.displayProducts(products);
+    try {
+      const products = await this.productModel.editProduct(id, product);
+      showSuccess({ text: EDIT_SUCCESS_MSG });
+      this.productView.removeModal();
+      this.productView.displayProducts(products);
+    } catch (error) {
+      showError({ text: EDIT_FAILED_MSG });
+    }
   };
 
   handleDeleteProduct = async (id) => {
-    const products = await this.productModel.deleteProduct(id);
-    this.productView.displayProducts(products);
+    try {
+      const products = await this.productModel.deleteProduct(id);
+      showSuccess({ text: DELETE_SUCCESS_MSG });
+      this.productView.displayProducts(products);
+    } catch (error) {
+      showError({ text: DELETE_FAILED_MSG });
+    }
   };
 }
