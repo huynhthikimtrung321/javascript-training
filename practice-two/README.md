@@ -3,6 +3,7 @@
 ## OVERVIEW
 
 * This document provides requirements, technical stack, and estimation for JavaScript Practice.
+* Design: [Figma](https://www.figma.com/file/c93mfzjSCGrJA7l2L9sfHn/Table-Responsiveness-(Community)?type=design&node-id=22-687&mode=design&t=SXOomX7G5MUQe86e-0)
 
 ## TECHNICAL STACKS
 

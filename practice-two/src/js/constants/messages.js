@@ -8,16 +8,16 @@ const ALERT_MESSAGES = {
 };
 
 const VALIDATION_ERRORS = {
-  EMPTY_FIELD_ERROR: 'This field cannot be empty!',
-  IS_NOT_GREATER_OR_EQUAL: (target) =>
-    `this field should have value \u2265 ${target}'s value!`,
-  IS_NOT_LESSER_OR_EQUAL: (target) =>
-    `this field should have value \u2264 ${target}'s value!`,
-  IS_INVALID_SKU:
+  getEmptyFieldError: () => 'This field cannot be empty!',
+  getNotGreaterError: target => `This field must be greater than ${target}!`,
+  getNotLesserError: target => `This field must be lesser than ${target}!`,
+  getInvalidSKUError: () =>
     'This SKU is invalid, please only enter 2 aplhabetic characters',
-  IS_NAN_ERROR: 'This field should only contain number',
-  IS_NOT_INTEGER_ERROR: 'This field should only contain integer',
-  IS_NEGETIVE_ERROR: 'This field should only contain positive number',
+  getNotNumberError: () => 'This field should only contain number',
+  getNotIntegerError: () => 'This field should only contain integer',
+  getNotPositiveError: () => 'This field should only contain positive number',
+  getNotEnoughCharacterError: min =>
+    `This field should have at least ${min} characters`,
 };
 
-export { ERROR_MESSAGES, VALIDATION_ERRORS, ALERT_MESSAGES };
+export { VALIDATION_ERRORS, ALERT_MESSAGES };

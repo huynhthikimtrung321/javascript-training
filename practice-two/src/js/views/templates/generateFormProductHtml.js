@@ -1,3 +1,6 @@
+import { getSelectCategoryFormTemplate } from './getSelectCategoryFormTemplate';
+import { getSelectStatusFormTemplate } from './getSelectStatusFormTemplate';
+
 const productFormTemplate = (product = {}) => {
   const {
     id = '',
@@ -22,11 +25,11 @@ const productFormTemplate = (product = {}) => {
           </div>
         <div class="form-group">
           <label for="category">Category:</label>
-          <select id="category" data-field-name="category" class="form-input">
-            <option ${category === 'Skin care' && 'selected'}>Skin care</option>
-            <option ${category === 'Face care' && 'selected'}>Face care</option>
-            <option ${category === 'Lips care' && 'selected'}>Lips care</option>
-          </select>
+          <div class="select-wrapper">
+            <select id="category" data-field-name="category" class="form-input form-input-select">
+              ${getSelectCategoryFormTemplate(category)}
+            </select>
+          </div>
         </div>
         <div class="form-group">
           <label for="sku">SKU:</label>
@@ -50,16 +53,14 @@ const productFormTemplate = (product = {}) => {
         </div>
         <div class="form-group">
           <label for="status">Status:</label>
-          <select id="status" data-field-name="status" class="form-input">
-            <option ${status === 'Best-seller' && 'selected'}>Best-seller</option>
-            <option ${status === 'Poor seller' && 'selected'}>Poor seller</option>
-            <option ${status === 'On sale' && 'selected'}>On sale</option>
-            <option ${status === 'New arrival' && 'selected'}>New arrival</option>
-            <option ${status === 'Low stock' && 'selected'}>Low stock</option>
-          </select>
+          <div class="select-wrapper">
+            <select id="status" data-field-name="status" class="form-input form-input-select">
+              ${getSelectStatusFormTemplate(status)}
+            </select>
+          </div>
         </div>
-        <div>
-          <input type="submit" data-product-id="${id}" value="${isEditForm ? 'Edit Product' : 'Add Product'}" class="add-product-submit" id="${isEditForm ? 'btn-edit-product' : 'btn-add-product'}">
+        <div class="btn-submit-wrapper">
+          <input type="submit" data-product-id="${id}" value="${isEditForm ? 'Edit Product' : 'Add Product'}" class="btn-submit" id="${isEditForm ? 'btn-edit-product' : 'btn-add-product'}">
         </div>
       </form>
     </div>

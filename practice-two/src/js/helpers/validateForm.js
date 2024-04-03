@@ -2,41 +2,42 @@ import { VALIDATION_ERRORS } from '../constants/messages';
 import REGEX from '../constants/regex';
 
 const {
-  EMPTY_FIELD_ERROR,
-  MIN_LENGTH_ERROR,
+  getEmptyFieldError,
+  getNotEnoughCharacterError,
   UNALLOWED_STRING_ERROR,
-  IS_INVALID_SKU,
-  IS_NAN_ERROR,
-  IS_NOT_INTEGER_ERROR,
-  IS_NEGETIVE_ERROR,
-  IS_NOT_GREATER_OR_EQUAL,
-  IS_NOT_LESSER_OR_EQUAL,
+  getInvalidSKUError,
+  getNotNumberError,
+  getNotIntegerError,
+  getNotPositiveError,
+  getNotGreaterError,
+  getNotLesserError,
 } = VALIDATION_ERRORS;
 
 const { validSKURegex, allowedStringRegex } = REGEX;
 
-const isNotEmptyField = value => (value !== '' ? '' : EMPTY_FIELD_ERROR);
+const isNotEmptyField = value => (value !== '' ? '' : getEmptyFieldError());
 const isAllowedString = value =>
   allowedStringRegex.test(value) ? '' : UNALLOWED_STRING_ERROR;
 const hasMinLength = (value, min = 5) =>
-  value.length >= min ? '' : MIN_LENGTH_ERROR;
+  value.length >= min ? '' : getNotEnoughCharacterError(min);
 const isGreaterOrEqual = (value, target) =>
   parseFloat(value) >= parseFloat(target.value)
     ? ''
-    : IS_NOT_GREATER_OR_EQUAL(target.field);
+    : getNotGreaterError(target.field);
 const isLesserOrEqual = (value, target) =>
   parseFloat(value) <= parseFloat(target.value)
     ? ''
-    : IS_NOT_LESSER_OR_EQUAL(target.field);
-const isValidSKU = value => (validSKURegex.test(value) ? '' : IS_INVALID_SKU);
+    : getNotLesserError(target.field);
+const isValidSKU = value =>
+  validSKURegex.test(value) ? '' : getInvalidSKUError();
 const isNumber = value =>
   !isNaN(parseFloat(value)) && parseFloat(value).toString() === value
     ? ''
-    : IS_NAN_ERROR;
+    : getNotNumberError();
 const isInteger = value =>
-  Number.isInteger(parseFloat(value)) ? '' : IS_NOT_INTEGER_ERROR;
+  Number.isInteger(parseFloat(value)) ? '' : getNotIntegerError();
 const isPositiveNumber = value =>
-  parseFloat(value) >= 0 ? '' : IS_NEGETIVE_ERROR;
+  parseFloat(value) >= 0 ? '' : getNotPositiveError();
 
 const validateForm = formFields => {
   const formError = {};
