@@ -12,6 +12,7 @@ import {
   renderErrorMessages,
   validateForm,
 } from '../helpers/validateForm';
+import { toggleSpinner } from './loading/renderSpinner';
 import productFormTemplate from './templates/generateFormProductHtml';
 import { getSelectStatusTemplate } from './templates/getSelectStatusTemplate';
 import { getSelectCategoryTemplate } from './templates/getSelectCategoryTemplate';
@@ -22,15 +23,25 @@ export default class ProductView {
     this.mainContent = document.querySelector('.main-content');
   }
 
-  displayProducts(products) {
+  displaySpinner = () => toggleSpinner(true);
+
+  removeSpinner = () => toggleSpinner(false);
+
+  displayProducts(products, isLoading) {
     const mainContent = document.getElementById('product-list');
     mainContent.innerHTML = '';
 
     let listItemHTML = '<ul class="table-header">';
 
-    products
-      ?.sort((a, b) => parseInt(b.id) - parseInt(a.id))
-      .map(products => {
+    if (isLoading) {
+      listItemHTML += '<span class="spinner"></span>';
+      listItemHTML += '</ul>';
+    } else if (!products) {
+      listItemHTML +=
+        '<p class="text-large text-center">No products at this moment.</p>';
+      listItemHTML += '</ul>';
+    } else {
+      products.map(products => {
         const { id, name, category, sku, quantity, cost, price, status } =
           products;
         const statuses = {
@@ -70,7 +81,8 @@ export default class ProductView {
 
         listItemHTML += productRowElement;
       });
-    listItemHTML += '</ul>';
+      listItemHTML += '</ul>';
+    }
 
     mainContent.innerHTML += listItemHTML;
   }
@@ -161,12 +173,11 @@ export default class ProductView {
       this.displayHeader();
       renderProducts({});
     });
-  }
 
-  bindSortProduct(handleSortProducts) {
     this.mainContent.addEventListener('click', event => {
       const target = event.target;
       if (!target.dataset.sortLabel) return;
+      const targetField = target.dataset.field;
       const targetSiblings = Array.from(target.parentNode.children);
       targetSiblings
         .filter(sibling => sibling !== target)
@@ -180,14 +191,56 @@ export default class ProductView {
 
       if (!isArrowDown && !isArrowUp) {
         target.classList.add('arrow-down');
-        handleSortProducts(target.dataset.field, 'desc');
+        filterParams.sortBy = targetField.toLowerCase();
+        filterParams.order = 'desc';
+        renderProducts(filterParams);
       } else if (isArrowDown) {
         target.classList.remove('arrow-down');
         target.classList.add('arrow-up');
-        handleSortProducts(target.dataset.field, 'asc');
+        filterParams.sortBy = targetField.toLowerCase();
+        filterParams.order = 'asc';
+        renderProducts(filterParams);
       } else if (isArrowUp) {
         target.classList.remove('arrow-up');
-        handleSortProducts(target.dataset.field, '');
+        delete filterParams.sortBy;
+        delete filterParams.order;
+        renderProducts(filterParams);
+      }
+    });
+  }
+
+  bindSortProduct(handleSortProducts) {
+    this.mainContent.addEventListener('click', event => {
+      const target = event.target;
+      if (!target.dataset.sortLabel) return;
+      const targetField = target.dataset.field;
+      const targetSiblings = Array.from(target.parentNode.children);
+      targetSiblings
+        .filter(sibling => sibling !== target)
+        .map(sibling => {
+          sibling.classList.remove('arrow-up');
+          sibling.classList.remove('arrow-down');
+        });
+
+      const isArrowDown = target.classList.contains('arrow-down');
+      const isArrowUp = target.classList.contains('arrow-up');
+
+      if (!isArrowDown && !isArrowUp) {
+        target.classList.add('arrow-down');
+        handleSortProducts({
+          sortBy: targetField.toLowerCase(),
+          order: 'desc',
+        });
+      } else if (isArrowDown) {
+        target.classList.remove('arrow-down');
+        target.classList.add('arrow-up');
+        handleSortProducts({
+          sortBy: targetField.toLowerCase(),
+          order: 'asc',
+        });
+      } else if (isArrowUp) {
+        target.classList.remove('arrow-up');
+        handleSortProducts({});
       }
     });
   }

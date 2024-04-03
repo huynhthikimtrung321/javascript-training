@@ -15,7 +15,7 @@
 ## TIMELINE
 
 * Estimation: 11/3/2024 - 20/3/2024 (56 hours)
-* Actual time: 11/3/2024 - 3/4/2024 (102 hours)
+* Actual time: 11/3/2024 - 3/4/2024 (104 hours)
 
 ## TOOLS
 

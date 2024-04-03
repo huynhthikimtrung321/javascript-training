@@ -15,8 +15,8 @@ const {
 
 const { validSKURegex, allowedStringRegex } = REGEX;
 
-const isNotEmptyField = (value) => (value !== '' ? '' : EMPTY_FIELD_ERROR);
-const isAllowedString = (value) =>
+const isNotEmptyField = value => (value !== '' ? '' : EMPTY_FIELD_ERROR);
+const isAllowedString = value =>
   allowedStringRegex.test(value) ? '' : UNALLOWED_STRING_ERROR;
 const hasMinLength = (value, min = 5) =>
   value.length >= min ? '' : MIN_LENGTH_ERROR;
@@ -28,20 +28,20 @@ const isLesserOrEqual = (value, target) =>
   parseFloat(value) <= parseFloat(target.value)
     ? ''
     : IS_NOT_LESSER_OR_EQUAL(target.field);
-const isValidSKU = (value) => (validSKURegex.test(value) ? '' : IS_INVALID_SKU);
-const isNumber = (value) =>
+const isValidSKU = value => (validSKURegex.test(value) ? '' : IS_INVALID_SKU);
+const isNumber = value =>
   !isNaN(parseFloat(value)) && parseFloat(value).toString() === value
     ? ''
     : IS_NAN_ERROR;
-const isInteger = (value) =>
+const isInteger = value =>
   Number.isInteger(parseFloat(value)) ? '' : IS_NOT_INTEGER_ERROR;
-const isPositiveNumber = (value) =>
+const isPositiveNumber = value =>
   parseFloat(value) >= 0 ? '' : IS_NEGETIVE_ERROR;
 
-const validateForm = (formFields) => {
+const validateForm = formFields => {
   const formError = {};
 
-  formFields.forEach((formField) => {
+  formFields.forEach(formField => {
     const { field, value, validators } = formField;
     for (const validator of validators) {
       if (formError[field] && formError[field] !== '') {
@@ -57,9 +57,9 @@ const validateForm = (formFields) => {
 const renderErrorMessages = (element = document, formError) => {
   const errorMsgElements = element.querySelectorAll('.error-msg');
 
-  errorMsgElements.forEach((element) => {
+  errorMsgElements.forEach(element => {
     const field = element.dataset.fieldError;
-    elem.textContent = formError[field];
+    element.textContent = formError[field];
   });
 };
 
