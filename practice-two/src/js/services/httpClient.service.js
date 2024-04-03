@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export default class HttpService {
   constructor() {
+    // eslint-disable-next-line no-undef
     this.baseUrl = process.env.BASE_API_URL;
     this.axiosClient = axios.create({
       baseURL: this.baseUrl,

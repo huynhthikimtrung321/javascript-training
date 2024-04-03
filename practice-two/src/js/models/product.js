@@ -66,7 +66,7 @@ export default class ProductModel {
   async addProduct(product) {
     const data = await this.httpService.post(PRODUCT_ENDPOINT, product);
 
-    this.products.push(data);
+    this.products.unshift(data);
 
     return this.products;
   }
@@ -78,7 +78,7 @@ export default class ProductModel {
     );
 
     if (isSuccess) {
-      this.products = this.products.map((item) =>
+      this.products = this.products.map(item =>
         item.id === id ? { ...item, ...product } : item
       );
     }
@@ -92,7 +92,7 @@ export default class ProductModel {
     );
 
     if (isSuccess) {
-      this.products = this.products.filter((item) => item.id !== id);
+      this.products = this.products.filter(item => item.id !== id);
     }
 
     return this.products;

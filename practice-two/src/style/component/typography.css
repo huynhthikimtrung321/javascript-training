@@ -2,3 +2,7 @@
   font-size: var(--font-size-2s);
   color: var(--color-primary);
 }
+
+.text-center {
+  text-align: center;
+}
