@@ -12,43 +12,30 @@ export default class HttpService {
     });
   }
 
+  async request(method, endpoint, params) {
+    const response = await this.axiosClient[method](endpoint, params);
+
+    if (response.status >= 200 && response.status <= 299) {
+      return response.data;
+    } else {
+      const methodName = method.charAt(0).toUpperCase() + method.slice(1);
+      throw new Error(`${methodName} Failed: ${response.status}!`);
+    }
+  }
+
   async get(endpoint, params = {}) {
-    try {
-      const response = await this.axiosClient.get(`${endpoint}`, { params });
-
-      return response.data;
-    } catch (error) {
-      console.error(error.message);
-    }
+    return this.request('get', endpoint, params);
   }
 
-  async post(endpoint, product) {
-    const response = await this.axiosClient.post(endpoint, product);
-
-    if (response.status >= 200 && response.status <= 299) {
-      return response.data;
-    } else {
-      throw new Error(`Post Failed: ${response.status}!`);
-    }
+  async post(endpoint, params) {
+    return this.request('post', endpoint, params);
   }
 
-  async put(endpoint, product) {
-    const response = await this.axiosClient.put(endpoint, product);
-
-    if (response.status >= 200 && response.status <= 299) {
-      return response.data;
-    } else {
-      throw new Error(`Post Failed: ${response.status}!`);
-    }
+  async put(endpoint, params) {
+    return this.request('put', endpoint, params);
   }
 
   async delete(endpoint) {
-    const response = await this.axiosClient.delete(endpoint);
-
-    if (response.status >= 200 && response.status <= 299) {
-      return response.data;
-    } else {
-      throw new Error(`Post Failed: ${response.status}!`);
-    }
+    return this.request('delete', endpoint);
   }
 }
