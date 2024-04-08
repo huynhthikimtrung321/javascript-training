@@ -37,6 +37,7 @@ export const getTableHeaderTemplate = () => {
     const selectOptionHTML = getTagTemplate({
       tagName: 'div',
       textContent: key,
+      className: 'text-responsive',
       attributes: tableHeaderAttributes[key],
     });
     tableHeaderTemplate += selectOptionHTML;
