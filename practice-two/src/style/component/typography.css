@@ -6,3 +6,10 @@
 .text-center {
   text-align: center;
 }
+
+.text-responsive {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: fit-content;
+}

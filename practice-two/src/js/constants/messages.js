@@ -9,10 +9,12 @@ const ALERT_MESSAGES = {
 
 const VALIDATION_ERRORS = {
   getEmptyFieldError: () => 'This field cannot be empty!',
+  getUnallowedString: () =>
+    'This field should only contain letters and numbers',
   getNotGreaterError: target => `This field must be greater than ${target}!`,
   getNotLesserError: target => `This field must be lesser than ${target}!`,
   getInvalidSKUError: () =>
-    'This SKU is invalid, please only enter 2 aplhabetic characters',
+    'SKU\'s format: 2 letters, followed by a hyphen, and then 4 numbers like "wl-2444"',
   getNotNumberError: () => 'This field should only contain number',
   getNotIntegerError: () => 'This field should only contain integer',
   getNotPositiveError: () => 'This field should only contain positive number',

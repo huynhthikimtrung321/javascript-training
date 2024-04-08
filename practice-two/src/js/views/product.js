@@ -13,7 +13,7 @@ import {
   validateForm,
 } from '../helpers/validateForm';
 import { toggleSpinner } from './loading/renderSpinner';
-import productFormTemplate from './templates/generateFormProductHtml';
+import productFormTemplate from './templates/getFormProductHtml';
 import { getSelectStatusTemplate } from './templates/getSelectStatusTemplate';
 import { getSelectCategoryTemplate } from './templates/getSelectCategoryTemplate';
 import { getTableHeaderTemplate } from './templates/getTableHeaderTemplate';
@@ -53,13 +53,13 @@ export default class ProductView {
         };
         const productRowElement = `
 				<li class="product-row product-item">
-					<h2>${name}</h2>
-					<p>${category}</p>
-					<p>${sku}</p>
-					<p>${quantity}</p>
-					<p>${cost}</p>
-					<p>${price}</p>
-					<p class="label ${statuses[status]}">${status}</p>
+					<h2 class="text-responsive">${name}</h2>
+					<p class="text-responsive">${category}</p>
+					<p class="text-responsive">${sku}</p>
+					<p class="text-responsive">${quantity}</p>
+					<p class="text-responsive">${cost}</p>
+					<p class="text-responsive">${price}</p>
+					<p class="text-responsive label ${statuses[status]}">${status}</p>
 					<div class="btn-actions-group">
 						<button class="btn-action btn-edit-product" data-product-id="${id}">
 							<svg width="20" height="20" fill="blue" viewBox="0 0 24 24">
@@ -170,6 +170,7 @@ export default class ProductView {
     mainContent.addEventListener('click', async event => {
       if (!event.target.classList.contains('btn-reset')) return;
 
+      filterParams = {};
       this.displayHeader();
       renderProducts({});
     });

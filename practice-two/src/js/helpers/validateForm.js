@@ -4,7 +4,7 @@ import REGEX from '../constants/regex';
 const {
   getEmptyFieldError,
   getNotEnoughCharacterError,
-  UNALLOWED_STRING_ERROR,
+  getUnallowedString,
   getInvalidSKUError,
   getNotNumberError,
   getNotIntegerError,
@@ -14,10 +14,9 @@ const {
 } = VALIDATION_ERRORS;
 
 const { validSKURegex, allowedStringRegex } = REGEX;
-
 const isNotEmptyField = value => (value !== '' ? '' : getEmptyFieldError());
 const isAllowedString = value =>
-  allowedStringRegex.test(value) ? '' : UNALLOWED_STRING_ERROR;
+  allowedStringRegex.test(value) ? '' : getUnallowedString();
 const hasMinLength = (value, min = 5) =>
   value.length >= min ? '' : getNotEnoughCharacterError(min);
 const isGreaterOrEqual = (value, target) =>
