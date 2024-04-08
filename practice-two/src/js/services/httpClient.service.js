@@ -12,17 +12,7 @@ export default class HttpService {
   }
 
   async get(endpoint, params = {}) {
-    try {
-      const response = await this.axiosClient.get(`${endpoint}`, { params });
-
-      return response.data;
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
-
-  async post(endpoint, product) {
-    const response = await this.axiosClient.post(endpoint, product);
+    const response = await this.axiosClient.get(`${endpoint}`, { params });
 
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
@@ -31,8 +21,18 @@ export default class HttpService {
     }
   }
 
-  async put(endpoint, product) {
-    const response = await this.axiosClient.put(endpoint, product);
+  async post(endpoint, data) {
+    const response = await this.axiosClient.post(endpoint, data);
+
+    if (response.status >= 200 && response.status <= 299) {
+      return response.data;
+    } else {
+      throw new Error(`Post Failed: ${response.status}!`);
+    }
+  }
+
+  async put(endpoint, data) {
+    const response = await this.axiosClient.put(endpoint, data);
 
     if (response.status >= 200 && response.status <= 299) {
       return response.data;
