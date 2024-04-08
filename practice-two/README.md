@@ -3,6 +3,7 @@
 ## OVERVIEW
 
 * This document provides requirements, technical stack, and estimation for JavaScript Practice.
+* Design: [Figma](https://www.figma.com/file/c93mfzjSCGrJA7l2L9sfHn/Table-Responsiveness-(Community)?type=design&node-id=22-687&mode=design&t=SXOomX7G5MUQe86e-0)
 
 ## TECHNICAL STACKS
 
@@ -15,7 +16,7 @@
 ## TIMELINE
 
 * Estimation: 11/3/2024 - 20/3/2024 (56 hours)
-* Actual time: 11/3/2024 - 3/4/2024 (102 hours)
+* Actual time: 11/3/2024 - 3/4/2024 (104 hours)
 
 ## TOOLS
 
