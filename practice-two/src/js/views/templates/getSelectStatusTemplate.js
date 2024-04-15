@@ -2,12 +2,7 @@ import { getTagTemplate } from './getTagTemplate';
 
 export const getSelectStatusTemplate = () => {
   const selectStatusOptionAttributes = {
-    Status: {
-      seleted: '',
-      disabled: '',
-      value: '',
-    },
-    All: {
+    'All status': {
       value: '',
     },
     'Best-seller': {

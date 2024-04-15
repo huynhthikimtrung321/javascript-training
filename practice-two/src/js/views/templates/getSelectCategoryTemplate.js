@@ -2,12 +2,7 @@ import { getTagTemplate } from './getTagTemplate';
 
 export const getSelectCategoryTemplate = () => {
   const selectCategoryOptionAttributes = {
-    Category: {
-      seleted: '',
-      disabled: '',
-      value: '',
-    },
-    All: {
+    'All category': {
       value: '',
     },
     'Skin care': {
