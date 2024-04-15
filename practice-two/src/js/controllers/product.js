@@ -36,9 +36,14 @@ export default class ProductController {
       params.order = 'desc';
     }
 
-    this.productView.displayProducts(products, true);
-    products = await this.productModel.getProducts(params);
-    this.productView.displayProducts(products, false);
+    try {
+      this.productView.displayProducts(products, true);
+      products = await this.productModel.getProducts(params);
+    } catch(error) {
+
+    } finally {
+      this.productView.displayProducts(products, false);
+    }
   };
 
   handleSearchProductByKeyword = async (params = {}) => {
