@@ -1,12 +1,21 @@
 import { getTagTemplate } from './getTagTemplate';
+import { LABELS } from '../../constants/labels';
+
+const {
+  BEST_SELLER,
+  POOR_SELLER,
+  ON_SALE,
+  NEW_ARRIVAL,
+  LOW_STOCK,
+} = LABELS;
 
 export const getSelectStatusFormTemplate = status => {
   const selectStatusOptionAttributes = {
-    'Best-seller': {},
-    'Poor seller': {},
-    'On sale': {},
-    'New arrival': {},
-    'Low stock': {},
+    [BEST_SELLER]: {},
+    [POOR_SELLER]: {},
+    [ON_SALE]: {},
+    [NEW_ARRIVAL]: {},
+    [LOW_STOCK]: {},
   };
   if (status) {
     selectStatusOptionAttributes[status].selected = true;

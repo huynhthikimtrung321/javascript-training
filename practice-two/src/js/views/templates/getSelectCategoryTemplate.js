@@ -1,17 +1,25 @@
 import { getTagTemplate } from './getTagTemplate';
+import { LABELS } from '../../constants/labels';
+
+const {
+  SKIN_CARE,
+  FACE_CARE,
+  LIPS_CARE,
+  ALL_CATEGORY,
+} = LABELS;
 
 export const getSelectCategoryTemplate = () => {
   const selectCategoryOptionAttributes = {
-    'All category': {
+    [ALL_CATEGORY]: {
       value: '',
     },
-    'Skin care': {
+    [SKIN_CARE]: {
       value: 'Skin care',
     },
-    'Face care': {
+    [FACE_CARE]: {
       value: 'Face care',
     },
-    'Lips care': {
+    [LIPS_CARE]: {
       value: 'Lips care',
     },
   };
