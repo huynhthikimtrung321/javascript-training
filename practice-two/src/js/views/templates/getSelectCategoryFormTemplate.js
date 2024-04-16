@@ -13,6 +13,9 @@ export const getSelectCategoryFormTemplate = category => {
     [FACE_CARE]: {},
     [LIPS_CARE]: {},
   };
+  for(key in selectCategoryOptionAttributes) {
+    selectStatusOptionAttributes[key].selected = false;
+  }
   if (category) {
     selectCategoryOptionAttributes[category].selected = true;
   }

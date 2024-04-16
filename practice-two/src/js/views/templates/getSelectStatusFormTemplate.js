@@ -17,6 +17,9 @@ export const getSelectStatusFormTemplate = status => {
     [NEW_ARRIVAL]: {},
     [LOW_STOCK]: {},
   };
+  for(key in selectStatusOptionAttributes) {
+    selectStatusOptionAttributes[key].selected = false;
+  }
   if (status) {
     selectStatusOptionAttributes[status].selected = true;
   }

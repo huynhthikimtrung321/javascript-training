@@ -1,4 +1,4 @@
-const LABELS = {
+export const LABELS = {
   SKIN_CARE: 'Skin care',
   FACE_CARE: 'Face care',
   LIPS_CARE: 'Lip care',
@@ -10,5 +10,3 @@ const LABELS = {
   ALL_STATUS: 'All status',
   ALL_CATEGORY: 'All category'
 }
-
-export { LABELS }
