@@ -62,6 +62,12 @@
   font-weight: 900;
 }
 
+.arrow-down-up::after {
+  content: '\21F5';
+  font-size: var(--font-size-2s);
+  margin-left: 2px;
+}
+
 .flex-space-between {
   position: relative;
   display: flex;
