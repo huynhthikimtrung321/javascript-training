@@ -1,9 +1,9 @@
-export const toggleSpinner = isHidden => {
+export const toggleSpinner = showHidden => {
   const spinnerModalElement = document.querySelector('.spinner-modal');
 
-  if (isHidden) {
+  if (showHidden) {
     spinnerModalElement.classList.remove('hidden');
-  } else if (!isHidden && !spinnerModalElement.classList.contains('hidden')) {
+  } else if (!showHidden && !spinnerModalElement.classList.contains('hidden')) {
     spinnerModalElement.classList.add('hidden');
   }
 };

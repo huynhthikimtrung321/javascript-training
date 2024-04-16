@@ -13,10 +13,10 @@ import {
   validateForm,
 } from '../helpers/validateForm';
 import { toggleSpinner } from './loading/renderSpinner';
-import productFormTemplate from './templates/getFormProductHtml';
-import { getSelectStatusTemplate } from './templates/getSelectStatusTemplate';
-import { getSelectCategoryTemplate } from './templates/getSelectCategoryTemplate';
-import { getTableHeaderTemplate } from './templates/getTableHeaderTemplate';
+import productFormTemplate from './templates/formProduct';
+import { getSelectStatusTemplate } from './templates/status';
+import { getSelectCategoryTemplate } from './templates/category';
+import { getTableHeaderTemplate } from './templates/tableHeader';
 
 export default class ProductView {
   constructor() {
