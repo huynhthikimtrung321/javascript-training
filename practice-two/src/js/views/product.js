@@ -130,7 +130,7 @@ export default class ProductView {
   }
 
   displayProductForm(product = {}) {
-    this.mainContent.innerHTML += productFormTemplate(product);
+    this.mainContent.insertAdjacentHTML('beforeend', productFormTemplate(product));
   }
 
   bindSearchProducts(handleSearchProductByKeyword) {
