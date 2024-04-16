@@ -60,7 +60,7 @@ const productFormTemplate = (product = {}) => {
           </div>
         </div>
         <div class="btn-submit-wrapper">
-          <input type="submit" data-product-id="${id}" value="${isEditForm ? 'Save' : 'Add Product'}" class="btn-submit" id="${isEditForm ? 'btn-edit-product' : 'btn-add-product'}">
+          <input type="submit" data-product-id="${id}" value="${isEditForm ? 'Edit Product' : 'Add Product'}" class="btn-submit" id="btn-submit-product">
         </div>
       </form>
     </div>
