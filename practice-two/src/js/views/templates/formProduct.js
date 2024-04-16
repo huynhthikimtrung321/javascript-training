@@ -1,5 +1,5 @@
-import { getSelectCategoryFormTemplate } from './categoryForm';
-import { getSelectStatusFormTemplate } from './statusForm';
+import { getSelectCategoryFormTemplate } from './category';
+import { getSelectStatusFormTemplate } from './status';
 
 const productFormTemplate = (product = {}) => {
   const {
