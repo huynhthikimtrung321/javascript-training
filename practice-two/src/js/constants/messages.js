@@ -8,13 +8,13 @@ const ALERT_MESSAGES = {
 };
 
 const VALIDATION_ERRORS = {
-  IS_EMPTY_FIELD: 'This field cannot be empty!',
-  UNALLOWED_STRING_ERROR: 'This field should only contain letters and numbers',
-  INVALID_SKU_ERROR:
-    'SKU\'s format: 2 letters, followed by a hyphen, and then 4 numbers like "wl-2444"',
-  NOT_NUMBER_ERROR: 'This field should only contain number',
-  NOT_INTEGER_ERROR: 'This field should only contain integer',
-  NOT_POSITIVE_ERROR: 'This field should only contain positive number',
+  getIsEmptyField: () => 'This field cannot be empty!',
+  getUnallowedStringError: () => 'This field should only contain letters and numbers',
+  getInvalidSKUError:
+    () =>'SKU\'s format: 2 letters, followed by a hyphen, and then 4 numbers like "wl-2444"',
+  getNotNumberError: () => 'This field should only contain number',
+  getNotIntegerError: () => 'This field should only contain integer',
+  getNotPositiveError: () => 'This field should only contain positive number',
   getNotGreaterError: target => `This field must be greater than ${target}!`,
   getNotLesserError: target => `This field must be lesser than ${target}!`,
   getNotEnoughCharacterError: min =>

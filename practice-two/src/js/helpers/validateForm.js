@@ -2,21 +2,21 @@ import { VALIDATION_ERRORS } from '../constants/messages';
 import REGEX from '../constants/regex';
 
 const {
-  IS_EMPTY_FIELD,
-  UNALLOWED_STRING_ERROR,
-  INVALID_SKU_ERROR,
-  NOT_NUMBER_ERROR,
-  NOT_INTEGER_ERROR,
-  NOT_POSITIVE_ERROR,
+  getIsEmptyField,
+  getUnallowedStringError,
+  getInvalidSKUError,
+  getNotNumberError,
+  getNotIntegerError,
+  getNotPositiveError,
   getNotEnoughCharacterError,
   getNotGreaterError,
   getNotLesserError,
 } = VALIDATION_ERRORS;
 
 const { validSKURegex, allowedStringRegex } = REGEX;
-const isNotEmptyField = value => (value !== '' ? '' : IS_EMPTY_FIELD);
+const isNotEmptyField = value => (value !== '' ? '' : getIsEmptyField());
 const isAllowedString = value =>
-  allowedStringRegex.test(value) ? '' : UNALLOWED_STRING_ERROR;
+  allowedStringRegex.test(value) ? '' : getUnallowedStringError();
 const hasMinLength = (value, min = 5) =>
   value.length >= min ? '' : getNotEnoughCharacterError(min);
 const isGreaterOrEqual = (value, target) =>
@@ -28,16 +28,16 @@ const isLesserOrEqual = (value, target) =>
     ? ''
     : getNotLesserError(target.field);
 const isValidSKU = value =>
-  validSKURegex.test(value) ? '' : INVALID_SKU_ERROR,;
+  validSKURegex.test(value) ? '' : getInvalidSKUError();
 
   const isNumber = value =>
   !isNaN(parseFloat(value)) && parseFloat(value).toString() === value
     ? ''
-    : NOT_NUMBER_ERROR;
+    : getNotNumberError();
 const isInteger = value =>
-  Number.isInteger(parseFloat(value)) ? '' : NOT_INTEGER_ERROR;
+  Number.isInteger(parseFloat(value)) ? '' : getNotIntegerError();
 const isPositiveNumber = value =>
-  parseFloat(value) >= 0 ? '' : NOT_POSITIVE_ERROR;
+  parseFloat(value) >= 0 ? '' : getNotPositiveError();
 
 const validateForm = formFields => {
   const formError = {};
