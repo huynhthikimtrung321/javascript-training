@@ -1,5 +1,5 @@
 import { showError, showSuccess } from '../views/toast';
-import { ALERT_MESSAGES } from '../constants/messages';
+import { NOTIFY_MESSAGES } from '../constants/messages';
 
 const {
   ADD_SUCCESS_MSG,
@@ -8,7 +8,8 @@ const {
   EDIT_FAILED_MSG,
   DELETE_SUCCESS_MSG,
   DELETE_FAILED_MSG,
-} = ALERT_MESSAGES;
+  GET_FAILED_MSG,
+} = NOTIFY_MESSAGES;
 
 export default class ProductController {
   constructor(model, view) {
@@ -40,7 +41,7 @@ export default class ProductController {
       this.productView.displayProducts(products, true);
       products = await this.productModel.getProducts(params);
     } catch(error) {
-
+      showError({ text: GET_FAILED_MSG})
     } finally {
       this.productView.displayProducts(products, false);
     }
