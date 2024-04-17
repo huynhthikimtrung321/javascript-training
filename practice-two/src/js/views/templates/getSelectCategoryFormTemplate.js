@@ -1,11 +1,21 @@
 import { getTagTemplate } from './getTagTemplate';
+import { LABELS } from '../../constants/labels';
+
+const {
+  SKIN_CARE,
+  FACE_CARE,
+  LIPS_CARE,
+} = LABELS;
 
 export const getSelectCategoryFormTemplate = category => {
   const selectCategoryOptionAttributes = {
-    'Skin care': {},
-    'Face care': {},
-    'Lips care': {},
+    [SKIN_CARE]: {},
+    [FACE_CARE]: {},
+    [LIPS_CARE]: {},
   };
+  for(key in selectCategoryOptionAttributes) {
+    selectStatusOptionAttributes[key].selected = false;
+  }
   if (category) {
     selectCategoryOptionAttributes[category].selected = true;
   }

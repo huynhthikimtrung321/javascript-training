@@ -130,7 +130,7 @@ export default class ProductView {
   }
 
   displayProductForm(product = {}) {
-    this.mainContent.innerHTML += productFormTemplate(product);
+    this.mainContent.insertAdjacentHTML('beforeend', productFormTemplate(product));
   }
 
   bindSearchProducts(handleSearchProductByKeyword) {
@@ -192,6 +192,7 @@ export default class ProductView {
 
       if (!isArrowDown && !isArrowUp) {
         target.classList.add('arrow-down');
+        target.classList.remove('arrow-down-up')
         filterParams.sortBy = targetField.toLowerCase();
         filterParams.order = 'desc';
         renderProducts(filterParams);
@@ -203,6 +204,7 @@ export default class ProductView {
         renderProducts(filterParams);
       } else if (isArrowUp) {
         target.classList.remove('arrow-up');
+        target.classList.add('arrow-down-up')
         delete filterParams.sortBy;
         delete filterParams.order;
         renderProducts(filterParams);
