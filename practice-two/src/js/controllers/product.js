@@ -17,6 +17,9 @@ export default class ProductController {
     this.productView = view;
   }
 
+  /**
+   * Initialize the view with event bindings and render the product list
+   */
   async initialize() {
     this.productView.displayHeader();
     await this.renderProducts();
@@ -29,6 +32,10 @@ export default class ProductController {
     this.productView.bindRemoveModalDelete();
   }
 
+
+  /**
+   * Render the product list with default sorting and filtering parameters
+   */
   renderProducts = async (params = {}, products) => {
     // Default params is to show the newest product on the list
     if (!('sortBy' in params && 'order' in params)) {
@@ -58,6 +65,10 @@ export default class ProductController {
     this.renderProducts(params);
   };
 
+
+  /**
+   * Adds a product and notify the end users
+   */
   handleAddProduct = async product => {
     try {
       this.productView.displaySpinner();
@@ -79,6 +90,9 @@ export default class ProductController {
     this.productView.displayProductForm();
   };
 
+  /**
+   * Fetches the target product for editing and shows the form with its data
+   */
   handleShowEditForm = async id => {
     this.productView.displaySpinner();
     const product = await this.productModel.getProduct(id);
@@ -86,6 +100,9 @@ export default class ProductController {
     this.productView.displayProductForm(product);
   };
 
+  /**
+   * Edits a product and notify the end users
+   */
   handleEditProduct = async (id, product) => {
     try {
       this.productView.displaySpinner();
@@ -99,6 +116,9 @@ export default class ProductController {
     }
   };
 
+  /**
+   * Deletes a product and notify the end users
+   */
   handleDeleteProduct = async id => {
     try {
       this.productView.displaySpinner();
