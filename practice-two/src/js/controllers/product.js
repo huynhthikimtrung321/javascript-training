@@ -24,8 +24,7 @@ export default class ProductController {
     this.productView.bindToggleAddForm(this.handleShowAddForm);
     this.productView.bindToggleEditForm(this.handleShowEditForm);
     this.productView.bindRemoveModal();
-    this.productView.bindAddProduct(this.handleAddProduct);
-    this.productView.bindEditProduct(this.handleEditProduct);
+    this.productView.bindProductAction(this.handleAddProduct, this.handleEditProduct);
     this.productView.bindDeleteProduct(this.handleDeleteProduct);
     this.productView.bindRemoveModalDelete();
   }

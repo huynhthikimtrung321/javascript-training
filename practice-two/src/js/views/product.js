@@ -255,6 +255,76 @@ export default class ProductView {
     });
   }
 
+  bindProductAction(handleAddProduct, handleEditProduct) {
+    this.mainContent.addEventListener('click', event => {
+      const target = event.target;
+      if (target.id !== 'btn-submit-product') return;
+
+      const formElement = document.querySelector('.form-container');
+      const formData = new FormData(formElement);
+      const productId = target.dataset.productId;
+      const formFields = [
+        {
+          field: 'name',
+          value: formData.get('name'),
+          validators: [isNotEmptyField, isAllowedString, hasMinLength],
+        },
+        {
+          field: 'sku',
+          value: formData.get('sku'),
+          validators: [isNotEmptyField, isValidSKU],
+        },
+        {
+          field: 'quantity',
+          value: formData.get('quantity'),
+          validators: [isNotEmptyField, isInteger, isPositiveNumber],
+        },
+        {
+          field: 'price',
+          value: formData.get('price'),
+          validators: [
+            isNotEmptyField,
+            isNumber,
+            isPositiveNumber,
+            () =>
+              isGreaterOrEqual(formData.get('price'), {
+                value: formData.get('cost'),
+                field: 'Cost',
+              }),
+          ],
+        },
+        {
+          field: 'cost',
+          value: formData.get('cost'),
+          validators: [
+            isNotEmptyField,
+            isNumber,
+            isPositiveNumber,
+            () =>
+              isLesserOrEqual(formData.get('cost'), {
+                value: formData.get('price'),
+                field: 'Price',
+              }),
+          ],
+        },
+      ];
+
+      const formError = validateForm(formFields);
+      for (let key in formError) {
+        renderErrorMessages(formElement, {});
+        if (formError[key] !== '') {
+          return renderErrorMessages(formElement, formError);
+        }
+      }
+
+      if(productId) {
+        handleEditProduct(productId, formData);
+      } else {
+        handleAddProduct(formData);
+      }
+    });
+  }
+
   bindToggleAddForm(handleShowAddForm) {
     this.mainContent.addEventListener('click', event => {
       const target = event.target;
@@ -277,199 +347,6 @@ export default class ProductView {
 
   removeModal() {
     document.querySelector('.modal-overlay').remove();
-  }
-
-  bindAddProduct(handleAddProduct) {
-    this.mainContent.addEventListener('click', event => {
-      const target = event.target;
-      if (target.id !== 'btn-add-product') return;
-      const formElement = document.querySelector('.form-container');
-      const nameInputElement = formElement.querySelector(
-        '[data-field-name="Name"]'
-      );
-      const categoryInputElement = formElement.querySelector(
-        '[data-field-name="category"]'
-      );
-      const statusInputElement = formElement.querySelector(
-        '[data-field-name="status"]'
-      );
-      const skuInputElement = formElement.querySelector(
-        '[data-field-name="SKU"]'
-      );
-      const quantityInputElement = formElement.querySelector(
-        '[data-field-name="Quantity"]'
-      );
-      const priceInputElement = formElement.querySelector(
-        '[data-field-name="Price"]'
-      );
-      const costInputElement = formElement.querySelector(
-        '[data-field-name="Cost"]'
-      );
-
-      const formFields = [
-        {
-          field: 'Name',
-          value: nameInputElement.value,
-          validators: [isNotEmptyField, isAllowedString, hasMinLength],
-        },
-        {
-          field: 'SKU',
-          value: skuInputElement.value,
-          validators: [isNotEmptyField, isValidSKU],
-        },
-        {
-          field: 'Quantity',
-          value: quantityInputElement.value,
-          validators: [isNotEmptyField, isInteger, isPositiveNumber],
-        },
-        {
-          field: 'Price',
-          value: priceInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber,
-            () =>
-              isGreaterOrEqual(priceInputElement.value, {
-                value: costInputElement.value,
-                field: 'Cost',
-              }),
-          ],
-        },
-        {
-          field: 'Cost',
-          value: costInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber,
-            () =>
-              isLesserOrEqual(costInputElement.value, {
-                value: priceInputElement.value,
-                field: 'Price',
-              }),
-          ],
-        },
-      ];
-
-      const formError = validateForm(formFields);
-      for (let key in formError) {
-        renderErrorMessages(formElement, {});
-        if (formError[key] !== '') {
-          return renderErrorMessages(formElement, formError);
-        }
-      }
-
-      const product = {
-        name: nameInputElement.value,
-        category: categoryInputElement.value,
-        sku: skuInputElement.value,
-        quantity: parseInt(quantityInputElement.value),
-        price: parseFloat(priceInputElement.value),
-        cost: parseFloat(costInputElement.value),
-        status: statusInputElement.value,
-      };
-
-      handleAddProduct(product);
-    });
-  }
-
-  bindEditProduct(handleEditProduct) {
-    this.mainContent.addEventListener('click', event => {
-      const target = event.target;
-      if (target.id !== 'btn-edit-product') return;
-
-      const formElement = document.querySelector('.form-container');
-      const productId = target.dataset.productId;
-      const nameInputElement = formElement.querySelector(
-        '[data-field-name="Name"]'
-      );
-      const categoryInputElement = formElement.querySelector(
-        '[data-field-name="category"]'
-      );
-      const statusInputElement = formElement.querySelector(
-        '[data-field-name="status"]'
-      );
-      const skuInputElement = formElement.querySelector(
-        '[data-field-name="SKU"]'
-      );
-      const quantityInputElement = formElement.querySelector(
-        '[data-field-name="Quantity"]'
-      );
-      const priceInputElement = formElement.querySelector(
-        '[data-field-name="Price"]'
-      );
-      const costInputElement = formElement.querySelector(
-        '[data-field-name="Cost"]'
-      );
-
-      const formFields = [
-        {
-          field: 'Name',
-          value: nameInputElement.value,
-          validators: [isNotEmptyField, isAllowedString, hasMinLength],
-        },
-        {
-          field: 'SKU',
-          value: skuInputElement.value,
-          validators: [isNotEmptyField, isValidSKU],
-        },
-        {
-          field: 'Quantity',
-          value: quantityInputElement.value,
-          validators: [isNotEmptyField, isInteger, isPositiveNumber],
-        },
-        {
-          field: 'Price',
-          value: priceInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber,
-            () =>
-              isGreaterOrEqual(priceInputElement.value, {
-                value: costInputElement.value,
-                field: 'Cost',
-              }),
-          ],
-        },
-        {
-          field: 'Cost',
-          value: costInputElement.value,
-          validators: [
-            isNotEmptyField,
-            isNumber,
-            isPositiveNumber,
-            () =>
-              isLesserOrEqual(costInputElement.value, {
-                value: priceInputElement.value,
-                field: 'Price',
-              }),
-          ],
-        },
-      ];
-
-      const formError = validateForm(formFields);
-      for (let key in formError) {
-        renderErrorMessages(formElement, {});
-        if (formError[key] !== '') {
-          return renderErrorMessages(formElement, formError);
-        }
-      }
-
-      const product = {
-        id: productId,
-        name: nameInputElement.value,
-        category: categoryInputElement.value,
-        sku: skuInputElement.value,
-        quantity: parseInt(quantityInputElement.value),
-        price: parseFloat(priceInputElement.value),
-        cost: parseFloat(costInputElement.value),
-        status: statusInputElement.value,
-      };
-
-      handleEditProduct(productId, product);
-    });
   }
 
   bindRemoveModalDelete() {
