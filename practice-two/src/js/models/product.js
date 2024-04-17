@@ -88,12 +88,12 @@ export default class ProductModel {
    * Edits a product then return the new products
   */
   async editProduct(id, product) {
-    const isSuccess = await this.httpService.put(
+    const data = await this.httpService.put(
       `${PRODUCT_ENDPOINT}/${id}`,
       product
     );
 
-    if (isSuccess) {
+    if (data) {
       this.products = this.products.map(item =>
         item.id === id ? { ...item, ...product } : item
       );
@@ -106,11 +106,11 @@ export default class ProductModel {
    * Deletes a product then return the new products
   */
   async deleteProduct(id) {
-    const isSuccess = await this.httpService.delete(
+    const data = await this.httpService.delete(
       `${PRODUCT_ENDPOINT}/${id}`
     );
 
-    if (isSuccess) {
+    if (data) {
       this.products = this.products.filter(item => item.id !== id);
     }
 
