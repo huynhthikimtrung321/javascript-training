@@ -1,4 +1,4 @@
-import { getTagTemplate } from './getTagTemplate';
+import { getTagTemplate } from './tag';
 import { LABELS } from '../../constants/labels';
 
 const {
