@@ -488,6 +488,7 @@ export default class ProductView {
     );
 
     const btnDelete = document.querySelector('.btn-delete');
+    const btnCancel = document.querySelector('.btn-cancel');
     let productId;
 
     mainContent.addEventListener('click', event => {
@@ -497,6 +498,10 @@ export default class ProductView {
         modalDeleteContainer.classList.toggle('hidden');
       }
     });
+
+    btnCancel.addEventListener('click', () => {
+      modalDeleteContainer.classList.toggle('hidden');
+    })
 
     btnDelete.addEventListener('click', () => {
       modalDeleteContainer.classList.toggle('hidden');

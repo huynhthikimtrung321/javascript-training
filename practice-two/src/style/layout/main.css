@@ -174,7 +174,7 @@
 
 .select-filter {
   position: relative;
-  padding: 8px 20px 8px 12px;
+  padding: 8px 20px 8px 9px;
   color: var(--color-primary);
   cursor: pointer;
   appearance: none;
@@ -202,7 +202,7 @@
     display: block;
     font-size: 16px;
     font-weight: 600;
-    padding-right: 8px;
+    padding-right: 5px;
     color: var(--color-primary);
   }
 }
