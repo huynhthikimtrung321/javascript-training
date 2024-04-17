@@ -1,10 +1,11 @@
-const ALERT_MESSAGES = {
+const NOTIFY_MESSAGES = {
   ADD_SUCCESS_MSG: 'Product added successfully',
   ADD_FAILED_MSG: 'Adding failed products',
   EDIT_SUCCESS_MSG: 'Product edited successfully',
   EDIT_FAILED_MSG: 'Editing failed products',
   DELETE_SUCCESS_MSG: 'Product deleted successfully',
   DELETE_FAILED_MSG: 'Delete failed products',
+  GET_FAILED_MSG: 'The products are unavailable at this moment!',
 };
 
 const VALIDATION_ERRORS = {
@@ -21,4 +22,4 @@ const VALIDATION_ERRORS = {
     `This field should have at least ${min} characters`,
 };
 
-export { VALIDATION_ERRORS, ALERT_MESSAGES };
+export { VALIDATION_ERRORS, NOTIFY_MESSAGES };
