@@ -28,7 +28,7 @@ const isLesserOrEqual = (value, target) =>
     ? ''
     : getNotLesserError(target.field);
 const isValidSKU = value =>
-  validSKURegex.test(value) ? '' : INVALID_SKU_ERROR,;
+validSKURegex.test(value) ? '' : INVALID_SKU_ERROR;
 
   const isNumber = value =>
   !isNaN(parseFloat(value)) && parseFloat(value).toString() === value

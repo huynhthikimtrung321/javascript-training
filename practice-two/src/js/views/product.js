@@ -261,69 +261,48 @@ export default class ProductView {
       if (target.id !== 'btn-submit-product') return;
 
       const formElement = document.querySelector('.form-container');
+      const formData = new FormData(formElement);
       const productId = target.dataset.productId;
-      const nameInputElement = formElement.querySelector(
-        '[data-field-name="Name"]'
-      );
-      const categoryInputElement = formElement.querySelector(
-        '[data-field-name="category"]'
-      );
-      const statusInputElement = formElement.querySelector(
-        '[data-field-name="status"]'
-      );
-      const skuInputElement = formElement.querySelector(
-        '[data-field-name="SKU"]'
-      );
-      const quantityInputElement = formElement.querySelector(
-        '[data-field-name="Quantity"]'
-      );
-      const priceInputElement = formElement.querySelector(
-        '[data-field-name="Price"]'
-      );
-      const costInputElement = formElement.querySelector(
-        '[data-field-name="Cost"]'
-      );
-
       const formFields = [
         {
-          field: 'Name',
-          value: nameInputElement.value,
+          field: 'name',
+          value: formData.get('name'),
           validators: [isNotEmptyField, isAllowedString, hasMinLength],
         },
         {
-          field: 'SKU',
-          value: skuInputElement.value,
+          field: 'sku',
+          value: formData.get('sku'),
           validators: [isNotEmptyField, isValidSKU],
         },
         {
-          field: 'Quantity',
-          value: quantityInputElement.value,
+          field: 'quantity',
+          value: formData.get('quantity'),
           validators: [isNotEmptyField, isInteger, isPositiveNumber],
         },
         {
-          field: 'Price',
-          value: priceInputElement.value,
+          field: 'price',
+          value: formData.get('price'),
           validators: [
             isNotEmptyField,
             isNumber,
             isPositiveNumber,
             () =>
-              isGreaterOrEqual(priceInputElement.value, {
-                value: costInputElement.value,
+              isGreaterOrEqual(formData.get('price'), {
+                value: formData.get('cost'),
                 field: 'Cost',
               }),
           ],
         },
         {
-          field: 'Cost',
-          value: costInputElement.value,
+          field: 'cost',
+          value: formData.get('cost'),
           validators: [
             isNotEmptyField,
             isNumber,
             isPositiveNumber,
             () =>
-              isLesserOrEqual(costInputElement.value, {
-                value: priceInputElement.value,
+              isLesserOrEqual(formData.get('cost'), {
+                value: formData.get('price'),
                 field: 'Price',
               }),
           ],
@@ -338,20 +317,10 @@ export default class ProductView {
         }
       }
 
-      const product = {
-        name: nameInputElement.value,
-        category: categoryInputElement.value,
-        sku: skuInputElement.value,
-        quantity: parseInt(quantityInputElement.value),
-        price: parseFloat(priceInputElement.value),
-        cost: parseFloat(costInputElement.value),
-        status: statusInputElement.value,
-      };
-
       if(productId) {
-        handleEditProduct(productId, product);
+        handleEditProduct(productId, formData);
       } else {
-        handleAddProduct(product);
+        handleAddProduct(formData);
       }
     });
   }
