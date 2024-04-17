@@ -90,9 +90,9 @@ export default class ProductView {
   displayHeader() {
     this.mainContent.innerHTML = '';
 
-    let selectStatusOptionsTemplate = getSelectStatusTemplate();
-    let selectCategoryOptionsTemplate = getSelectCategoryTemplate();
-    let tableHeaderTemplate = getTableHeaderTemplate();
+    const selectStatusOptionsTemplate = getSelectStatusTemplate();
+    const selectCategoryOptionsTemplate = getSelectCategoryTemplate();
+    const tableHeaderTemplate = getTableHeaderTemplate();
 
     const tableRowHeaderHTML = `
 			<div class="flex-space-between">
