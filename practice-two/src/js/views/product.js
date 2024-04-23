@@ -13,10 +13,10 @@ import {
   validateForm,
 } from '../helpers/validateForm';
 import { toggleSpinner } from './loading/renderSpinner';
-import productFormTemplate from './templates/getFormProductHtml';
-import { getSelectStatusTemplate } from './templates/getSelectStatusTemplate';
-import { getSelectCategoryTemplate } from './templates/getSelectCategoryTemplate';
-import { getTableHeaderTemplate } from './templates/getTableHeaderTemplate';
+import productFormTemplate from './templates/formProduct';
+import { getSelectStatusTemplate } from './templates/status';
+import { getSelectCategoryTemplate } from './templates/category';
+import { getTableHeaderTemplate } from './templates/tableHeader';
 
 export default class ProductView {
   constructor() {
@@ -27,6 +27,9 @@ export default class ProductView {
 
   removeSpinner = () => toggleSpinner(false);
 
+   /**
+   * Displays list of products, at first it will shows spinner then remove itself after products is done being fetched
+   */
   displayProducts(products, isLoading) {
     const mainContent = document.getElementById('product-list');
     mainContent.innerHTML = '';
@@ -190,19 +193,24 @@ export default class ProductView {
       const isArrowDown = target.classList.contains('arrow-down');
       const isArrowUp = target.classList.contains('arrow-up');
 
+       // Case when sorting by desc order
       if (!isArrowDown && !isArrowUp) {
         target.classList.add('arrow-down');
         target.classList.remove('arrow-down-up')
         filterParams.sortBy = targetField.toLowerCase();
         filterParams.order = 'desc';
         renderProducts(filterParams);
-      } else if (isArrowDown) {
+      }
+      // Case when sorting by asc order
+      else if (isArrowDown) {
         target.classList.remove('arrow-down');
         target.classList.add('arrow-up');
         filterParams.sortBy = targetField.toLowerCase();
         filterParams.order = 'asc';
         renderProducts(filterParams);
-      } else if (isArrowUp) {
+      }
+      // Case when sorting by default
+      else if (isArrowUp) {
         target.classList.remove('arrow-up');
         target.classList.add('arrow-down-up')
         delete filterParams.sortBy;
@@ -217,6 +225,7 @@ export default class ProductView {
       const target = event.target;
       if (!target.dataset.sortLabel) return;
       const targetField = target.dataset.field;
+      // Gets all labels and remove their arrows except the target
       const targetSiblings = Array.from(target.parentNode.children);
       targetSiblings
         .filter(sibling => sibling !== target)

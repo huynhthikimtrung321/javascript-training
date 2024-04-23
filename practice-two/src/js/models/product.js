@@ -30,6 +30,10 @@ export default class ProductModel {
     this.products = [];
   }
 
+
+  /**
+   * Fetchs products by params
+   */
   async getProducts(params = {}) {
     return (this.products = await this.httpService.get(
       PRODUCT_ENDPOINT,
@@ -37,10 +41,16 @@ export default class ProductModel {
     ));
   }
 
+  /**
+   * Gets product by its id
+   */
   async getProduct(id) {
     return await this.httpService.get(`${PRODUCT_ENDPOINT}/${id}`, {});
   }
 
+  /**
+   * Gets sorted products by its field and orderBy
+   */
   async sortProducts(field, orderBy = '') {
     const products = (await this.getProducts({})).slice();
 
@@ -63,6 +73,9 @@ export default class ProductModel {
     });
   }
 
+  /**
+   * Adds a product then return the new products
+   */
   async addProduct(product) {
     const data = await this.httpService.post(PRODUCT_ENDPOINT, product);
 
@@ -71,13 +84,16 @@ export default class ProductModel {
     return this.products;
   }
 
+  /**
+   * Edits a product then return the new products
+  */
   async editProduct(id, product) {
-    const isSuccess = await this.httpService.put(
+    const data = await this.httpService.put(
       `${PRODUCT_ENDPOINT}/${id}`,
       product
     );
 
-    if (isSuccess) {
+    if (data) {
       this.products = this.products.map(item =>
         item.id === id ? { ...item, ...product } : item
       );
@@ -86,12 +102,15 @@ export default class ProductModel {
     return this.products;
   }
 
+  /**
+   * Deletes a product then return the new products
+  */
   async deleteProduct(id) {
-    const isSuccess = await this.httpService.delete(
+    const data = await this.httpService.delete(
       `${PRODUCT_ENDPOINT}/${id}`
     );
 
-    if (isSuccess) {
+    if (data) {
       this.products = this.products.filter(item => item.id !== id);
     }
 

@@ -1,4 +1,4 @@
-import { getTagTemplate } from './getTagTemplate';
+import { getTagTemplate } from './tag';
 
 export const getTableHeaderTemplate = () => {
   const tableHeaderAttributes = {
